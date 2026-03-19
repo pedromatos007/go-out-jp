@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080A0E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="O guia emocional de João Pessoa.">
+<title>Go Out JP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080A0E;--bg2:#0D0F14;
+  --s1:rgba(255,255,255,.04);--s2:rgba(255,255,255,.07);--s3:rgba(255,255,255,.13);
+  --bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.17);
+  --tp:#F2EFE9;--ts:rgba(242,239,233,.52);--tt:rgba(242,239,233,.30);
+  --accent:#5B9BD5;--ar:91,155,213;
+  --green:#4ABB64;--red:#E8533A;--gold:#E8B84B;
+  --ease:cubic-bezier(.4,0,.2,1);--spring:cubic-bezier(.34,1.56,.64,1);
+  --sb:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;background:var(--bg);}
+body{font-family:'Syne',system-ui,sans-serif;color:var(--tp);-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-thumb{background:var(--s3);border-radius:99px;}
+button,a{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;text-decoration:none;}
+input,textarea{font-family:inherit;}
+
+/* ONBOARDING */
+#ob{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px calc(24px + var(--sb));transition:opacity .4s,transform .4s;}
+#ob.out{opacity:0;transform:scale(.96);pointer-events:none;}
+.obl{font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--tt);margin-bottom:26px;display:flex;align-items:center;gap:7px;}
+.obld{width:7px;height:7px;border-radius:50%;background:var(--accent);}
+.obl em{color:var(--accent);font-style:normal;}
+.obq{font-family:'Lora',serif;font-size:20px;line-height:1.3;text-align:center;margin-bottom:5px;}
+.obs{font-size:12px;color:var(--tt);text-align:center;margin-bottom:22px;line-height:1.6;}
+.obgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:360px;margin-bottom:20px;}
+.obb{display:flex;flex-direction:column;align-items:center;gap:6px;padding:13px 5px 10px;border-radius:13px;background:var(--s1);border:1px solid var(--bd);transition:all .17s;}
+.obb:hover{background:var(--s2);border-color:var(--bd2);transform:translateY(-2px);}
+.obb.sel{border-color:var(--accent);background:rgba(var(--ar),.13);box-shadow:0 0 0 1px var(--accent);}
+.obi{font-size:24px;}.obn{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ts);}
+.obcta{width:100%;max-width:360px;padding:13px;border-radius:12px;background:var(--accent);color:#fff;font-weight:800;font-size:14px;transition:filter .15s,opacity .2s;margin-bottom:9px;opacity:.3;pointer-events:none;}
+.obcta.rdy{opacity:1;pointer-events:all;}.obcta.rdy:hover{filter:brightness(1.1);}
+.obsk{font-size:12px;color:var(--tt);text-decoration:underline;text-underline-offset:3px;}
+
+/* APP */
+#app{display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
+
+/* HEADER */
+#hd{flex-shrink:0;height:50px;display:flex;align-items:center;gap:7px;padding:0 11px;border-bottom:1px solid var(--bd);}
+.logo{display:flex;align-items:center;gap:7px;user-select:none;flex-shrink:0;}
+.lr{width:20px;height:20px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;transition:all .5s;box-shadow:0 0 8px rgba(var(--ar),.3);}
+.ld{width:5px;height:5px;border-radius:50%;background:var(--accent);transition:background .5s;}
+.lt{font-size:12.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;}
+.lt em{color:var(--accent);font-style:normal;transition:color .5s;}
+#sw{flex:1;position:relative;display:flex;align-items:center;}
+#srch{width:100%;height:33px;padding:0 30px 0 28px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;color:var(--tp);font-size:12px;outline:none;transition:all .18s;}
+#srch::placeholder{color:var(--tt);}
+#srch:focus{border-color:var(--bd2);background:var(--s2);}
+.si{position:absolute;left:8px;font-size:12px;pointer-events:none;color:var(--tt);}
+#scl{position:absolute;right:8px;font-size:15px;color:var(--tt);display:none;line-height:1;}
+#scl.on{display:flex;align-items:center;}
+.hbtns{display:flex;gap:5px;flex-shrink:0;align-items:center;}
+.hb{width:33px;height:33px;border-radius:9px;background:var(--s1);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s;position:relative;flex-shrink:0;}
+.hb:hover{background:var(--s2);border-color:var(--bd2);}
+.hb.on{background:rgba(var(--ar),.14);border-color:var(--accent);}
+.hbadge{position:absolute;top:-3px;right:-3px;width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);font-size:7px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;transition:background .5s;}
+#wb{height:33px;padding:0 8px;border-radius:9px;background:var(--s1);border:1px solid var(--bd);display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--ts);white-space:nowrap;flex-shrink:0;}
+
+/* INFO BAR */
+#info-bar{flex-shrink:0;height:26px;display:flex;align-items:center;gap:0;padding:0 12px;background:rgba(var(--ar),.05);border-bottom:1px solid rgba(var(--ar),.1);overflow-x:auto;scrollbar-width:none;}
+#info-bar::-webkit-scrollbar{display:none;}
+.ib-item{display:flex;align-items:center;gap:4px;padding:0 8px;font-size:10px;font-weight:600;color:var(--ts);white-space:nowrap;flex-shrink:0;}
+.ib-sep{color:rgba(255,255,255,.1);font-size:12px;}
+
+/* FILTER BAR */
+#fbar{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:5px 10px;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none;}
+#fbar::-webkit-scrollbar{display:none;}
+.fc{flex-shrink:0;display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:100px;background:var(--s1);border:1px solid var(--bd);font-size:10.5px;font-weight:600;color:var(--tt);cursor:pointer;white-space:nowrap;transition:all .17s;}
+.fc:hover{background:var(--s2);color:var(--ts);}
+.fc.active{background:rgba(var(--ar),.14);border-color:var(--accent);color:var(--tp);}
+.fc.ga.active{background:rgba(74,187,100,.12);border-color:var(--green);color:var(--green);}
+
+/* TABS */
+#tabs{flex-shrink:0;display:flex;border-bottom:1px solid var(--bd);padding:0 9px;overflow-x:auto;scrollbar-width:none;}
+#tabs::-webkit-scrollbar{display:none;}
+.tab{flex-shrink:0;padding:8px 9px 6px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--tt);cursor:pointer;position:relative;transition:color .18s;white-space:nowrap;}
+.tab::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--accent);border-radius:2px 2px 0 0;transform:scaleX(0);transition:transform .2s var(--ease),background .5s;}
+.tab.active{color:var(--tp);}.tab.active::after{transform:scaleX(1);}
+.tb{display:inline-flex;align-items:center;justify-content:center;min-width:13px;height:13px;border-radius:99px;background:rgba(var(--ar),.18);color:var(--accent);font-size:8px;margin-left:3px;vertical-align:middle;padding:0 3px;}
+
+/* MOOD + SLIDER */
+#mrow{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:5px 10px;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none;}
+#mrow::-webkit-scrollbar{display:none;}
+.ml{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tt);white-space:nowrap;}
+.mc{flex-shrink:0;display:flex;align-items:center;gap:4px;padding:4px 9px;border-radius:100px;background:var(--s1);border:1px solid var(--bd);font-size:10.5px;font-weight:600;color:var(--tt);cursor:pointer;white-space:nowrap;transition:all .17s;}
+.mc:hover{background:var(--s2);color:var(--ts);}
+.mc.active{background:rgba(var(--ar),.14);border-color:var(--accent);color:var(--tp);}
+.mi{font-size:11px;}
+#slrow{flex-shrink:0;display:flex;align-items:center;gap:9px;padding:5px 13px 7px;border-bottom:1px solid var(--bd);}
+.sll{font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--tt);white-space:nowrap;width:42px;}
+.sll:last-child{text-align:right;}
+#sl{flex:1;-webkit-appearance:none;appearance:none;height:2px;background:linear-gradient(to right,#5B9BD5,#E8533A);border-radius:99px;outline:none;cursor:pointer;}
+#sl::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--tp);border:2.5px solid var(--accent);box-shadow:0 1px 8px rgba(0,0,0,.5);transition:border-color .5s,transform .14s var(--spring);cursor:grab;}
+#sl:active::-webkit-slider-thumb{transform:scale(1.2);}
+
+/* CONTENT */
+#content{flex:1;overflow:hidden;position:relative;}
+.panel{position:absolute;inset:0;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .2s;-webkit-overflow-scrolling:touch;}
+.panel.active{opacity:1;pointer-events:all;}
+.gw{padding:10px 10px 90px;}
+.sec{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tt);margin:0 2px 9px;display:flex;align-items:center;gap:7px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--bd);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(142px,1fr));gap:8px;margin-bottom:16px;}
+
+/* CARDS */
+.card{background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:11px 11px 9px;cursor:pointer;transition:all .17s var(--spring);position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--cc,var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .22s;}
+.card:hover{background:var(--s2);border-color:var(--bd2);transform:translateY(-2px);}
+.card:hover::before{transform:scaleX(1);}
+.card:active{transform:scale(.97);}
+.cbadges{display:flex;align-items:center;gap:4px;margin-bottom:7px;flex-wrap:wrap;}
+.cpill{display:flex;align-items:center;gap:3px;padding:2px 6px;border-radius:100px;font-size:8.5px;font-weight:700;background:rgba(var(--cp-rgb),.13);color:var(--cp);border:1px solid rgba(var(--cp-rgb),.23);}
+.cpip{width:3px;height:3px;border-radius:50%;background:currentColor;}
+.obadge{padding:2px 6px;border-radius:100px;font-size:8.5px;font-weight:700;background:rgba(74,187,100,.12);color:var(--green);border:1px solid rgba(74,187,100,.24);}
+.cbadge{padding:2px 6px;border-radius:100px;font-size:8.5px;font-weight:700;background:rgba(232,83,58,.1);color:var(--red);border:1px solid rgba(232,83,58,.2);}
+.pfree{display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:100px;font-size:8px;font-weight:700;background:rgba(74,187,100,.1);color:var(--green);border:1px solid rgba(74,187,100,.2);}
+.ppaid{display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:100px;font-size:8px;font-weight:700;background:rgba(var(--ar),.1);color:var(--accent);border:1px solid rgba(var(--ar),.2);}
+.cfav{position:absolute;top:8px;right:9px;font-size:12px;}
+.crat{font-size:10.5px;font-weight:700;color:var(--ts);margin-left:auto;display:flex;align-items:center;gap:1px;}
+.crat::before{content:'★';color:var(--gold);font-size:9px;}
+.cname{font-family:'Lora',serif;font-size:13px;font-weight:500;line-height:1.25;margin-bottom:3px;}
+.ctag{font-size:9.5px;color:var(--tt);line-height:1.4;margin-bottom:7px;}
+.cmoods{display:flex;flex-wrap:wrap;gap:2px;}
+.mpip{font-size:10px;width:18px;height:18px;border-radius:6px;background:var(--s2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:all .17s;}
+.mpip.on{background:rgba(var(--ar),.17);border-color:var(--accent);}
+.cmyr{position:absolute;bottom:8px;right:8px;font-size:9px;color:var(--gold);font-weight:700;}
+.empty{grid-column:1/-1;padding:28px 12px;text-align:center;font-size:13px;color:var(--tt);line-height:1.7;}
+.empty span{font-size:28px;display:block;margin-bottom:7px;}
+
+/* EVENTS */
+.ev-card{background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:12px 13px;margin-bottom:8px;transition:all .17s;position:relative;overflow:hidden;}
+.ev-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ec,var(--accent));}
+.ev-card:hover{background:var(--s2);transform:translateX(3px);}
+.ev-date{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.04em;margin-bottom:4px;transition:color .5s;}
+.ev-name{font-family:'Lora',serif;font-size:14.5px;font-weight:500;margin-bottom:2px;}
+.ev-venue{font-size:11px;color:var(--ts);margin-bottom:6px;}
+.ev-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.etag{padding:2px 7px;border-radius:100px;font-size:9.5px;font-weight:600;background:var(--s2);border:1px solid var(--bd);color:var(--tt);}
+.etag.free{background:rgba(74,187,100,.11);border-color:rgba(74,187,100,.24);color:var(--green);}
+.etag.price{background:rgba(var(--ar),.11);border-color:rgba(var(--ar),.24);color:var(--accent);}
+
+/* ROUTES */
+.route-card{background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:13px;margin-bottom:9px;cursor:pointer;transition:all .18s;position:relative;overflow:hidden;}
+.route-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rc,var(--accent));}
+.route-card:hover{background:var(--s2);transform:translateX(3px);}
+.rtitle{font-family:'Lora',serif;font-size:15px;font-weight:500;margin-bottom:2px;}
+.rdesc{font-size:11px;color:var(--ts);line-height:1.5;margin-bottom:9px;}
+.rstops{display:flex;flex-direction:column;gap:5px;}
+.rstop{display:flex;align-items:flex-start;gap:7px;}
+.rsn{width:17px;height:17px;border-radius:50%;background:rgba(var(--rc-rgb,var(--ar)),.14);border:1px solid rgba(var(--rc-rgb,var(--ar)),.3);font-size:8.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.rsnm{font-weight:700;font-size:11px;}
+.rstime{font-size:9.5px;color:var(--tt);}
+.rmeta{display:flex;gap:5px;margin-top:9px;flex-wrap:wrap;}
+.rchip{padding:3px 8px;border-radius:100px;font-size:9.5px;font-weight:600;background:rgba(var(--rc-rgb,var(--ar)),.11);color:var(--rc,var(--accent));border:1px solid rgba(var(--rc-rgb,var(--ar)),.19);}
+
+/* HOTEL CARDS */
+.hotel-card{background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:13px;margin-bottom:9px;cursor:default;transition:all .17s;position:relative;overflow:hidden;}
+.hotel-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--hc,var(--accent));}
+.hotel-card:hover{background:var(--s2);}
+.hname{font-family:'Lora',serif;font-size:14px;font-weight:500;margin-bottom:2px;}
+.hstars{font-size:11px;letter-spacing:1px;margin-bottom:5px;}
+.hloc{font-size:11px;color:var(--tt);margin-bottom:7px;}
+.hmeta{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+.hprice{display:flex;align-items:center;gap:4px;padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:700;background:rgba(var(--ar),.12);color:var(--accent);border:1px solid rgba(var(--ar),.22);}
+.hrating{padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:700;background:rgba(74,187,100,.1);color:var(--green);border:1px solid rgba(74,187,100,.22);}
+.htag{padding:3px 7px;border-radius:100px;font-size:9.5px;font-weight:600;background:var(--s2);border:1px solid var(--bd);color:var(--tt);}
+.hdesc{font-size:11px;color:var(--ts);line-height:1.5;}
+
+/* NEIGHBORHOOD */
+.bairro-card{background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:13px;margin-bottom:9px;cursor:pointer;transition:all .17s;position:relative;overflow:hidden;}
+.bairro-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--bc,var(--accent));}
+.bairro-card:hover{background:var(--s2);transform:translateY(-2px);}
+.bname{font-family:'Lora',serif;font-size:15px;font-weight:500;margin-bottom:3px;}
+.bdesc{font-size:11.5px;color:var(--ts);line-height:1.5;margin-bottom:8px;}
+.btags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px;}
+.btag{padding:3px 7px;border-radius:100px;font-size:9.5px;font-weight:600;background:var(--s2);border:1px solid var(--bd);color:var(--tt);}
+.bvibe{font-size:11px;color:var(--tt);font-style:italic;}
+
+/* TIDE */
+.tide-hero{background:linear-gradient(135deg,rgba(74,155,196,.14),rgba(91,155,213,.07));border:1px solid rgba(74,155,196,.25);border-radius:13px;padding:15px;margin-bottom:13px;text-align:center;}
+.tide-hero h2{font-family:'Lora',serif;font-size:17px;font-weight:500;margin-bottom:4px;}
+.tide-hero p{font-size:12px;color:var(--ts);line-height:1.6;}
+.tide-now{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px;}
+.tide-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px;text-align:center;}
+.tide-label{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tt);margin-bottom:3px;}
+.tide-val{font-size:22px;font-weight:700;font-family:'Lora',serif;}
+.tide-val.low{color:var(--green);}.tide-val.high{color:var(--red);}
+.tide-sub{font-size:10px;color:var(--tt);margin-top:2px;}
+.gauge-track{height:16px;background:var(--s2);border-radius:99px;overflow:hidden;margin:8px 0 4px;}
+.gauge-fill{height:100%;border-radius:99px;background:linear-gradient(to right,#4ABB64,#E8B84B,#E8533A);transition:width 1s;}
+.gauge-labels{display:flex;justify-content:space-between;font-size:10px;}
+.tide-row{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--s1);border:1px solid var(--bd);border-radius:11px;margin-bottom:7px;}
+.tide-row.good{background:rgba(74,187,100,.1);border-color:rgba(74,187,100,.22);}
+.tide-row.great{background:rgba(74,187,100,.17);border-color:rgba(74,187,100,.35);}
+.tide-time{font-size:12px;font-weight:700;}
+.tide-level{font-size:13px;font-weight:700;}
+.tide-level.low{color:var(--green);}.tide-level.high{color:var(--red);}
+.tide-status{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:100px;}
+.tide-status.great{background:rgba(74,187,100,.2);color:var(--green);}
+.tide-status.ok{background:rgba(74,187,100,.12);color:var(--green);}
+.tide-status.no{background:rgba(232,83,58,.1);color:var(--red);}
+
+/* HISTORY */
+.hist-item{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(--s1);border:1px solid var(--bd);border-radius:11px;margin-bottom:6px;cursor:pointer;transition:all .17s;}
+.hist-item:hover{background:var(--s2);transform:translateX(3px);}
+.hist-icon{font-size:19px;flex-shrink:0;}
+.hist-info{flex:1;min-width:0;}
+.hist-name{font-size:12.5px;font-weight:700;color:var(--tp);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hist-meta{font-size:10.5px;color:var(--tt);}
+.hist-time{font-size:10.5px;color:var(--tt);flex-shrink:0;}
+.hist-clear{width:100%;padding:9px;border-radius:10px;background:rgba(232,83,58,.09);border:1px solid rgba(232,83,58,.2);color:var(--red);font-size:12px;font-weight:700;margin-top:9px;transition:all .15s;}
+.hist-clear:hover{background:rgba(232,83,58,.18);}
+
+/* TIPS & GUIDE */
+.tip-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 13px;margin-bottom:7px;}
+.tip-icon{font-size:19px;margin-bottom:5px;}
+.tip-title{font-size:12px;font-weight:700;color:var(--tp);margin-bottom:3px;}
+.tip-text{font-size:11.5px;color:var(--ts);line-height:1.6;}
+.ginfo-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;}
+.ginfo-card{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:10px 11px;}
+.gi-label{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tt);margin-bottom:2px;}
+.gi-val{font-size:15px;font-weight:700;color:var(--tp);}
+.gi-sub{font-size:10px;color:var(--ts);margin-top:1px;}
+.gtip{display:flex;align-items:flex-start;gap:8px;padding:9px 11px;background:var(--s1);border:1px solid var(--bd);border-radius:10px;margin-bottom:6px;font-size:11.5px;color:var(--ts);line-height:1.5;}
+.gtip-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+.gtip strong{color:var(--tp);}
+
+/* MAP */
+#panel-mapa{background:var(--bg2);}
+#map{width:100%;height:100%;}
+#map-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;color:var(--tt);text-align:center;padding:40px;}
+#map-ph h3{font-size:14px;font-weight:700;color:var(--ts);margin-bottom:3px;}
+#map-ph p{font-size:12px;line-height:1.7;max-width:250px;}
+#map-ph code{font-size:11px;color:var(--accent);background:rgba(var(--ar),.12);padding:2px 6px;border-radius:4px;}
+#map-cards{position:absolute;bottom:0;left:0;right:0;padding:0 10px 12px;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;z-index:10;}
+#map-cards::-webkit-scrollbar{display:none;}
+.mini{flex-shrink:0;width:168px;background:rgba(8,10,14,.94);border:1px solid var(--bd);border-top:2px solid var(--mc,var(--accent));border-radius:11px;padding:8px 10px;cursor:pointer;backdrop-filter:blur(20px);transition:transform .17s var(--spring);}
+.mini:hover{transform:translateY(-3px);}
+.mini-name{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mini-sub{font-size:9.5px;color:var(--tt);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mini-ft{display:flex;align-items:center;justify-content:space-between;}
+.mini-cat{font-size:9.5px;font-weight:700;}
+.mini-rat{font-size:10px;color:var(--ts);}
+.mini-rat::before{content:'★ ';color:var(--gold);}
+
+/* PRICE WIDGET */
+.price-widget{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px 13px;margin-bottom:13px;}
+.pw-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.pw-label{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tt);}
+.pw-coins{display:flex;gap:3px;}
+.pw-coin{font-size:13px;opacity:.2;}
+.pw-coin.lit{opacity:1;}
+.pw-val{font-family:'Lora',serif;font-size:20px;font-weight:500;}
+.pw-sub{font-size:10px;color:var(--tt);margin-top:1px;}
+.pw-note{font-size:10.5px;color:var(--ts);line-height:1.5;margin-top:8px;padding-top:8px;border-top:1px solid var(--bd);}
+
+/* SOCIAL */
+.dsoc{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px;}
+.dsb{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:100px;font-size:10.5px;font-weight:700;border:1px solid var(--bd);background:var(--s1);color:var(--ts);transition:all .17s;}
+.dsb:hover{background:var(--s2);color:var(--tp);}
+.dsb.ig{color:#E1306C;border-color:rgba(225,48,108,.3);background:rgba(225,48,108,.07);}
+.dsb.ig:hover{background:rgba(225,48,108,.14);}
+.dsb.web{color:var(--accent);border-color:rgba(var(--ar),.3);background:rgba(var(--ar),.07);}
+.dsb.web:hover{background:rgba(var(--ar),.14);}
+.dsb.wa{color:#25D366;border-color:rgba(37,211,102,.3);background:rgba(37,211,102,.07);}
+.dsb.map{color:var(--gold);border-color:rgba(232,184,75,.3);background:rgba(232,184,75,.07);}
+
+/* DRAWER */
+#ov{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0);pointer-events:none;transition:background .32s;}
+#ov.open{background:rgba(0,0,0,.55);pointer-events:all;}
+#dw{position:absolute;bottom:0;left:0;right:0;background:#0F1116;border-top:1px solid var(--bd);border-radius:18px 18px 0 0;transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;}
+#dw.open{transform:translateY(0);}
+.dgrip{position:sticky;top:0;background:#0F1116;z-index:2;padding:9px 14px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bd);}
+.dbar{width:32px;height:3px;background:var(--s3);border-radius:99px;}
+.dcl{width:26px;height:26px;border-radius:50%;background:var(--s2);border:1px solid var(--bd);color:var(--ts);font-size:14px;display:flex;align-items:center;justify-content:center;}
+.dcl:hover{background:var(--s3);}
+.dbody{padding:14px 14px 30px;}
+.dacc{height:2px;border-radius:99px;margin-bottom:12px;}
+.dbadges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px;}
+.dbadge{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:100px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border:1px solid transparent;}
+.dbadge-cat{color:var(--dc);background:rgba(var(--dr),.12);border-color:rgba(var(--dr),.26);}
+.dbadge-tag{background:var(--s1);border-color:var(--bd);color:var(--tt);}
+.dbadge-open{color:var(--green);background:rgba(74,187,100,.1);border-color:rgba(74,187,100,.22);}
+.dbadge-closed{color:var(--red);background:rgba(232,83,58,.1);border-color:rgba(232,83,58,.2);}
+.dbpip{width:4px;height:4px;border-radius:50%;background:currentColor;}
+.dname{font-family:'Lora',serif;font-size:21px;font-weight:500;line-height:1.2;margin-bottom:7px;}
+.drating{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap;}
+.dstars{color:var(--gold);font-size:11px;letter-spacing:.5px;}
+.dscore{font-size:12px;font-weight:700;}
+.dvotes{font-size:11px;color:var(--tt);}
+.dmy{display:flex;gap:3px;margin-left:auto;}
+.sbt{font-size:16px;cursor:pointer;opacity:.25;transition:opacity .15s,transform .14s var(--spring);}
+.sbt.lit{opacity:1;}.sbt:hover{transform:scale(1.18);}
+.dhours{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:100px;background:rgba(74,187,100,.1);border:1px solid rgba(74,187,100,.2);font-size:10.5px;font-weight:600;color:var(--green);margin-bottom:13px;}
+.hpulse{width:4px;height:4px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.htext{color:var(--ts);font-weight:400;font-size:10.5px;}
+.dsens{font-family:'Lora',serif;font-style:italic;font-size:12.5px;line-height:1.75;color:var(--ts);padding:10px 12px;background:var(--s1);border-radius:9px;border-left:3px solid var(--dc,var(--accent));margin-bottom:14px;}
+.dsec{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tt);margin-bottom:8px;}
+.dbars{display:flex;flex-direction:column;gap:7px;margin-bottom:13px;}
+.dbar-row{display:flex;align-items:center;gap:8px;}
+.dbar-key{font-size:10.5px;font-weight:500;color:var(--tt);width:72px;text-align:right;}
+.dbar-track{flex:1;height:3px;background:var(--s2);border-radius:99px;overflow:hidden;}
+.dbar-fill{height:100%;border-radius:99px;width:0;transition:width .65s;}
+.dbar-num{font-size:10.5px;font-weight:700;color:var(--tt);width:24px;text-align:right;}
+.dtimes{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px;}
+.dtime{padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:500;background:var(--s1);border:1px solid var(--bd);color:var(--tt);}
+.dtime.hl{color:var(--tp);}
+.dmoods{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:13px;}
+.dmood{display:flex;align-items:center;gap:3px;padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:600;background:var(--s1);border:1px solid var(--bd);color:var(--tt);}
+.dmood.on{background:rgba(var(--ar),.13);border-color:var(--accent);color:var(--tp);}
+.dfb{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:11px;margin-bottom:12px;}
+.dfbt{font-size:11.5px;font-weight:700;color:var(--ts);margin-bottom:7px;}
+.dfbr{display:flex;align-items:flex-start;gap:7px;margin-bottom:6px;}
+.dfbl{font-size:10.5px;color:var(--tt);width:62px;text-align:right;padding-top:4px;flex-shrink:0;}
+.dfbo{display:flex;gap:4px;flex-wrap:wrap;}
+.dfbop{padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:600;background:var(--s2);border:1px solid var(--bd);color:var(--tt);transition:all .15s;}
+.dfbop.sel{background:rgba(var(--dr),.17);border-color:var(--dc,var(--accent));color:var(--tp);}
+.dfbsub{width:100%;padding:9px;border-radius:10px;margin-top:3px;font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;color:#fff;transition:filter .15s;}
+.dfbsub:hover{filter:brightness(1.1);}
+.dfbdone{font-size:11.5px;color:var(--green);text-align:center;padding:7px;display:none;}
+.dcta{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:3px;}
+.dbtnn{padding:10px 4px;border-radius:11px;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;background:var(--s1);border:1px solid var(--bd);color:var(--ts);transition:all .14s;text-align:center;}
+.dbtnn:hover{background:var(--s2);color:var(--tp);}
+.dbtnn.p{border-color:transparent;color:#fff;}.dbtnn:active{transform:scale(.97);}
+
+/* AI PANEL */
+#aip{position:fixed;inset:0;z-index:400;display:flex;flex-direction:column;background:var(--bg);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);}
+#aip.open{transform:translateY(0);}
+#ai-hd{flex-shrink:0;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 13px;border-bottom:1px solid var(--bd);}
+#ai-hd h2{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;}
+.aidot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;transition:background .5s;}
+#ai-cl{width:28px;height:28px;border-radius:50%;background:var(--s2);border:1px solid var(--bd);color:var(--ts);font-size:15px;display:flex;align-items:center;justify-content:center;}
+#ai-msgs{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch;}
+.msg{display:flex;gap:8px;}
+.msg.user{flex-direction:row-reverse;}
+.mbub{max-width:84%;padding:10px 12px;border-radius:14px;font-size:12.5px;line-height:1.6;}
+.msg.ai .mbub{background:var(--s2);border:1px solid var(--bd);border-bottom-left-radius:4px;}
+.msg.user .mbub{background:var(--accent);color:#fff;border-bottom-right-radius:4px;}
+.mav{width:28px;height:28px;border-radius:50%;background:var(--s2);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px;}
+.msg.user .mav{background:var(--accent);border-color:transparent;}
+.typing-ind{display:flex;gap:4px;padding:3px 0;}
+.typing-ind span{width:5px;height:5px;border-radius:50%;background:var(--tt);animation:bounce .8s infinite;}
+.typing-ind span:nth-child(2){animation-delay:.15s;}
+.typing-ind span:nth-child(3){animation-delay:.3s;}
+#ai-sugs{flex-shrink:0;padding:8px 11px;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-top:1px solid var(--bd);}
+#ai-sugs::-webkit-scrollbar{display:none;}
+.asug{flex-shrink:0;padding:6px 10px;border-radius:100px;background:var(--s1);border:1px solid var(--bd);font-size:10.5px;font-weight:600;color:var(--ts);cursor:pointer;white-space:nowrap;transition:all .17s;}
+.asug:hover{background:var(--s2);color:var(--tp);border-color:var(--bd2);}
+#ai-inp-row{flex-shrink:0;display:flex;gap:7px;padding:8px 11px calc(8px + var(--sb));border-top:1px solid var(--bd);}
+#ai-inp{flex:1;padding:9px 12px;border-radius:11px;background:var(--s1);border:1px solid var(--bd);color:var(--tp);font-size:12.5px;outline:none;transition:border-color .18s;resize:none;height:40px;min-height:40px;max-height:110px;overflow:hidden;}
+#ai-inp:focus{border-color:var(--accent);}
+#ai-snd{width:40px;height:40px;border-radius:11px;flex-shrink:0;background:var(--accent);color:#fff;font-size:17px;display:flex;align-items:center;justify-content:center;transition:filter .15s,transform .15s var(--spring);}
+#ai-snd:hover{filter:brightness(1.1);transform:scale(1.05);}
+.aplnk{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:100px;margin:1px 2px;background:rgba(var(--ar),.12);border:1px solid rgba(var(--ar),.26);color:var(--accent);font-size:10.5px;font-weight:700;cursor:pointer;text-decoration:none;}
+.aplnk:hover{background:rgba(var(--ar),.2);}
+
+/* COMPARE */
+#cmp-bar{position:fixed;bottom:calc(62px + var(--sb));left:50%;transform:translateX(-50%) translateY(90px);z-index:150;display:flex;align-items:center;gap:7px;padding:9px 14px;border-radius:100px;background:#0F1116;border:1px solid var(--bd2);backdrop-filter:blur(20px);transition:transform .35s var(--spring);pointer-events:none;}
+#cmp-bar.show{transform:translateX(-50%) translateY(0);pointer-events:all;}
+.ca{width:30px;height:30px;border-radius:50%;background:var(--s2);border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:13px;}
+.cvs{font-size:11px;font-weight:700;color:var(--tt);}
+#cmp-go{padding:7px 14px;border-radius:100px;background:var(--accent);color:#fff;font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;transition:filter .15s;}
+#cmp-go:hover{filter:brightness(1.1);}
+#cmp-clear{width:26px;height:26px;border-radius:50%;background:var(--s2);color:var(--tt);font-size:14px;display:flex;align-items:center;justify-content:center;}
+#cmp-panel{position:fixed;inset:0;z-index:350;background:var(--bg);transform:translateY(100%);transition:transform .4s cubic-bezier(.32,.72,0,1);overflow-y:auto;}
+#cmp-panel.open{transform:translateY(0);}
+#cmp-hd{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;z-index:2;}
+#cmp-hd h2{font-size:14px;font-weight:700;}
+#cmp-cl{width:27px;height:27px;border-radius:50%;background:var(--s2);border:1px solid var(--bd);color:var(--ts);font-size:14px;display:flex;align-items:center;justify-content:center;}
+#cmp-body{padding:13px 13px 40px;display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.cmp-col{background:var(--s1);border:1px solid var(--bd);border-radius:13px;padding:12px;overflow:hidden;}
+.cmp-name{font-family:'Lora',serif;font-size:13.5px;font-weight:500;margin-bottom:2px;line-height:1.2;}
+.cmp-cat{font-size:10px;font-weight:700;margin-bottom:10px;}
+.cmp-row{display:flex;flex-direction:column;gap:2px;margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid var(--bd);}
+.cmp-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.cmp-key{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tt);margin-bottom:2px;}
+.cmp-val{font-size:12px;font-weight:600;}
+.cmp-bw{height:4px;background:var(--s2);border-radius:99px;overflow:hidden;margin-top:2px;}
+.cmp-bf{height:100%;border-radius:99px;transition:width .6s;}
+.cmp-w{background:rgba(74,187,100,.12);border:1px solid rgba(74,187,100,.25);border-radius:7px;padding:2px 5px;font-size:8.5px;font-weight:700;color:var(--green);margin-top:2px;display:inline-block;}
+
+/* SURPRISE + TOAST */
+#sbtn{position:fixed;bottom:calc(16px + var(--sb));left:50%;transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:6px;padding:11px 19px;border-radius:100px;background:var(--accent);color:#fff;font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.03em;box-shadow:0 4px 20px rgba(var(--ar),.4);transition:all .25s var(--spring),background .5s;white-space:nowrap;}
+#sbtn:hover{transform:translateX(-50%) translateY(-3px) scale(1.03);}
+#sbtn:active{transform:translateX(-50%) scale(.97);}
+#toast{position:fixed;bottom:calc(12px + var(--sb));right:12px;z-index:500;display:flex;align-items:flex-start;gap:7px;padding:9px 12px;background:rgba(8,10,14,.96);border:1px solid var(--bd2);border-radius:11px;backdrop-filter:blur(20px);max-width:215px;pointer-events:none;opacity:0;transform:translateY(8px) scale(.96);transition:opacity .22s,transform .22s var(--spring);}
+#toast.show{opacity:1;transform:translateY(0) scale(1);}
+.tdot{width:5px;height:5px;border-radius:50%;background:var(--accent);margin-top:3px;flex-shrink:0;animation:pulse 2s infinite;transition:background .5s;}
+.tplace{font-size:11.5px;font-weight:700;margin-bottom:1px;}
+.tmsg{font-size:10.5px;color:var(--ts);line-height:1.4;}
+
+/* PWA BANNER */
+#pwa-banner{position:fixed;bottom:calc(var(--sb) + 10px);left:10px;right:10px;z-index:250;display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:13px;background:#0F1116;border:1px solid var(--bd2);backdrop-filter:blur(20px);transform:translateY(110px);opacity:0;transition:all .4s var(--spring);pointer-events:none;}
+#pwa-banner.show{transform:translateY(0);opacity:1;pointer-events:all;}
+.pwa-txt{flex:1;font-size:11.5px;color:var(--ts);line-height:1.4;}
+.pwa-txt strong{display:block;color:var(--tp);font-size:12.5px;margin-bottom:2px;}
+#pwa-install{padding:7px 13px;border-radius:100px;background:var(--accent);color:#fff;font-family:'Syne',sans-serif;font-size:11.5px;font-weight:700;flex-shrink:0;transition:filter .15s;}
+#pwa-install:hover{filter:brightness(1.1);}
+#pwa-dismiss{width:25px;height:25px;border-radius:50%;background:var(--s2);color:var(--tt);font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* NEW BADGE */
+.badge-new{position:absolute;top:7px;left:7px;background:var(--red);color:#fff;font-size:8px;font-weight:800;letter-spacing:.06em;padding:2px 5px;border-radius:4px;text-transform:uppercase;animation:pulse 2s infinite;}
+/* RECENT CAROUSEL */
+#recent-bar{flex-shrink:0;display:none;align-items:center;gap:7px;padding:6px 11px;border-bottom:1px solid var(--bd);overflow-x:auto;scrollbar-width:none;}
+#recent-bar::-webkit-scrollbar{display:none;}
+#recent-bar.has-items{display:flex;}
+.recent-label{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tt);white-space:nowrap;}
+.recent-chip{flex-shrink:0;display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:100px;background:var(--s1);border:1px solid var(--bd);cursor:pointer;transition:all .15s;max-width:130px;}
+.recent-chip:hover{background:var(--s2);}
+.recent-chip-ico{font-size:12px;}
+.recent-chip-name{font-size:10px;font-weight:600;color:var(--ts);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* OFFLINE INDICATOR */
+#offline-bar{display:none;background:rgba(232,83,58,.12);border-bottom:1px solid rgba(232,83,58,.24);padding:4px 12px;font-size:10.5px;font-weight:700;color:var(--red);text-align:center;}
+#offline-bar.show{display:block;}
+/* ACCESSIBILITY DOT in drawer */
+.access-info{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:9px 11px;margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;}
+.access-chip{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:var(--ts);}
+/* TIDE ALERT BANNER */
+#tide-alert{display:none;position:fixed;top:calc(50px + var(--sb,0px));left:10px;right:10px;z-index:100;padding:9px 14px;border-radius:12px;background:rgba(74,187,100,.18);border:1px solid rgba(74,187,100,.4);backdrop-filter:blur(20px);font-size:12px;font-weight:700;color:var(--green);text-align:center;cursor:pointer;animation:fadeUp .4s var(--ease);}
+#tide-alert.show{display:block;}
+/* SHARE FAB */
+#share-fab{position:fixed;bottom:calc(70px + var(--sb));right:14px;z-index:190;width:42px;height:42px;border-radius:50%;background:var(--bg2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s var(--spring);}
+#share-fab:hover{transform:scale(1.08);}
+/* NEIGHBORHOOD SEARCH PILLS */
+.nbhood-bar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;}
+.nbpill{padding:4px 10px;border-radius:100px;font-size:10px;font-weight:700;background:var(--s1);border:1px solid var(--bd);color:var(--tt);cursor:pointer;transition:all .15s;}
+.nbpill:hover{background:var(--s2);color:var(--ts);}
+.nbpill.active{background:rgba(var(--ar),.14);border-color:var(--accent);color:var(--tp);}
+/* SCORE BARS enhanced */
+.bars-title{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tt);margin-bottom:7px;}
+/* MINI MAP FILTER */
+.map-filter-bar{position:absolute;top:8px;left:8px;right:8px;z-index:20;display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:2px 0;}
+.map-filter-bar::-webkit-scrollbar{display:none;}
+.mfb{flex-shrink:0;padding:5px 10px;border-radius:100px;background:rgba(8,10,14,.9);border:1px solid var(--bd);font-size:10px;font-weight:700;color:var(--tt);cursor:pointer;backdrop-filter:blur(10px);transition:all .15s;}
+.mfb:hover{background:rgba(8,10,14,.98);color:var(--ts);}
+.mfb.active{background:var(--accent);border-color:transparent;color:#fff;}
+/* PRICE COMPARISON TABLE */
+.price-tbl{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:11.5px;}
+.price-tbl th{padding:6px 8px;text-align:left;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--tt);border-bottom:1px solid var(--bd);}
+.price-tbl td{padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--ts);}
+.price-tbl td:first-child{font-weight:700;color:var(--tp);}
+.price-tbl tr:last-child td{border-bottom:none;}
+/* TIPS CATEGORY */
+.tip-sect{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tt);margin:16px 0 9px;display:flex;align-items:center;gap:7px;}
+.tip-sect::after{content:'';flex:1;height:1px;background:var(--bd);}
+/* DARK/LIGHT toggle */
+#theme-btn{width:33px;height:33px;border-radius:9px;background:var(--s1);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .15s;flex-shrink:0;}
+#theme-btn:hover{background:var(--s2);}
+/* LIGHT THEME */
+body.light{--bg:#F5F2EC;--bg2:#EDE9E2;--s1:rgba(0,0,0,.04);--s2:rgba(0,0,0,.07);--s3:rgba(0,0,0,.13);--bd:rgba(0,0,0,.09);--bd2:rgba(0,0,0,.18);--tp:#1A1614;--ts:rgba(26,22,20,.55);--tt:rgba(26,22,20,.35);}
+body.light #app,body.light #ob,body.light #aip,body.light #dw,body.light #cmp-panel{background:var(--bg);}
+body.light #dw{background:#EDE9E2;}
+body.light #cmp-panel{background:var(--bg);}
+/* STICKY SECTION HEADER while scrolling */
+.sticky-sec{position:sticky;top:0;background:linear-gradient(var(--bg),transparent);z-index:5;padding-bottom:3px;}
+
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.card,.mini,.route-card,.ev-card,.msg,.hotel-card,.bairro-card,.hist-item{animation:fadeUp .24s var(--ease) both;}
+</style>
+</head>
+<body>
+
+<div id="ob">
+  <div class="obl"><div class="obld"></div>go out <em>jp</em></div>
+  <h1 class="obq">O que você quer sentir hoje?</h1>
+  <p class="obs">Escolha um humor — encontramos o lugar certo em João Pessoa.</p>
+  <div class="obgrid" id="ob-grid">
+    <button class="obb" data-mood="calma"       data-e="15" data-c="#5B9BD5" data-r="91,155,213"><span class="obi">🌊</span><span class="obn">Relaxar</span></button>
+    <button class="obb" data-mood="social"      data-e="65" data-c="#E8B84B" data-r="232,184,75"><span class="obi">✨</span><span class="obn">Socializar</span></button>
+    <button class="obb" data-mood="foco"        data-e="40" data-c="#5BB5A0" data-r="91,181,160"><span class="obi">🎯</span><span class="obn">Foco</span></button>
+    <button class="obb" data-mood="intro"       data-e="10" data-c="#9B6FC9" data-r="155,111,201"><span class="obi">🌙</span><span class="obn">Introspecção</span></button>
+    <button class="obb" data-mood="energia"     data-e="90" data-c="#E8533A" data-r="232,83,58"><span class="obi">⚡</span><span class="obn">Energia</span></button>
+    <button class="obb" data-mood="familia"     data-e="50" data-c="#E88B4A" data-r="232,139,74"><span class="obi">👨‍👩‍👧</span><span class="obn">Família</span></button>
+    <button class="obb" data-mood="cria"        data-e="55" data-c="#C96B6B" data-r="201,107,107"><span class="obi">🎨</span><span class="obn">Criatividade</span></button>
+    <button class="obb" data-mood="escape"      data-e="20" data-c="#7BA87A" data-r="123,168,122"><span class="obi">🌿</span><span class="obn">Escapar</span></button>
+    <button class="obb" data-mood="curiosidade" data-e="70" data-c="#D4A96A" data-r="212,169,106"><span class="obi">🔭</span><span class="obn">Explorar</span></button>
+  </div>
+  <button class="obcta" id="ob-cta">Mostrar lugares →</button>
+  <button class="obsk"  id="ob-skip">Pular e explorar tudo</button>
+</div>
+
+<div id="app" style="display:none">
+  <div id="offline-bar">📡 Sem conexão — mostrando conteúdo em cache</div>
+  <header id="hd">
+    <div class="logo">
+      <div class="lr" id="lr"><div class="ld" id="ld"></div></div>
+      <div class="lt">go out <em id="lem">jp</em></div>
+    </div>
+    <div id="sw">
+      <span class="si">🔍</span>
+      <input type="search" id="srch" placeholder="buscar ou perguntar em linguagem natural…" autocomplete="off">
+      <button id="scl">×</button>
+    </div>
+    <div class="hbtns">
+      <div id="wb"><span id="wi">⛅</span><span id="wt"> JP</span></div>
+      <button id="theme-btn" title="Alternar tema">🌙</button>
+      <button class="hb" id="ai-btn" title="Assistente JP">🤖</button>
+      <button class="hb" id="fav-btn">♡<div class="hbadge" id="fav-count" style="display:none">0</div></button>
+      <button class="hb" id="sur-hd">🎲</button>
+    </div>
+  </header>
+
+  <div id="info-bar">
+    <span class="ib-item">🌡️ ~30°C</span><span class="ib-sep">|</span>
+    <span class="ib-item">🚗 Uber disponível</span><span class="ib-sep">|</span>
+    <span class="ib-item">✈️ Aeroporto JPA ~20km</span><span class="ib-sep">|</span>
+    <span class="ib-item">💳 Cartão aceito na maioria</span><span class="ib-sep">|</span>
+    <span class="ib-item">🕐 <span id="clock">--:--</span> (JP)</span>
+  </div>
+
+  <div id="recent-bar"><span class="recent-label">Recentes</span></div>
+
+  <div id="fbar">
+    <button class="fc ga active" data-f="todos">Todos</button>
+    <button class="fc ga" data-f="aberto">✓ Aberto agora</button>
+    <button class="fc ga" data-f="gratuito">🎁 Gratuito</button>
+    <button class="fc" data-f="manha">🌅 Manhã</button>
+    <button class="fc" data-f="tarde">☀️ Tarde</button>
+    <button class="fc" data-f="noite">🌙 Noite</button>
+    <button class="fc" data-f="chuva">🌧️ Com chuva</button>
+  </div>
+
+  <div id="tabs">
+    <button class="tab active" data-tab="explorar">Explorar</button>
+    <button class="tab" data-tab="eventos">Eventos<span class="tb" id="ev-b">10</span></button>
+    <button class="tab" data-tab="restaurantes">Restaurantes</button>
+    <button class="tab" data-tab="bares">Bares</button>
+    <button class="tab" data-tab="cafes">Cafés</button>
+    <button class="tab" data-tab="shows">Shows</button>
+    <button class="tab" data-tab="cinemas">Cinemas</button>
+    <button class="tab" data-tab="teatros">Teatros</button>
+    <button class="tab" data-tab="cultura">Cultura</button>
+    <button class="tab" data-tab="shoppings">Shoppings</button>
+    <button class="tab" data-tab="praias">Praias</button>
+    <button class="tab" data-tab="parques">Parques</button>
+    <button class="tab" data-tab="jogos">Jogos & Kids</button>
+    <button class="tab" data-tab="favoritos">♡ Salvos</button>
+    <button class="tab" data-tab="rotas">✦ Rotas</button>
+    <button class="tab" data-tab="hospedagem">🏨 Hospedagem</button>
+    <button class="tab" data-tab="bairros">🗺️ Bairros</button>
+    <button class="tab" data-tab="mare">🌊 Maré</button>
+    <button class="tab" data-tab="historico">🕐 Histórico</button>
+    <button class="tab" data-tab="guia">🏝️ Guia JP</button>
+    <button class="tab" data-tab="dicas">💡 Dicas</button>
+    <button class="tab" data-tab="mapa">Mapa</button>
+  </div>
+
+  <div id="mrow">
+    <span class="ml">Humor:</span>
+    <button class="mc active" data-mood="calma"       data-e="15" data-c="#5B9BD5" data-r="91,155,213"><span class="mi">🌊</span>Relaxar</button>
+    <button class="mc"        data-mood="social"      data-e="65" data-c="#E8B84B" data-r="232,184,75"><span class="mi">✨</span>Socializar</button>
+    <button class="mc"        data-mood="foco"        data-e="40" data-c="#5BB5A0" data-r="91,181,160"><span class="mi">🎯</span>Foco</button>
+    <button class="mc"        data-mood="intro"       data-e="10" data-c="#9B6FC9" data-r="155,111,201"><span class="mi">🌙</span>Introspecção</button>
+    <button class="mc"        data-mood="cria"        data-e="55" data-c="#C96B6B" data-r="201,107,107"><span class="mi">🎨</span>Criatividade</button>
+    <button class="mc"        data-mood="energia"     data-e="90" data-c="#E8533A" data-r="232,83,58"><span class="mi">⚡</span>Energia</button>
+    <button class="mc"        data-mood="escape"      data-e="20" data-c="#7BA87A" data-r="123,168,122"><span class="mi">🌿</span>Escapar</button>
+    <button class="mc"        data-mood="curiosidade" data-e="70" data-c="#D4A96A" data-r="212,169,106"><span class="mi">🔭</span>Explorar</button>
+    <button class="mc"        data-mood="familia"     data-e="50" data-c="#E88B4A" data-r="232,139,74"><span class="mi">👨‍👩‍👧</span>Família</button>
+  </div>
+
+  <div id="slrow">
+    <span class="sll">Calmo</span>
+    <input type="range" id="sl" min="0" max="100" value="15">
+    <span class="sll">Energético</span>
+  </div>
+
+  <div id="content">
+    <div class="panel active" id="panel-explorar">   <div class="gw" id="g-explorar"></div></div>
+    <div class="panel"        id="panel-eventos">    <div class="gw" id="g-eventos"></div></div>
+    <div class="panel"        id="panel-restaurantes"><div class="gw" id="g-restaurantes"></div></div>
+    <div class="panel"        id="panel-bares">      <div class="gw" id="g-bares"></div></div>
+    <div class="panel"        id="panel-cafes">      <div class="gw" id="g-cafes"></div></div>
+    <div class="panel"        id="panel-shows">      <div class="gw" id="g-shows"></div></div>
+    <div class="panel"        id="panel-cinemas">    <div class="gw" id="g-cinemas"></div></div>
+    <div class="panel"        id="panel-teatros">    <div class="gw" id="g-teatros"></div></div>
+    <div class="panel"        id="panel-cultura">    <div class="gw" id="g-cultura"></div></div>
+    <div class="panel"        id="panel-shoppings">  <div class="gw" id="g-shoppings"></div></div>
+    <div class="panel"        id="panel-praias">     <div class="gw" id="g-praias"></div></div>
+    <div class="panel"        id="panel-parques">    <div class="gw" id="g-parques"></div></div>
+    <div class="panel"        id="panel-jogos">      <div class="gw" id="g-jogos"></div></div>
+    <div class="panel"        id="panel-favoritos">  <div class="gw" id="g-favoritos"></div></div>
+    <div class="panel"        id="panel-rotas">      <div class="gw" id="g-rotas"></div></div>
+    <div class="panel"        id="panel-hospedagem"> <div class="gw" id="g-hospedagem"></div></div>
+    <div class="panel"        id="panel-bairros">    <div class="gw" id="g-bairros"></div></div>
+    <div class="panel"        id="panel-mare">       <div class="gw" id="g-mare"></div></div>
+    <div class="panel"        id="panel-historico">  <div class="gw" id="g-historico"></div></div>
+    <div class="panel"        id="panel-guia">       <div class="gw" id="g-guia"></div></div>
+    <div class="panel"        id="panel-dicas">      <div class="gw" id="g-dicas"></div></div>
+    <div class="panel"        id="panel-mapa">
+      <div class="map-filter-bar" id="map-fbar">
+        <button class="mfb active" data-cat="todos">Todos</button>
+        <button class="mfb" data-cat="praia">🏖️ Praias</button>
+        <button class="mfb" data-cat="restaurante">🍽️ Resto.</button>
+        <button class="mfb" data-cat="bar">🍺 Bares</button>
+        <button class="mfb" data-cat="cafe">☕ Cafés</button>
+        <button class="mfb" data-cat="show">🎵 Shows</button>
+        <button class="mfb" data-cat="cultura">🎨 Cultura</button>
+        <button class="mfb" data-cat="parque">🌳 Parques</button>
+      </div>      <div id="map"><div id="map-ph"><div style="font-size:38px;margin-bottom:8px">🗺️</div><h3>Mapa de João Pessoa</h3><p>Adicione sua <code>Google Maps API Key</code> no script ao final para ativar o mapa interativo.</p></div></div>
+      <div id="map-cards"></div>
+    </div>
+  </div>
+</div>
+
+<!-- AI PANEL -->
+<div id="aip">
+  <div id="ai-hd">
+    <h2><div class="aidot" id="aidot"></div>Assistente Go Out JP</h2>
+    <button id="ai-cl">×</button>
+  </div>
+  <div id="ai-msgs"></div>
+  <div id="ai-sugs">
+    <button class="asug">🌧️ O que fazer com chuva?</button>
+    <button class="asug">🎵 Shows com música ao vivo hoje</button>
+    <button class="asug">🏝️ Guia da Ilha de Areia Vermelha</button>
+    <button class="asug">🌊 Melhores praias de JP</button>
+    <button class="asug">🍽️ Onde comer nordestino?</button>
+    <button class="asug">🌱 Opções veganas em JP</button>
+    <button class="asug">🎨 Roteiro cultural completo</button>
+    <button class="asug">👨‍👩‍👧 Passeios em família</button>
+    <button class="asug">💸 O que fazer de graça?</button>
+    <button class="asug">🌅 Melhores pôres do sol</button>
+    <button class="asug">🍣 Onde comer sushi?</button>
+    <button class="asug">🏨 Qual bairro devo ficar?</button>
+    <button class="asug">🏄 Onde tem surf?</button>
+    <button class="asug">☕ Melhor café da manhã?</button>
+    <button class="asug">🌙 O que fazer à meia-noite?</button>
+    <button class="asug">🚗 Como me locomover em JP?</button>
+    <button class="asug">🌊 A maré está boa p/ Areia Vermelha?</button>
+  </div>
+  <div id="ai-inp-row">
+    <textarea id="ai-inp" placeholder="Pergunte qualquer coisa sobre João Pessoa…" rows="1"></textarea>
+    <button id="ai-snd">↑</button>
+  </div>
+</div>
+
+<div id="tide-alert">🌊 Maré baixa agora — ótima para Areia Vermelha! Toque para saber mais.</div>
+<button id="share-fab" title="Compartilhar">📤</button>
+
+<!-- COMPARE -->
+<div id="cmp-bar">
+  <div class="ca" id="ca-a">?</div><span class="cvs">vs</span><div class="ca" id="ca-b">?</div>
+  <button id="cmp-go">Comparar</button>
+  <button id="cmp-clear">×</button>
+</div>
+<div id="cmp-panel">
+  <div id="cmp-hd"><h2>⚖️ Comparando lugares</h2><button id="cmp-cl">×</button></div>
+  <div id="cmp-body"></div>
+</div>
+
+<!-- OVERLAY + DRAWER -->
+<div id="ov"><div id="dw">
+  <div class="dgrip"><div class="dbar"></div><button class="dcl" id="dcl">×</button></div>
+  <div class="dbody" id="dbody"></div>
+</div></div>
+
+<!-- SURPRISE + TOAST + PWA -->
+<button id="sbtn">🎲 Surpreenda-me</button>
+<div id="toast"><div class="tdot" id="tdot"></div><div><div class="tplace" id="tplace"></div><div class="tmsg" id="tmsg"></div></div></div>
+<div id="pwa-banner">
+  <div class="pwa-txt"><strong>📲 Instalar Go Out JP</strong>Acesse offline como app nativo.</div>
+  <button id="pwa-install">Instalar</button>
+  <button id="pwa-dismiss">×</button>
+</div>
+
+<script>
+'use strict';
+
+/* ══════ CAT + MOOD ══════ */
+const CAT={
+  lugar:      {l:'Lugar',          e:'📍',c:'#5B9BD5',r:'91,155,213'},
+  praia:      {l:'Praia',          e:'🏖️',c:'#4A9BC4',r:'74,155,196'},
+  restaurante:{l:'Restaurante',    e:'🍽️',c:'#C97B4A',r:'201,123,74'},
+  bar:        {l:'Bar',            e:'🍺',c:'#D4714A',r:'212,113,74'},
+  cafe:       {l:'Cafeteria',      e:'☕',c:'#C4965A',r:'196,150,90'},
+  show:       {l:'Show & Balada',  e:'🎵',c:'#9B6FC9',r:'155,111,201'},
+  cinema:     {l:'Cinema',         e:'🎬',c:'#4A90C9',r:'74,144,201'},
+  teatro:     {l:'Teatro',         e:'🎭',c:'#C97B4A',r:'201,123,74'},
+  cultura:    {l:'Cultura & Arte', e:'🎨',c:'#7A9B5B',r:'122,155,91'},
+  shopping:   {l:'Shopping',       e:'🛍️',c:'#4ABBA8',r:'74,187,168'},
+  parque:     {l:'Parque',         e:'🌳',c:'#5BA87A',r:'91,168,122'},
+  jogo:       {l:'Jogos & Kids',   e:'🎮',c:'#E8B84B',r:'232,184,75'},
+};
+const ME={calma:'🌊',social:'✨',foco:'🎯',intro:'🌙',cria:'🎨',energia:'⚡',escape:'🌿',curiosidade:'🔭',familia:'👨‍👩‍👧'};
+
+/* ══════ OPEN-NOW ══════ */
+function isOpenNow(p){
+  if(!p.schedule)return null;
+  if(p.schedule==='24h')return true;
+  const now=new Date(),d=now.getDay(),h=now.getHours(),m=now.getMinutes(),cur=h*60+m;
+  for(const[dd,oh,om,ch,cm]of p.schedule){
+    if(dd!==d)continue;
+    const o=oh*60+om,c=ch*60+cm;
+    if(c<o){if(cur>=o||cur<c)return true;}else{if(cur>=o&&cur<c)return true;}
+  }
+  return false;
+}
+function period(p,f){
+  if(f==='todos')return true;
+  if(f==='aberto')return isOpenNow(p)===true;
+  if(f==='gratuito')return p.free||p.price?.startsWith('Gratuito');
+  if(f==='manha')return p.times.includes('manhã');
+  if(f==='tarde')return p.times.includes('tarde');
+  if(f==='noite')return p.times.includes('noite');
+  if(f==='chuva')return p.indoor===true;
+  return true;
+}
+
+/* ══════ PLACES DATA ══════ */
+const P=[
+  /* PRAIAS */
+  {id:'tambau',   cat:'praia', name:'Praia de Tambaú',         tag:'Vibrante · Orla · Social',            sensory:'"Barulho de onda e conversa, cheiro de caldo de cana — o coração animado da orla."',           moods:['social','energia','curiosidade','familia'],      bars:{energia:85,social:90,calma:25,cria:45},times:['tarde','noite'],        rating:4.5,votes:6200,  hours:'Aberto sempre',           price:'Gratuito (consumação R$15–40)',free:true, indoor:false,schedule:'24h',lat:-7.1195,lng:-34.8350,social:{ig:'praia_tambau_jp'}},
+  {id:'bessa',    cat:'praia', name:'Praia do Bessa',           tag:'Leve · Tranquilo · Natural',          sensory:'"Areia fina, piscinas naturais — mais sossegada que Tambaú, perfeita para respirar."',         moods:['calma','escape','intro','foco','familia'],       bars:{energia:30,social:30,calma:82,cria:50},times:['manhã','tarde'],        rating:4.6,votes:2100,  hours:'Aberto sempre',           price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.0820,lng:-34.8450,social:{}},
+  {id:'cabobr',   cat:'praia', name:'Praia de Cabo Branco',     tag:'Infraestrutura · Ciclovia · Família', sensory:'"Quiosques, bike path, hotéis — a praia com mais infraestrutura de JP."',                      moods:['social','familia','escape','calma'],             bars:{energia:55,social:70,calma:65,cria:40},times:['manhã','tarde'],        rating:4.7,votes:13831, hours:'Aberto sempre',           price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.1297,lng:-34.8219,social:{}},
+  {id:'seixas',   cat:'praia', name:'Praia do Seixas',          tag:'Ponta mais a leste das Américas',     sensory:'"A ponta mais oriental das Américas — vista única, quase deserta."',                            moods:['intro','calma','escape','curiosidade'],          bars:{energia:20,social:20,calma:92,cria:75},times:['manhã','fim de tarde'], rating:4.6,votes:1989,  hours:'Aberto sempre',           price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.1599,lng:-34.7944,social:{}},
+  {id:'intermares',cat:'praia',name:'Praia de Intermares',      tag:'Surf · Ondas grandes · Cabedelo',     sensory:'"Ondas grandes para surf, muito verde ao redor — a praia mais selvagem perto de JP."',           moods:['energia','escape','curiosidade','social'],       bars:{energia:70,social:55,calma:50,cria:45},times:['manhã','tarde'],        rating:4.7,votes:4150,  hours:'Aberto sempre',           price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.0468,lng:-34.8424,social:{}},
+  /* LUGARES */
+  {id:'farol',    cat:'lugar', name:'Farol do Cabo Branco',     tag:'Silencioso · Marco histórico',        sensory:'"Luz intensa, vento do mar, vista panorâmica — ponto mais a leste das Américas."',              moods:['calma','intro','cria','curiosidade'],            bars:{energia:15,social:25,calma:92,cria:75},times:['manhã','fim de tarde'], rating:4.7,votes:1840,  hours:'Ter–Dom 8h–17h',          price:'Gratuito',free:true, indoor:false,schedule:[[2,8,0,17,0],[3,8,0,17,0],[4,8,0,17,0],[5,8,0,17,0],[6,8,0,17,0],[0,8,0,17,0]],lat:-7.1497,lng:-34.7925,social:{}},
+  {id:'estacao',  cat:'lugar', name:'Estação Cabo Branco',      tag:'Criativo · Niemeyer',                 sensory:'"Curvas de Niemeyer, luz filtrada, silêncio respeitoso — inspira sem pressionar."',             moods:['cria','foco','intro','calma'],                   bars:{energia:30,social:40,calma:70,cria:95},times:['manhã','tarde'],        rating:4.6,votes:980,   hours:'Ter–Dom 8h–17h',          price:'Gratuito',free:true, indoor:false,schedule:[[2,8,0,17,0],[3,8,0,17,0],[4,8,0,17,0],[5,8,0,17,0],[6,8,0,17,0],[0,8,0,17,0]],lat:-7.1400,lng:-34.8200,social:{ig:'estacaocabobranco'}},
+  {id:'cemreis',  cat:'lugar', name:'Ponto de Cem Réis',        tag:'Nostalgia · Centro histórico',        sensory:'"Praça histórica, fluxo de gente, cafés ao redor — energia de cidade viva."',                  moods:['social','energia','curiosidade'],                bars:{energia:75,social:85,calma:20,cria:55},times:['tarde','noite'],        rating:4.4,votes:1200,  hours:'Aberto sempre',           price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.1170,lng:-34.8660,social:{}},
+  /* RESTAURANTES */
+  {id:'mangai',   cat:'restaurante',name:'Mangai JP Praia',     tag:'Nordestino · Buffet · 100+ pratos',   sensory:'"Mais de 100 pratos regionais em buffet, madeira rústica — autenticidade total."',               moods:['social','curiosidade','familia'],                bars:{energia:60,social:78,calma:50,cria:45},times:['manhã','almoço','tarde'],rating:4.7,votes:22422,hours:'Seg–Sex 11h30–22h | Sáb–Dom 7h–22h',  price:'~R$80–120/pp (buffet R$74/kg)',free:false,indoor:true, schedule:[[1,11,30,22,0],[2,11,30,22,0],[3,11,30,22,0],[4,11,30,22,0],[5,11,30,22,0],[6,7,0,22,0],[0,7,0,22,0]],lat:-7.1031,lng:-34.8319,social:{ig:'mangai_restaurante',web:'https://mangai.com.br'}},
+  {id:'generoso', cat:'restaurante',name:'Generoso Sertão',     tag:'Nordestino · Escondidinho · 4.9★',    sensory:'"Ambiente temático do sertão, escondidinho imperdível, atendimento acolhedor."',                 moods:['social','curiosidade','familia'],                bars:{energia:55,social:72,calma:48,cria:50},times:['almoço','tarde'],       rating:4.9,votes:2180, hours:'Seg–Sex 16h–22h30 | Sáb–Dom 7h–22h30',price:'R$40–70/pp',free:false,indoor:true, schedule:[[1,16,0,22,30],[2,16,0,22,30],[3,16,0,22,30],[4,16,0,22,30],[5,16,0,22,30],[6,7,0,22,30],[0,7,0,22,30]],lat:-7.0991,lng:-34.8356,social:{ig:'generososertao'}},
+  {id:'mio',      cat:'restaurante',name:'Miô do Sertão',       tag:'Regional · Tapioca · Cuscuz',         sensory:'"Tapiocas artesanais, queijos regionais, cores intensas — comida feita com afeto."',             moods:['curiosidade','calma','familia'],                 bars:{energia:35,social:55,calma:75,cria:60},times:['almoço','tarde'],       rating:4.6,votes:904,  hours:'Seg–Sex 14h–21h | Sáb 7h–21h', price:'R$25–45/pp',free:false,indoor:true, schedule:[[1,14,0,21,0],[2,14,0,21,0],[3,14,0,21,0],[4,14,0,21,0],[5,14,0,21,0],[6,7,0,21,0]],lat:-7.0757,lng:-34.8379,social:{ig:'miodosertao'}},
+  {id:'danadodbom',cat:'restaurante',name:'Restaurante Danadodbom',tag:'Nordestino · Rubacão · 4.9★',    sensory:'"O melhor rubacão de JP — menu pequeno, cada prato perfeito, ambiente acolhedor."',               moods:['calma','foco','curiosidade'],                    bars:{energia:40,social:58,calma:72,cria:48},times:['almoço'],              rating:4.9,votes:903,  hours:'Ter–Dom 11h–16h',          price:'R$30–50/pp',free:false,indoor:true, schedule:[[2,11,0,16,0],[3,11,0,16,0],[4,11,0,16,0],[5,11,0,16,0],[6,11,0,16,0],[0,11,0,16,0]],lat:-7.1143,lng:-34.8249,social:{ig:'danadodbom_restaurante'}},
+  {id:'casanara', cat:'restaurante',name:'Casa de Nara',         tag:'Vegano · Pizza · Garden · Top mundial',sensory:'"O melhor restaurante vegano do Brasil — pizzas e pratos criativos num garden."',               moods:['calma','foco','intro','cria'],                   bars:{energia:30,social:55,calma:80,cria:72},times:['almoço','tarde'],       rating:4.8,votes:909,  hours:'Ter–Sáb 11h30–22h | Dom 8h–16h',price:'R$40–70/pp',free:false,indoor:true, schedule:[[2,11,30,22,0],[3,11,30,22,0],[4,11,30,22,0],[5,11,30,22,0],[6,11,30,22,0],[0,8,0,16,0]],lat:-7.1054,lng:-34.8291,social:{ig:'casadenaraveganrestaurant',web:'https://casadenara.com.br'}},
+  {id:'karranka', cat:'restaurante',name:'KarrankaVeg',          tag:'Vegano · Acessível · Almoço',         sensory:'"Melhor refeição vegana do Brasil — ingredientes frescos, ambiente cercado de verde."',          moods:['calma','foco','escape'],                         bars:{energia:25,social:42,calma:85,cria:60},times:['almoço'],              rating:4.7,votes:177,  hours:'Seg–Sex 11h–15h',          price:'R$20–35/pp',free:false,indoor:false,schedule:[[1,11,0,15,0],[2,11,0,15,0],[3,11,0,15,0],[4,11,0,15,0],[5,11,0,15,0]],lat:-7.1316,lng:-34.8444,social:{ig:'karrankaveg'}},
+  {id:'papoula',  cat:'restaurante',name:'Papoula Culinária Saudável',tag:'Vegano · Casarão histórico',    sensory:'"Casarão com jardim e jambo tree — comida vegana numa casa que parece um conto."',               moods:['calma','escape','intro','foco'],                 bars:{energia:22,social:40,calma:88,cria:65},times:['almoço'],              rating:4.8,votes:341,  hours:'Ter–Sáb 11h30–14h30',    price:'R$25–40/pp',free:false,indoor:false,schedule:[[2,11,30,14,30],[3,11,30,14,30],[4,11,30,14,30],[5,11,30,14,30],[6,11,30,14,30]],lat:-7.1200,lng:-34.8382,social:{ig:'papoulaculinariasaudavel'}},
+  {id:'ryori',    cat:'restaurante',name:'Ryori',                 tag:'Japonês · Sushi · Manaíra',          sensory:'"Sushi de qualidade, salmão real, ramen — o melhor japonês de JP no Manaíra Shopping."',        moods:['calma','social','foco','cria'],                  bars:{energia:35,social:58,calma:70,cria:65},times:['almoço','tarde','noite'],rating:4.8,votes:926, hours:'Diário 11h30–22h (Sex–Sáb até 23h)',price:'R$50–90/pp',free:false,indoor:true, schedule:[[1,11,30,22,0],[2,11,30,22,0],[3,11,30,22,0],[4,11,30,22,0],[5,11,30,23,0],[6,11,30,23,0],[0,11,30,22,0]],lat:-7.0989,lng:-34.8446,social:{ig:'ryorijoaopessoa'}},
+  {id:'fabiobar', cat:'restaurante',name:'Fabio Beach Bar',       tag:'Frutos do mar · Manaíra · Música ao vivo',sensory:'"Frutos do mar frescos, caipirinhas, música ao vivo ocasional — ambiente praiano."',    moods:['social','energia','curiosidade'],                bars:{energia:65,social:75,calma:40,cria:45},times:['almoço','tarde','noite'],rating:4.7,votes:129, hours:'Diário 10h–0h (Dom até 17h)',price:'R$45–80/pp',free:false,indoor:false,schedule:[[1,10,0,0,0],[2,10,0,0,0],[3,10,0,0,0],[4,10,0,0,0],[5,10,0,0,0],[6,10,0,0,0],[0,10,0,17,0]],lat:-7.1026,lng:-34.8356,social:{ig:'fabiobeachbarjp'}},
+  /* BARES */
+  {id:'seujoao',  cat:'bar',   name:'Bar Seu João',              tag:'Cold beer · Bessa · Casual',          sensory:'"Mesa na calçada, risada alta, cheiro de petisco — o bar do Bessa."',                          moods:['social','energia','curiosidade'],                bars:{energia:70,social:88,calma:20,cria:35},times:['tarde','noite'],        rating:4.2,votes:3529, hours:'Ter–Qui 16h–23h | Sex–Sáb 11h–0h | Dom 11h–22h',price:'R$25–60/pp',free:false,indoor:false,schedule:[[2,16,0,23,0],[3,16,0,23,0],[4,16,0,23,0],[5,11,0,0,0],[6,11,0,0,0],[0,11,0,22,0]],lat:-7.0836,lng:-34.8340,social:{}},
+  {id:'vporto',   cat:'bar',   name:'Vila do Porto',             tag:'Acolhedor · Centro histórico · Pôr do sol',sensory:'"Pôr do sol no Varadouro, caipirinha, vista do Rio Sanhauá — o mais fotogênico."',     moods:['social','calma','curiosidade','cria'],           bars:{energia:55,social:78,calma:60,cria:65},times:['fim de tarde','noite'], rating:4.6,votes:1600, hours:'Seg, Qui–Dom 12h–0h (fecha Ter)',price:'R$35–70/pp',free:false,indoor:false,schedule:[[1,12,0,0,0],[4,12,0,0,0],[5,12,0,0,0],[6,12,0,0,0],[0,12,0,0,0]],lat:-7.1127,lng:-34.8889,social:{ig:'viladoportojp'}},
+  {id:'cuscuz',   cat:'bar',   name:'Bar do Cuscuz',             tag:'Vibrante · Nordestino · 35k avaliações',sensory:'"Mesas cheias, barulho animado, cheiro de cuscuz — o sabor de JP à noite."',               moods:['social','energia','curiosidade'],                bars:{energia:80,social:90,calma:15,cria:40},times:['almoço','tarde','noite'],rating:4.4,votes:35922,hours:'Diário 11h–1h',          price:'R$35–80/pp',free:false,indoor:false,schedule:[[1,11,0,1,0],[2,11,0,1,0],[3,11,0,1,0],[4,11,0,1,0],[5,11,0,1,0],[6,11,0,1,0],[0,11,0,1,0]],lat:-7.1365,lng:-34.8194,social:{ig:'bardocuscuzjp'}},
+  {id:'orama',    cat:'bar',   name:'ORAMA Rooftop',             tag:'Rooftop · Vista do oceano',           sensory:'"Vento em altitude, vista do oceano ao entardecer, drinks elaborados."',                      moods:['social','calma','cria','intro'],                 bars:{energia:60,social:72,calma:58,cria:70},times:['fim de tarde','noite'], rating:4.5,votes:302,  hours:'Diário 15h30–0h (Seg 19h)',price:'R$60–130/pp',free:false,indoor:false,schedule:[[1,19,0,0,0],[2,12,0,0,0],[3,12,0,0,0],[4,12,0,0,0],[5,12,0,0,0],[6,12,0,0,0],[0,12,0,0,0]],lat:-7.1200,lng:-34.8240,social:{ig:'orama_jp'}},
+  {id:'skybar',   cat:'bar',   name:'Skybar Tour Genève',        tag:'Rooftop 44º · Vista 360°',            sensory:'"A 44 andares, vista de 360° da cidade e do oceano — o pôr do sol mais alto de JP."',          moods:['calma','social','cria','intro','curiosidade'],   bars:{energia:50,social:70,calma:72,cria:80},times:['fim de tarde','noite'], rating:4.6,votes:7710, hours:'Diário 15h30–0h',          price:'R$50–110/pp',free:false,indoor:false,schedule:[[1,15,30,0,0],[2,15,30,0,0],[3,15,30,0,0],[4,15,30,0,0],[5,15,30,0,0],[6,15,30,0,0],[0,15,30,0,0]],lat:-7.1299,lng:-34.8273,social:{ig:'skybartourgeneve',web:'https://skybartg.com.br'}},
+  {id:'afterpub', cat:'bar',   name:'Bar de Rock After Pub',     tag:'Rock · Noite alta · Sex e Sáb',       sensory:'"Guitarra distorcida, camisetas vintage, chopp gelado — energia pura à noite."',               moods:['energia','social','cria'],                       bars:{energia:95,social:80,calma:5,cria:60}, times:['noite'],               rating:4.6,votes:1066, hours:'Sex e Sáb 21h–3h',         price:'R$30–60/pp',free:false,indoor:true, schedule:[[5,21,0,3,0],[6,21,0,3,0]],lat:-7.1112,lng:-34.8249,social:{ig:'afterpubjp'}},
+  {id:'naveg',    cat:'bar',   name:'Navegantes Bar',            tag:'À beira-mar · Frutos do mar',         sensory:'"Brisa do oceano, frutos do mar frescos, música nos fins de semana."',                        moods:['social','calma','curiosidade','energia'],        bars:{energia:65,social:78,calma:48,cria:45},times:['almoço','tarde','noite'],rating:4.3,votes:1679, hours:'Diário 11h–0h',           price:'R$40–80/pp',free:false,indoor:false,schedule:[[1,11,0,0,0],[2,11,0,0,0],[3,11,0,0,0],[4,11,0,0,0],[5,11,0,0,0],[6,11,0,0,0],[0,11,0,0,0]],lat:-7.1228,lng:-34.8262,social:{}},
+  /* CAFÉS */
+  {id:'mun',      cat:'cafe',  name:'Mun Café',                  tag:'Asiático · Aconchegante',             sensory:'"Arquitetura asiática, café de filtro, quiche quentinha — íntimo e focado."',                 moods:['foco','calma','intro','cria'],                   bars:{energia:25,social:45,calma:85,cria:75},times:['tarde'],               rating:4.7,votes:498,  hours:'Diário 14h–21h',          price:'R$20–45/pp',free:false,indoor:true, schedule:[[1,14,0,21,0],[2,14,0,21,0],[3,14,0,21,0],[4,14,0,21,0],[5,14,0,21,0],[6,14,0,21,0],[0,14,0,21,0]],lat:-7.1204,lng:-34.8360,social:{ig:'muncafe_jp'}},
+  {id:'cafeina',  cat:'cafe',  name:'Cafeína Cafeteria',         tag:'Método especial · Clássico',          sensory:'"Café que cheira desde a porta, ambiente arejado — do café da manhã à tarde."',               moods:['foco','calma','social','intro'],                 bars:{energia:30,social:55,calma:80,cria:60},times:['manhã','tarde'],        rating:4.7,votes:503,  hours:'Diário 8h–20h',           price:'R$15–35/pp',free:false,indoor:true, schedule:[[1,8,0,20,0],[2,8,0,20,0],[3,8,0,20,0],[4,8,0,20,0],[5,8,0,20,0],[6,8,0,20,0],[0,8,0,20,0]],lat:-7.1209,lng:-34.8346,social:{ig:'cafeinacafeteria'}},
+  {id:'dm',       cat:'cafe',  name:'DM Caffe',                  tag:'Flat white · Artesanal',              sensory:'"Melhor flat white da cidade, croissant artesanal, ambiente pequenininho."',                  moods:['foco','calma','intro'],                          bars:{energia:20,social:35,calma:88,cria:65},times:['manhã','tarde'],        rating:4.7,votes:203,  hours:'Seg–Sáb 11h30–21h | Dom 15h–20h',price:'R$18–40/pp',free:false,indoor:true, schedule:[[1,11,30,21,0],[2,11,30,21,0],[3,11,30,21,0],[4,11,30,21,0],[5,11,30,21,0],[6,11,30,21,0],[0,15,0,20,0]],lat:-7.0859,lng:-34.8333,social:{ig:'dmcaffe'}},
+  {id:'283',      cat:'cafe',  name:'283 Café',                  tag:'Vegano · Descolado · Manaíra',        sensory:'"Opções veganas, café bom, doces incríveis — favorito do Manaíra."',                         moods:['foco','social','calma','cria'],                  bars:{energia:35,social:62,calma:72,cria:68},times:['tarde'],               rating:4.7,votes:1118, hours:'Diário 12h–21h',          price:'R$20–45/pp',free:false,indoor:true, schedule:[[1,12,0,21,0],[2,12,0,21,0],[3,12,0,21,0],[4,12,0,21,0],[5,12,0,21,0],[6,12,0,21,0],[0,12,0,21,0]],lat:-7.1114,lng:-34.8291,social:{ig:'283cafejp'}},
+  {id:'visse',    cat:'cafe',  name:'Visse Café',                tag:'Regional · Autoral · 4.9★',          sensory:'"Café coado no pano, cartola quentinha, cuscuz xique-xique — nordeste em xícaras."',          moods:['calma','foco','intro','curiosidade'],            bars:{energia:22,social:48,calma:90,cria:62},times:['manhã','tarde'],        rating:4.9,votes:254,  hours:'Ter–Qui 15h–21h | Sex–Dom 7h–11h e 15h–21h',price:'R$20–45/pp',free:false,indoor:true, schedule:[[2,15,0,21,0],[3,15,0,21,0],[4,15,0,21,0],[5,7,0,11,0],[5,15,0,21,0],[6,7,0,11,0],[6,15,0,21,0],[0,7,0,11,0],[0,15,0,21,0]],lat:-7.0953,lng:-34.8382,social:{ig:'vissecafe'}},
+  {id:'cheirin',  cat:'cafe',  name:'Cheirin Bão',               tag:'Cappuccino · Pão de queijo',          sensory:'"Cappuccino de avelã e pão de queijo quentinho — o abraço da manhã."',                       moods:['calma','social','foco','familia'],               bars:{energia:28,social:60,calma:78,cria:40},times:['manhã'],               rating:4.9,votes:179,  hours:'Ter–Sex 14h–20h | Sáb–Dom 9h–12h e 14h–20h',price:'R$15–30/pp',free:false,indoor:true, schedule:[[2,14,0,20,0],[3,14,0,20,0],[4,14,0,20,0],[5,14,0,20,0],[6,9,0,12,0],[6,14,0,20,0],[0,9,0,12,0],[0,14,0,20,0]],lat:-7.1094,lng:-34.8247,social:{ig:'cheirinbao_oficial'}},
+  {id:'emporio',  cat:'cafe',  name:'Empório Café',              tag:'Karaokê · Bar-café · Noturno',        sensory:'"Café durante o dia, karaokê e eletrônico à noite — o espaço que muda de roupa."',            moods:['social','energia','cria'],                       bars:{energia:75,social:85,calma:15,cria:65},times:['tarde','noite'],        rating:4.4,votes:2725, hours:'Ter–Dom 16h–2h (Sex–Sáb até 5h)',price:'R$35–80/pp',free:false,indoor:true, schedule:[[2,16,0,2,0],[3,16,0,2,0],[4,16,0,2,0],[5,16,0,5,0],[6,16,0,5,0],[0,16,0,2,0]],lat:-7.1115,lng:-34.8235,social:{ig:'emporiocafe_jp'}},
+  /* SHOWS */
+  {id:'priscyllas',cat:'show', name:'Priscyllas Hall',           tag:'Night club · 3 pistas · Brega funk',  sensory:'"Três ambientes, brega funk e eletrônico, som que você sente no peito."',                     moods:['energia','social'],                              bars:{energia:100,social:95,calma:2,cria:50}, times:['noite'],               rating:4.8,votes:2949, hours:'Sex–Dom 22h–6h',           price:'R$40–100 (entrada)',free:false,indoor:true, schedule:[[5,22,0,6,0],[6,22,0,6,0],[0,22,0,6,0]],lat:-7.1063,lng:-34.8596,social:{ig:'priscyllashall',web:'https://priscyllashall.com.br'}},
+  {id:'v21',      cat:'show',  name:'Vintage 21 — V21',          tag:'Banda ao vivo · Dança · Oceania',     sensory:'"Pista pequena e quente, banda ao vivo, drinks razoáveis."',                                 moods:['energia','social','cria'],                       bars:{energia:88,social:85,calma:8,cria:65}, times:['noite'],               rating:4.3,votes:204,  hours:'Qui–Sáb 21h30–4h | Dom 20h–3h',price:'R$20–50 (entrada)',free:false,indoor:true, schedule:[[4,21,30,4,0],[5,21,30,4,0],[6,21,30,4,0],[0,20,0,3,0]],lat:-7.0817,lng:-34.8327,social:{ig:'v21jp'}},
+  {id:'atol',     cat:'show',  name:'Atol Music Bar',            tag:'Pop Rock ao vivo · Cocktails',        sensory:'"Bandas de pop rock ao vivo, cocktails caprichados, fim de semana cheio."',                  moods:['energia','social','cria'],                       bars:{energia:85,social:88,calma:10,cria:70}, times:['noite'],               rating:4.6,votes:1006, hours:'Qui–Dom 19h–2h',           price:'R$20–50 (entrada)',free:false,indoor:true, schedule:[[4,19,0,2,0],[5,19,0,2,0],[6,19,0,2,0],[0,19,0,2,0]],lat:-7.1116,lng:-34.8241,social:{ig:'atolmusicbar',web:'https://atolmusicbar.com.br'}},
+  {id:'mansao',   cat:'show',  name:'Mansão Music Bar',          tag:'Ao vivo · Espeto · Geisel',           sensory:'"Música ao vivo, área externa, espetinhos — noite com alma no Geisel."',                     moods:['social','energia','cria','curiosidade'],         bars:{energia:72,social:80,calma:30,cria:60}, times:['tarde','noite'],        rating:4.3,votes:84,   hours:'Seg, Qua–Qui 18h–2h | Sex–Sáb 17h–4h',price:'R$10–30 (entrada)',free:false,indoor:true, schedule:[[1,18,0,2,0],[3,18,0,2,0],[4,18,0,2,0],[5,17,0,4,0],[6,17,0,4,0]],lat:-7.1794,lng:-34.8711,social:{}},
+  /* CINEMAS */
+  {id:'cinepolis-m',cat:'cinema',name:'Cinépolis Manaíra',      tag:'VIP · IMAX · Melhor de JP',           sensory:'"Cadeiras que reclinam, cerveja gelada, som envolvente — cinema como deveria ser."',          moods:['social','calma','intro','familia'],              bars:{energia:40,social:60,calma:70,cria:55}, times:['tarde','noite'],        rating:4.5,votes:7606, hours:'Diário 13h–22h',           price:'R$25–55/ingresso',free:false,indoor:true, schedule:[[1,13,0,22,0],[2,13,0,22,0],[3,13,0,22,0],[4,13,0,22,0],[5,13,0,22,0],[6,13,0,22,0],[0,13,0,22,0]],lat:-7.0986,lng:-34.8445,social:{ig:'cinepolisbrasil',web:'https://cinepolis.com.br'}},
+  {id:'cinepolis-g',cat:'cinema',name:'Cinépolis Mangabeira',   tag:'Moderno · Mangabeira',                sensory:'"Cinema amplo e moderno no Mangabeira Shopping."',                                           moods:['social','calma','familia'],                     bars:{energia:38,social:58,calma:68,cria:50}, times:['tarde','noite'],        rating:4.6,votes:8850, hours:'Diário 13h–22h',           price:'R$22–50/ingresso',free:false,indoor:true, schedule:[[1,13,0,22,0],[2,13,0,22,0],[3,13,0,22,0],[4,13,0,22,0],[5,13,0,22,0],[6,13,0,22,0],[0,13,0,22,0]],lat:-7.1624,lng:-34.8304,social:{ig:'cinepolisbrasil',web:'https://cinepolis.com.br'}},
+  {id:'centerplex',cat:'cinema',name:'Centerplex MAG Shopping', tag:'Beira-mar · Vista · Acessível',       sensory:'"Cinema com vista para o oceano no MAG Shopping."',                                         moods:['calma','social','familia'],                     bars:{energia:35,social:55,calma:72,cria:45}, times:['tarde','noite'],        rating:4.5,votes:4420, hours:'Diário 13h–22h',           price:'R$18–40/ingresso',free:false,indoor:true, schedule:[[1,13,0,22,0],[2,13,0,22,0],[3,13,0,22,0],[4,13,0,22,0],[5,13,0,22,0],[6,13,0,22,0],[0,13,0,22,0]],lat:-7.0974,lng:-34.8336,social:{}},
+  {id:'cinesercla',cat:'cinema',name:'Cinesercla Tambiá',       tag:'Centro · Acessível · Popular',        sensory:'"Cinema no centro, preços acessíveis, fácil de chegar de ônibus."',                         moods:['social','familia','calma'],                     bars:{energia:32,social:52,calma:70,cria:42}, times:['tarde','noite'],        rating:4.4,votes:5027, hours:'Diário 13h30–21h',         price:'R$15–35/ingresso',free:false,indoor:true, schedule:[[1,13,30,21,0],[2,13,30,21,0],[3,13,30,21,0],[4,13,30,21,0],[5,13,30,21,0],[6,13,30,21,0],[0,13,30,21,0]],lat:-7.1159,lng:-34.8800,social:{}},
+  /* TEATROS */
+  {id:'paulo-pontes',cat:'teatro',name:'Teatro Paulo Pontes',   tag:'Principal · Espetáculos grandes',     sensory:'"O maior palco da cidade — onde os melhores espetáculos do Brasil chegam a JP."',           moods:['cria','intro','curiosidade','social'],           bars:{energia:45,social:65,calma:62,cria:90}, times:['tarde','noite'],        rating:4.7,votes:1278, hours:'Conforme programação',    price:'R$25–80/ingresso',free:false,indoor:true, schedule:null,lat:-7.1226,lng:-34.8425,social:{ig:'teatropaulopontes'}},
+  {id:'sta-roza',  cat:'teatro',name:'Theatro Santa Roza',      tag:'Histórico · Arquitetura colonial',    sensory:'"Balcões em ferradura, paredes centenárias — o teatro mais bonito do nordeste."',          moods:['cria','intro','curiosidade','calma'],            bars:{energia:35,social:55,calma:75,cria:92}, times:['tarde','noite'],        rating:4.7,votes:1704, hours:'Visitas Ter–Sex 9h–17h',  price:'Gratuito (visitas)',free:true, indoor:true, schedule:[[2,9,0,17,0],[3,9,0,17,0],[4,9,0,17,0],[5,9,0,17,0]],lat:-7.1179,lng:-34.8867,social:{ig:'theatrosantaroza'}},
+  {id:'lima-penante',cat:'teatro',name:'Teatro Lima Penante',   tag:'Intimista · Centro',                  sensory:'"Palco menor, acústica ótima — peças de câmara e shows acústicos imperdíveis."',          moods:['cria','intro','calma'],                          bars:{energia:30,social:50,calma:78,cria:85}, times:['tarde','noite'],        rating:4.4,votes:471,  hours:'Seg–Sex 8h–22h | Sáb–Dom 14h–22h',price:'R$20–60/ingresso',free:false,indoor:true, schedule:[[1,8,0,22,0],[2,8,0,22,0],[3,8,0,22,0],[4,8,0,22,0],[5,8,0,22,0],[6,14,0,22,0],[0,14,0,22,0]],lat:-7.1256,lng:-34.8842,social:{}},
+  {id:'pedra-reino',cat:'teatro',name:'Theater A Pedra do Reino',tag:'Ao ar livre · Fim de semana',        sensory:'"Teatro a céu aberto à beira-mar, shows ao entardecer nos fins de semana."',              moods:['social','cria','escape','curiosidade'],          bars:{energia:55,social:70,calma:65,cria:88}, times:['fim de tarde','noite'], rating:4.8,votes:4373, hours:'Seg–Sex 8h–18h | Sáb–Dom 17h–22h30',price:'R$30–80/ingresso',free:false,indoor:false,schedule:[[1,8,0,18,0],[2,8,0,18,0],[3,8,0,18,0],[4,8,0,18,0],[5,8,0,18,0],[6,17,0,22,30],[0,17,0,22,30]],lat:-7.1887,lng:-34.8038,social:{ig:'pedradoreino_jp'}},
+  /* CULTURA */
+  {id:'espaco-jose',cat:'cultura',name:'Espaço Cultural José Lins do Rego',tag:'Multi · Teatro · Cinema · Arte',sensory:'"Vasto complexo com múltiplos teatros, galerias e escola de música."',            moods:['cria','curiosidade','intro','social'],           bars:{energia:45,social:65,calma:60,cria:95}, times:['manhã','tarde','noite'],rating:4.6,votes:16949,hours:'Diário 6h–22h',           price:'Gratuito',free:true, indoor:true, schedule:[[1,6,0,22,0],[2,6,0,22,0],[3,6,0,22,0],[4,6,0,22,0],[5,6,0,22,0],[6,6,0,22,0],[0,6,0,22,0]],lat:-7.1221,lng:-34.8431,social:{ig:'espacocultural_jlr'}},
+  {id:'celeiro',   cat:'cultura',name:'Celeiro Espaço Criativo',tag:'Arte naif · Artesanato · Varadouro',  sensory:'"Arte naif e artesanato paraibano num casarão histórico."',                              moods:['cria','curiosidade','intro','calma'],            bars:{energia:20,social:42,calma:80,cria:92}, times:['manhã','tarde'],        rating:4.7,votes:209,  hours:'Diário 8h30–17h',         price:'Gratuito',free:true, indoor:true, schedule:[[1,8,30,17,0],[2,8,30,17,0],[3,8,30,17,0],[4,8,30,17,0],[5,8,30,17,0],[6,8,30,17,0],[0,8,30,17,0]],lat:-7.1126,lng:-34.8892,social:{ig:'celeiro_espacocriativo'}},
+  {id:'museu-j',   cat:'cultura',name:'Museu de Arte Jurandir Maciel',tag:'Esculturas · Centro histórico',  sensory:'"Esculturas e acervo paraibano no coração do Varadouro."',                              moods:['cria','curiosidade','intro'],                    bars:{energia:15,social:30,calma:82,cria:88}, times:['manhã','tarde'],        rating:4.5,votes:324,  hours:'Seg–Sáb 9h–17h30',       price:'Gratuito',free:true, indoor:true, schedule:[[1,9,0,17,30],[2,9,0,17,30],[3,9,0,17,30],[4,9,0,17,30],[5,9,0,17,30],[6,9,0,17,30]],lat:-7.1131,lng:-34.8888,social:{}},
+  {id:'casanara-a',cat:'cultura',name:'Casa do Artista Popular', tag:'Artesanato · Cultura popular',       sensory:'"Arte popular, artesanato e a alma do povo paraibano na Praça da Independência."',       moods:['curiosidade','cria','social','calma'],           bars:{energia:25,social:55,calma:75,cria:85}, times:['manhã','tarde'],        rating:4.7,votes:517,  hours:'Ter–Dom 9h–16h30',        price:'Gratuito',free:true, indoor:true, schedule:[[2,9,0,16,30],[3,9,0,16,30],[4,9,0,16,30],[5,9,0,16,30],[6,9,0,16,30],[0,9,0,16,30]],lat:-7.1201,lng:-34.8722,social:{}},
+  {id:'casarao34', cat:'cultura',name:'Casarão 34',               tag:'Galeria · Fotografia · Exposições',  sensory:'"Casarão histórico com exposições de fotografia — sempre surpreende."',                 moods:['cria','intro','curiosidade'],                    bars:{energia:15,social:30,calma:85,cria:92}, times:['manhã','tarde'],        rating:4.6,votes:71,   hours:'Seg–Sex 8h–17h',          price:'Gratuito',free:true, indoor:true, schedule:[[1,8,0,17,0],[2,8,0,17,0],[3,8,0,17,0],[4,8,0,17,0],[5,8,0,17,0]],lat:-7.1159,lng:-34.8829,social:{ig:'casarao34jp'}},
+  {id:'gamela',    cat:'cultura',name:'Galeria Gamela de Arte',   tag:'Galeria · Arte paraibana · Jaguaribe',sensory:'"Casarão em Jaguaribe — a galeria mais tradicional da Paraíba."',                    moods:['cria','intro','curiosidade','calma'],            bars:{energia:15,social:28,calma:85,cria:95}, times:['manhã','tarde'],        rating:4.6,votes:28,   hours:'Seg–Sáb 9h–17h',          price:'Gratuito',free:true, indoor:true, schedule:[[1,9,0,17,0],[2,9,0,17,0],[3,9,0,17,0],[4,9,0,17,0],[5,9,0,17,0],[6,9,0,17,0]],lat:-7.1362,lng:-34.8817,social:{ig:'galeriagamela'}},
+  /* SHOPPINGS */
+  {id:'manaira',   cat:'shopping',name:'Manaíra Shopping',        tag:'Maior de JP · Cinema · Game Station',sensory:'"O maior shopping de JP — cinema, Game Station, praça de alimentação enorme."',         moods:['social','energia','familia','curiosidade'],      bars:{energia:65,social:80,calma:20,cria:35}, times:['manhã','tarde','noite'],rating:4.5,votes:47606,hours:'Seg–Sáb 10h–22h | Dom 11h30–22h',price:'Gratuito (entrada)',free:true, indoor:true, schedule:[[1,10,0,22,0],[2,10,0,22,0],[3,10,0,22,0],[4,10,0,22,0],[5,10,0,22,0],[6,10,0,22,0],[0,11,30,22,0]],lat:-7.0988,lng:-34.8450,social:{ig:'manairashopping',web:'https://manairashopping.com.br'}},
+  {id:'mangabeira',cat:'shopping',name:'Mangabeira Shopping',     tag:'Familiar · Karting · Trampolim',     sensory:'"Karting, bowling, Game Station e Vila Trampolim — o shopping para família."',          moods:['energia','social','familia','curiosidade'],      bars:{energia:72,social:85,calma:15,cria:45}, times:['manhã','tarde','noite'],rating:4.6,votes:39781,hours:'Seg–Sáb 10h–22h | Dom 11h30–22h',price:'Gratuito (entrada)',free:true, indoor:true, schedule:[[1,10,0,22,0],[2,10,0,22,0],[3,10,0,22,0],[4,10,0,22,0],[5,10,0,22,0],[6,10,0,22,0],[0,11,30,22,0]],lat:-7.1627,lng:-34.8306,social:{ig:'mangabeirashopping',web:'https://mangabeirashopping.com.br'}},
+  {id:'tambia',    cat:'shopping',name:'Shopping Tambiá',          tag:'Centro · Acessível · Popular',       sensory:'"No coração do centro, praça de alimentação variada, prático e acessível."',           moods:['social','curiosidade','familia'],                bars:{energia:55,social:72,calma:30,cria:30}, times:['manhã','tarde'],        rating:4.5,votes:26284,hours:'Seg–Sáb 9h–20h | Dom 13h–20h',price:'Gratuito (entrada)',free:true, indoor:true, schedule:[[1,9,0,20,0],[2,9,0,20,0],[3,9,0,20,0],[4,9,0,20,0],[5,9,0,20,0],[6,9,0,20,0],[0,13,0,20,0]],lat:-7.1164,lng:-34.8799,social:{ig:'shoppingtambia'}},
+  {id:'mag',       cat:'shopping',name:'MAG Shopping',             tag:'Beira-mar · Cinema · Oceania',       sensory:'"Vista para o mar a partir da praça de alimentação — o shopping com mais vista."',    moods:['social','calma','familia','curiosidade'],        bars:{energia:55,social:70,calma:42,cria:30}, times:['manhã','tarde','noite'],rating:4.5,votes:23400,hours:'Seg–Sáb 9h–22h | Dom 12h–20h',price:'Gratuito (entrada)',free:true, indoor:true, schedule:[[1,9,0,22,0],[2,9,0,22,0],[3,9,0,22,0],[4,9,0,22,0],[5,9,0,22,0],[6,9,0,22,0],[0,12,0,20,0]],lat:-7.0975,lng:-34.8333,social:{ig:'magshoppingjp'}},
+  /* PARQUES */
+  {id:'solon',     cat:'parque', name:'Parque Solon de Lucena',   tag:'Lagoa · Ciclovia · Aberto 24h',      sensory:'"Palmeiras imperiais ao redor da lagoa, ciclovia, academia ao ar livre."',             moods:['calma','escape','foco','familia'],               bars:{energia:25,social:50,calma:88,cria:55}, times:['manhã','tarde','noite'],rating:4.6,votes:42826,hours:'Aberto 24h',              price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.1207,lng:-34.8786,social:{}},
+  {id:'linear1',   cat:'parque', name:'Parque Linear Parahyba',   tag:'Ciclovia · Playground · Food trucks', sensory:'"Pista de ciclismo iluminada à noite, parquinho, food trucks e natureza."',          moods:['escape','calma','energia','familia'],            bars:{energia:40,social:45,calma:80,cria:50}, times:['manhã','tarde','noite'],rating:4.6,votes:1847, hours:'Aberto 24h',              price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.0863,lng:-34.8395,social:{}},
+  {id:'treslagoas',cat:'parque', name:'Parque Três Lagoas',       tag:'Natureza · Quieto · Mangabeira',      sensory:'"Três lagoas cercadas de verde — para quem quer desaparecer da cidade."',           moods:['escape','calma','intro'],                        bars:{energia:15,social:20,calma:90,cria:40}, times:['manhã','tarde'],        rating:4.2,votes:291,  hours:'Aberto 24h',              price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-7.1664,lng:-34.8997,social:{}},
+  /* JOGOS */
+  {id:'gs-man',    cat:'jogo',   name:'Game Station (Manaíra)',   tag:'Fliperama · Sinuca · Familiar',       sensory:'"Dezenas de máquinas de arcade, sinuca — diversão para todas as idades."',          moods:['energia','social','familia'],                    bars:{energia:80,social:82,calma:10,cria:55}, times:['tarde','noite'],        rating:4.2,votes:899,  hours:'Seg–Sáb 10h–22h | Dom 12h–22h',price:'R$5–30/crédito',free:false,indoor:true, schedule:[[1,10,0,22,0],[2,10,0,22,0],[3,10,0,22,0],[4,10,0,22,0],[5,10,0,22,0],[6,10,0,22,0],[0,12,0,22,0]],lat:-7.0985,lng:-34.8447,social:{ig:'gamestationbrasil'}},
+  {id:'gs-mg',     cat:'jogo',   name:'Game Station (Mangabeira)',tag:'Fliperama · Bowling · Karting',        sensory:'"Game Station com bowling e karting — horas de diversão em família."',             moods:['energia','social','familia'],                    bars:{energia:82,social:85,calma:8,cria:55},  times:['tarde','noite'],        rating:4.4,votes:1580, hours:'Seg–Sáb 10h–22h | Dom 12h–22h',price:'R$5–30/crédito',free:false,indoor:true, schedule:[[1,10,0,22,0],[2,10,0,22,0],[3,10,0,22,0],[4,10,0,22,0],[5,10,0,22,0],[6,10,0,22,0],[0,12,0,22,0]],lat:-7.1618,lng:-34.8306,social:{ig:'gamestationbrasil'}},
+  {id:'trampolim', cat:'jogo',   name:'Vila Trampolim',            tag:'Camas elásticas · Kids · Adrenalina',sensory:'"Um mar de camas elásticas — para crianças e adultos voarem e gastarem energia."',  moods:['energia','familia','social'],                    bars:{energia:90,social:80,calma:2,cria:50},  times:['tarde'],               rating:4.8,votes:240,  hours:'Seg–Sáb 10h–22h | Dom 12h–22h',price:'R$40–80/hora',free:false,indoor:true, schedule:[[1,10,0,22,0],[2,10,0,22,0],[3,10,0,22,0],[4,10,0,22,0],[5,10,0,22,0],[6,10,0,22,0],[0,12,0,22,0]],lat:-7.1622,lng:-34.8305,social:{ig:'vilatrampolim_oficial'}},
+  {id:'recanto',   cat:'jogo',   name:'Recanto do Lazer',          tag:'Parque aquático · Toboágua · Família',sensory:'"Toboáguas, piscinas e área verde — o parque aquático preferido das famílias."',  moods:['energia','familia','social','escape'],           bars:{energia:85,social:80,calma:25,cria:40}, times:['manhã','tarde'],        rating:4.5,votes:1733, hours:'Seg e Sáb–Dom 8h30–16h30',price:'R$30–60/pessoa',free:false,indoor:false,schedule:[[1,8,30,16,30],[6,8,30,16,30],[0,8,30,16,30]],lat:-7.1711,lng:-35.0049,social:{}},
+  /* NOVOS LUGARES — PASSEIOS */
+  {id:'picaozinho',cat:'praia', name:'Picãozinho',                 tag:'Piscinas naturais · Jangada · Tambaú',sensory:'"Águas rasas e transparentes a 800m da orla — estrelas do mar, peixinhos coloridos."',  moods:['familia','curiosidade','calma','social'],        bars:{energia:40,social:65,calma:75,cria:55},times:['manhã','tarde'],       rating:4.7,votes:4821, hours:'Diário (depende da maré)',  price:'~R$30/jangada ou R$60 tour',free:false,indoor:false,schedule:'24h',lat:-7.1192,lng:-34.8191,social:{ig:'picaozinhojp'},isNew:true},
+  {id:'jacare',    cat:'lugar',  name:'Praia do Jacaré',            tag:'Pôr do Sol · Bolero de Ravel · Cabedelo',sensory:'"Saxofonista ao vivo ao pôr do sol no Rio Paraíba — o espetáculo gratuito mais famoso do Brasil."',moods:['calma','social','cria','curiosidade'],       bars:{energia:35,social:72,calma:85,cria:78},times:['fim de tarde'],       rating:4.8,votes:9420, hours:'Pôr do sol diariamente',   price:'Gratuito',free:true, indoor:false,schedule:'24h',lat:-6.9711,lng:-34.8633,social:{ig:'praiadojacarejp'},isNew:true},
+  {id:'mercado-art',cat:'cultura',name:'Mercado de Artesanato Paraibano',tag:'Artesanato · Rendas · Souvenirs',sensory:'"Rendas de bilro, bordados, louças de barro — o melhor do artesanato paraibano reunido."',moods:['curiosidade','social','familia'],              bars:{energia:55,social:72,calma:45,cria:68},times:['manhã','tarde'],       rating:4.6,votes:5821, hours:'Seg–Sex 9h–18h | Sáb–Dom 9h–17h',price:'Gratuito (entrada)',free:true, indoor:true, schedule:[[1,9,0,18,0],[2,9,0,18,0],[3,9,0,18,0],[4,9,0,18,0],[5,9,0,18,0],[6,9,0,17,0],[0,9,0,17,0]],lat:-7.1183,lng:-34.8386,social:{},isNew:true},
+  {id:'centro-francisco',cat:'cultura',name:'Centro Cultural São Francisco',tag:'Barroco · UNESCO · Imperdível',sensory:'"A Capela Dourada, a mais rica do Brasil barroco — ouro por toda parte, silêncio reverente."',moods:['curiosidade','intro','calma','cria'],         bars:{energia:15,social:35,calma:88,cria:90},times:['manhã','tarde'],       rating:4.9,votes:12400,hours:'Ter–Dom 8h–17h30',         price:'R$20 (ingresso)',free:false,indoor:true, schedule:[[2,8,0,17,30],[3,8,0,17,30],[4,8,0,17,30],[5,8,0,17,30],[6,8,0,17,30],[0,8,0,17,30]],lat:-7.1176,lng:-34.8867,social:{},isNew:true},
+  /* NOVOS RESTAURANTES */
+  {id:'taboa',     cat:'restaurante',name:'A Tábua',                tag:'Frutos do mar · Carne de sol · 4.8★',sensory:'"Tábuas fartas de carne de sol e frutos do mar — a generosidade nordestina no prato."',  moods:['social','familia','curiosidade'],                bars:{energia:60,social:80,calma:42,cria:45},times:['almoço','tarde'],      rating:4.8,votes:3241, hours:'Diário 11h–16h',           price:'R$45–80/pp',free:false,indoor:true, schedule:[[1,11,0,16,0],[2,11,0,16,0],[3,11,0,16,0],[4,11,0,16,0],[5,11,0,16,0],[6,11,0,16,0],[0,11,0,16,0]],lat:-7.1099,lng:-34.8351,social:{ig:'ataboajp'}},
+  {id:'namorado',  cat:'restaurante',name:'O Namorado',             tag:'Frutos do mar · Clássico · Tradição',sensory:'"O restaurante de frutos do mar mais antigo de JP — camarão ao alho e óleo inesquecível."',moods:['social','familia','curiosidade'],                bars:{energia:55,social:75,calma:45,cria:40},times:['almoço','tarde','noite'],rating:4.5,votes:8900,hours:'Ter–Dom 11h–22h',          price:'R$50–90/pp',free:false,indoor:true, schedule:[[2,11,0,22,0],[3,11,0,22,0],[4,11,0,22,0],[5,11,0,22,0],[6,11,0,22,0],[0,11,0,22,0]],lat:-7.1188,lng:-34.8378,social:{ig:'restauranteonamorado'}},
+  {id:'saborear',  cat:'restaurante',name:'Saborear Culinária Saudável',tag:'Fitness · Quentinha · Acessível',sensory:'"Marmita saudável com ingredientes frescos — o melhor custo-benefício do bairro."',     moods:['foco','calma','escape'],                         bars:{energia:28,social:38,calma:80,cria:42},times:['almoço'],              rating:4.7,votes:412,  hours:'Seg–Sex 11h–15h',          price:'R$18–35/pp',free:false,indoor:true, schedule:[[1,11,0,15,0],[2,11,0,15,0],[3,11,0,15,0],[4,11,0,15,0],[5,11,0,15,0]],lat:-7.1145,lng:-34.8467,social:{}},
+  /* NOVOS BARES / CAFÉS */
+  {id:'cacimba',   cat:'bar',    name:'Cacimba Bar',                tag:'Artesanal · Craft beer · Manaíra',   sensory:'"Cervejas artesanais locais, petiscos autorais, ambiente descontraído e moderno."',      moods:['social','curiosidade','energia'],                bars:{energia:65,social:78,calma:35,cria:58},times:['tarde','noite'],       rating:4.5,votes:892,  hours:'Ter–Dom 17h–0h',           price:'R$30–65/pp',free:false,indoor:true, schedule:[[2,17,0,0,0],[3,17,0,0,0],[4,17,0,0,0],[5,17,0,0,0],[6,17,0,0,0],[0,17,0,0,0]],lat:-7.1012,lng:-34.8421,social:{ig:'cacimbabar_jp'}},
+  {id:'laranja-mecanica',cat:'cafe',name:'Laranja Mecânica Café',  tag:'Literário · Livros · Cabo Branco',   sensory:'"Prateleiras de livros, jazz suave, café de filtro — o café mais literário de JP."',     moods:['intro','foco','calma','cria'],                   bars:{energia:18,social:35,calma:92,cria:85},times:['manhã','tarde'],       rating:4.8,votes:621,  hours:'Ter–Dom 9h–20h',           price:'R$15–38/pp',free:false,indoor:true, schedule:[[2,9,0,20,0],[3,9,0,20,0],[4,9,0,20,0],[5,9,0,20,0],[6,9,0,20,0],[0,9,0,20,0]],lat:-7.1285,lng:-34.8233,social:{ig:'laranjaemecanica_cafe'}},
+  {id:'botanico',  cat:'cafe',   name:'Botânico Café',             tag:'Plantas · Jardim · Matinal',         sensory:'"Servido num jardim com plantas por toda parte — café no meio da natureza urbana."',    moods:['calma','escape','intro','foco'],                 bars:{energia:20,social:40,calma:90,cria:70},times:['manhã','tarde'],       rating:4.7,votes:344,  hours:'Diário 8h–19h',            price:'R$16–35/pp',free:false,indoor:false,schedule:[[1,8,0,19,0],[2,8,0,19,0],[3,8,0,19,0],[4,8,0,19,0],[5,8,0,19,0],[6,8,0,19,0],[0,8,0,19,0]],lat:-7.1133,lng:-34.8299,social:{ig:'botanicocafe_jp'}},
+];
+
+/* ══════ EVENTS ══════ */
+const EVENTS=[
+  {name:'Três Mulheres Altas (Prêmio Pulitzer)',date:'3–5 Abr 2026',venue:'Teatro Paulo Pontes',tags:['teatro','prêmio pulitzer'],price:'R$25–R$60',free:false,color:'#C97B4A',desc:'Helena Ranaldi, Fernanda Nobre e Ana Rosa em peça vencedora do Pulitzer. 90 mil espectadores no Brasil.',moods:['cria','intro','social']},
+  {name:'Roupa Nova',date:'3 Abr 2026',venue:'Theater A Pedra do Reino',tags:['MPB','show'],price:'A consultar',free:false,color:'#9B6FC9',desc:'A banda Roupa Nova ao vivo no teatro à beira-mar.',moods:['social','calma','cria']},
+  {name:'Festival Hip-Hop Chega Que É Certo 10',date:'Abr 2026',venue:'Usina Cultural Energisa',tags:['hip-hop','festival'],price:'A consultar',free:false,color:'#E8533A',desc:'10ª edição do maior festival de hip-hop da Paraíba.',moods:['energia','social','cria']},
+  {name:'Exposição Imersiva Viagem ao Espaço',date:'Até Abr 2026',venue:'Mangabeira Shopping',tags:['exposição','imersiva'],price:'Consulte valores',free:false,color:'#4A90C9',desc:'Projeções 360° do Big Bang à Via Láctea. Principal atração cultural do momento em JP.',moods:['curiosidade','cria','familia']},
+  {name:'Circuito Brasileiro de Vôlei de Praia',date:'Mar–Abr 2026',venue:'Busto de Tamandaré (Tambaú)',tags:['vôlei','esporte','gratuito'],price:'Gratuito',free:true,color:'#5BA87A',desc:'Etapa do Circuito Brasileiro na arena entre Tambaú e Cabo Branco. Entrada gratuita.',moods:['social','energia','familia']},
+  {name:'Santander Track&Field Run Series',date:'Mar 2026',venue:'Orla de Cabo Branco',tags:['corrida','esporte'],price:'Cadastro online',free:false,color:'#5B9BD5',desc:'Etapa do maior circuito de corridas de rua da América Latina. Percursos de 5km e 10km.',moods:['energia','escape','social']},
+  {name:'Feirinha de Tambaú',date:'Toda sexta-feira à noite',venue:'Orla de Tambaú',tags:['artesanato','gratuito','semanal'],price:'Gratuito (consumação à parte)',free:true,color:'#C4965A',desc:'Feira de artesanato e gastronomia local. Ambiente animado, ideal para lembranças paraibanas.',moods:['social','curiosidade','familia']},
+  {name:'Pôr do Sol com Bolero de Ravel',date:'Diariamente (depende da maré)',venue:'Praia do Jacaré, Cabedelo',tags:['gratuito','pôr do sol','cultura'],price:'Gratuito',free:true,color:'#E8B84B',desc:'Saxofonista ao vivo enquanto o sol se põe no Rio Paraíba. Um dos espetáculos gratuitos mais famosos do Brasil.',moods:['calma','social','cria','curiosidade']},
+  {name:'Forró no Parque Linear IV',date:'Todo sábado',venue:'Parque Linear Parahyba IV',tags:['forró','gratuito','ao ar livre'],price:'Gratuito',free:true,color:'#D4A96A',desc:'Grupo de forró toca todo sábado ao ar livre no Aeroclube — informal, animado e muito local.',moods:['social','energia','familia']},
+  {name:'Pagode 90° · Rds Edição Especial',date:'14 Mar 2026',venue:'Clube Cabo Branco',tags:['pagode','samba'],price:'A consultar',free:false,color:'#E8B84B',desc:'Edição especial do Pagode 90° no Clube Cabo Branco.',moods:['social','energia']},
+];
+
+/* ══════ HOTELS ══════ */
+const HOTELS=[
+  {name:'LS Hotel João Pessoa',stars:'★★★★★',loc:'Manaíra · Beira-mar',price:'R$350–800/noite',rating:'9.0',tags:['Piscina olímpica rooftop','Restaurante','Spa'],desc:'Hotel 5★ com piscina olímpica no rooftop e vista para o mar. Robô-garçom no café da manhã.',color:'#9B6FC9',type:'luxo'},
+  {name:'Laguna Praia Hotel',stars:'★★★★★',loc:'Tambaú · Frente ao mar',price:'R$465–1200/noite',rating:'9.2',tags:['Vista panorâmica','Piscina','Alta avaliação'],desc:'Um dos mais bem avaliados de JP. Vista deslumbrante do mar, infraestrutura completa.',color:'#9B6FC9',type:'luxo'},
+  {name:'Verdegreen Hotel',stars:'★★★★',loc:'Manaíra · Design hotel',price:'R$424–900/noite',rating:'9.1',tags:['Bicicletas grátis','Jardim suspenso','Beira-mar'],desc:'Hotel design com bicicletas de cortesia, jardim suspenso e kit praia gratuito.',color:'#9B6FC9',type:'luxo'},
+  {name:'Smart Hotel João Pessoa',stars:'★★★',loc:'Tambaú · 1 quarteirão do mar',price:'R$200–400/noite',rating:'8.5',tags:['Piscina','Feirinha a 300m','Custo-benefício'],desc:'Ótimo custo-benefício perto da Feirinha de Tambaú e da praia.',color:'#5B9BD5',type:'medio'},
+  {name:'Kastel Jampa Hotel',stars:'★★★',loc:'Bessa · Pé na areia',price:'R$280–550/noite',rating:'8.7',tags:['Bicicletas grátis','Piscina','Academia'],desc:'Ótima opção no Bessa com bicicletas de cortesia — perfeito para explorar a orla.',color:'#5B9BD5',type:'medio'},
+  {name:'Littoral Gold Flat',stars:'★★★',loc:'Cabo Branco · 80m da praia',price:'R$260–500/noite',rating:'8.9',tags:['80m da praia','Wi-Fi grátis','Flat'],desc:'Flat a 80m da Praia de Cabo Branco. Boa relação custo-benefício.',color:'#5B9BD5',type:'medio'},
+  {name:'Hotel Manaíra',stars:'★★★',loc:'Manaíra · 300m do mar',price:'R$312–600/noite',rating:'8.9',tags:['Valet grátis','Bicicletas','Smart TV'],desc:'300m do mar, próximo aos shoppings. Valet e bicicletas gratuitas.',color:'#5B9BD5',type:'medio'},
+  {name:'Pousada Tambaú Familly',stars:'★★',loc:'Tambaú · 200m da praia',price:'R$140–280/noite',rating:'8.3',tags:['Transfer aeroporto','Café da manhã','Wi-Fi'],desc:'Pousada familiar a 200m da praia. Inclui café da manhã e transfer do aeroporto.',color:'#5BA87A',type:'economico'},
+  {name:'Pousada Cabo Branco',stars:'★★',loc:'Cabo Branco · 300m da praia',price:'R$150–300/noite',rating:'8.6',tags:['Piscina','Família','Café da manhã impecável'],desc:'Ótima para família. Café da manhã muito bem avaliado, piscina e ambiente acolhedor.',color:'#5BA87A',type:'economico'},
+  {name:'Pousada Nascer do Sol',stars:'★★',loc:'Manaíra',price:'R$148–250/noite',rating:'8.2',tags:['Econômico','Bem avaliado'],desc:'Uma das opções mais em conta bem avaliadas de JP.',color:'#5BA87A',type:'economico'},
+  {name:'Yolo Hostel',stars:'Hostel',loc:'Centro · Próximo à orla',price:'R$79–180/noite',rating:'8.0',tags:['Mochileiro','Social','A partir de R$79'],desc:'Melhor hostel de JP para mochileiros. Ótimo para conhecer pessoas.',color:'#C4965A',type:'hostel'},
+];
+
+/* ══════ BAIRROS ══════ */
+const BAIRROS=[
+  {name:'Tambaú',emoji:'🏖️',color:'#5B9BD5',desc:'O coração turístico de JP. A praia mais famosa, a Feirinha de Tambaú às sextas, bares e restaurantes a cada esquina.',tags:['Turístico','Gastronômico','Feirinha','Bares'],ids:['tambau','danadodbom','afterpub','atol','emporio','naveg'],vibe:'Alta energia — turistas e moradores misturados'},
+  {name:'Cabo Branco',emoji:'🌅',color:'#4A9BC4',desc:'Orla sofisticada com ciclovia, prédios baixos e o Farol — menos barulho que Tambaú.',tags:['Sofisticado','Ciclovia','Farol','Tranquilo'],ids:['cabobr','farol','estacao','cuscuz','orama','skybar'],vibe:'Equilíbrio entre tranquilidade e estrutura'},
+  {name:'Manaíra',emoji:'🛍️',color:'#4ABBA8',desc:'Bairro residencial com o maior shopping, restaurantes premium e vida noturna alternativa.',tags:['Residencial','Shopping','Restaurantes','Moderno'],ids:['manaira','mangai','ryori','cinepolis-m','283','fabiobar'],vibe:'Mais local, menos turístico, muito bem equipado'},
+  {name:'Bessa',emoji:'🌿',color:'#5BA87A',desc:'Praia tranquila com piscinas naturais, bares casuais e atmosfera de bairro — perfeito para sossego.',tags:['Tranquilo','Piscinas naturais','Relaxado','Local'],ids:['bessa','seujoao','dm','gs-man'],vibe:'O bairro que os moradores amam'},
+  {name:'Varadouro',emoji:'🏛️',color:'#C97B4A',desc:'Centro histórico com igrejas barrocas, museus, artesanato e a famosa Vila do Porto.',tags:['Histórico','Cultural','Artesanato','Museus'],ids:['vporto','celeiro','museu-j','casanara-a','cemreis'],vibe:'Passado colonial vivo — arquitetura e identidade paraibana'},
+  {name:'Oceania',emoji:'🎵',color:'#9B6FC9',desc:'Bairro residencial próximo ao Bessa com vida noturna própria — boates, bares e Parque Linear.',tags:['Noturno','Boates','Parque linear','Jovem'],ids:['v21','linear1'],vibe:'Onde os jovens de JP curtem longe do turismo'},
+  {name:'Mangabeira',emoji:'🏗️',color:'#E88B4A',desc:'Bairro em expansão no sul — o maior shopping da região, cinema e atrações para família.',tags:['Família','Shopping','Cinema','Karting'],ids:['mangabeira','cinepolis-g','gs-mg','trampolim','treslagoas'],vibe:'Destino para família sem precisar da orla'},
+];
+
+/* ══════ CUISINE MAP ══════ */
+const CUISINE={
+  'nordestino':['mangai','generoso','mio','danadodbom','cuscuz','visse'],
+  'nordestina':['mangai','generoso','mio','danadodbom','cuscuz','visse'],
+  'sushi':['ryori'],
+  'japonês':['ryori'],'japones':['ryori'],
+  'vegano':['casanara','karranka','papoula','283'],
+  'vegetariano':['casanara','karranka','papoula','283'],
+  'frutos do mar':['fabiobar','naveg'],
+  'pizza':['casanara'],
+  'rock':['afterpub'],
+  'forró':['mansao'],'forro':['mansao'],
+  'pôr do sol':['skybar','vporto','seixas'],'por do sol':['skybar','vporto','seixas'],
+  'surf':['intermares'],
+  'família':['manaira','mangabeira','solon','recanto','trampolim'],'familia':['manaira','mangabeira','solon','recanto','trampolim'],
+  'gratuito':['solon','linear1','farol','espaco-jose','celeiro','museu-j','tambau','bessa','sta-roza'],
+  'chuva':['manaira','mangabeira','tambia','mag','cinepolis-m','cinepolis-g','centerplex','cinesercla','mun','cafeina','dm','visse','espaco-jose'],
+};
+
+/* ══════ FULL SYSTEM PROMPT ══════ */
+const PLACES_CTX=P.map(p=>`- ${p.name} (${CAT[p.cat].l}): ${p.tag} | ${p.hours} | ${p.rating}★${p.free?' | GRATUITO':''}${p.indoor?' | coberto':''}${p.price?` | ${p.price}`:''}${p.social?.ig?` | @${p.social.ig}`:''}`).join('\n');
+const EVENTS_CTX=EVENTS.map(e=>`- ${e.name}: ${e.date} @ ${e.venue} | ${e.price}${e.free?' (GRATUITO)':''}`).join('\n');
+const HOTELS_CTX=HOTELS.map(h=>`- ${h.name} ${h.stars}: ${h.loc} | ${h.price} | Nota ${h.rating}`).join('\n');
+const SYS=`Você é o assistente do Go Out JP, guia emocional de João Pessoa, Paraíba, Brasil. Hoje é ${new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}.
+
+LUGARES:
+${PLACES_CTX}
+
+EVENTOS ATIVOS (mar-abr 2026):
+${EVENTS_CTX}
+
+HOSPEDAGEM:
+${HOTELS_CTX}
+
+INFORMAÇÕES ESSENCIAIS:
+- Ilha de Areia Vermelha: banco de areia em Cabedelo (≠JP). Surge APENAS com maré ≤0.6. Passeio catamarã ~3h. Preço R$50–70/pp (2026). Embarque: Ponta de Campina ou Praia do Poço (~15km da orla). Sem sombra natural — leve protetor solar. Ver marés: portalareiavermelha.online
+- Picãozinho: piscinas naturais em frente à Tambaú. Jangada ~R$30. Depende da maré.
+- Pôr do Sol no Jacaré (Cabedelo): saxofonista ao vivo com Bolero de Ravel ao pôr do sol. GRATUITO. ~30min de JP.
+- Clima: tropical ~30°C o ano todo. Chuvas mar–ago.
+- COM CHUVA: shoppings, cinemas, cafeterias cobertas, Espaço Cultural José Lins do Rego, teatros, Game Station, Vila Trampolim, restaurantes cobertos.
+- SURF: Praia de Intermares (Cabedelo) tem as melhores ondas. Bessa para iniciantes.
+- CAFÉ DA MANHÃ: Visse (Sex–Dom 7h), Cheirin Bão (Sáb–Dom 9h), Cafeína (diário 8h), Mangai (Sáb–Dom 7h).
+- Uber: corrida local ~R$10–20. JP→Cabedelo ~R$25–35.
+- HOTÉIS: Luxo R$350–800+/noite. Médio R$200–450. Pousada R$140–300. Hostel R$79+.
+- Melhor bairro para ficar: Tambaú ou Cabo Branco (tudo a pé).
+- Instagram agenda local: @jpagenda e @jpagendacultural.
+- Preços gerais: café da manhã R$15–40/pp | almoço R$25–60 | jantar R$40–90 | bar/petisco R$35–80 | cinema R$15–55 | balada R$20–100.
+
+REGRAS: Seja conciso. Mencione preços. Inclua @instagram quando disponível. Responda em português brasileiro.`;
+
+/* ══════ STATE + LS ══════ */
+const S={mood:'calma',color:'#5B9BD5',rgb:'91,155,213',energy:15,tab:'explorar',filter:'todos',query:''};
+const LS={
+  get favs(){try{return JSON.parse(localStorage.getItem('gojp_f')||'[]')}catch{return[]}},
+  set favs(v){localStorage.setItem('gojp_f',JSON.stringify(v))},
+  isFav(id){return this.favs.includes(id)},
+  toggleFav(id){const f=this.favs,i=f.indexOf(id);if(i>-1)f.splice(i,1);else f.push(id);this.favs=f;return i===-1},
+  getFb(id){try{return JSON.parse(localStorage.getItem('gojp_fb_'+id)||'null')}catch{return null}},
+  setFb(id,d){localStorage.setItem('gojp_fb_'+id,JSON.stringify(d))},
+  getMyRat(id){return parseInt(localStorage.getItem('gojp_r_'+id)||'0')},
+  setMyRat(id,v){localStorage.setItem('gojp_r_'+id,String(v))},
+  getLM(){try{return JSON.parse(localStorage.getItem('gojp_m'))}catch{return null}},
+  saveLM(m,c,r){localStorage.setItem('gojp_m',JSON.stringify({m,c,r}))},
+  get hist(){try{return JSON.parse(localStorage.getItem('gojp_hist')||'[]')}catch{return[]}},
+  addHist(p){let h=this.hist.filter(x=>x.id!==p.id);h.unshift({id:p.id,name:p.name,cat:p.cat,ts:Date.now()});if(h.length>30)h.pop();localStorage.setItem('gojp_hist',JSON.stringify(h));},
+  clearHist(){localStorage.removeItem('gojp_hist');},
+};
+
+/* ══════ FILTER ══════ */
+function filterList(list){
+  let out=[...list].sort((a,b)=>{const am=a.moods.includes(S.mood),bm=b.moods.includes(S.mood);return(bm-am)||(b.rating-a.rating);});
+  if(S.filter!=='todos')out=out.filter(p=>period(p,S.filter));
+  if(S.query){
+    const q=S.query.toLowerCase().trim();
+    const mapped=CUISINE[q];
+    if(mapped){const s=new Set(mapped);return[...out.filter(p=>s.has(p.id)),...out.filter(p=>!s.has(p.id))];}
+    out=out.filter(p=>p.name.toLowerCase().includes(q)||p.tag.toLowerCase().includes(q)||(p.sensory||'').toLowerCase().includes(q)||(CAT[p.cat]?.l||'').toLowerCase().includes(q));
+  }
+  return out;
+}
+
+/* ══════ ACCENT ══════ */
+function applyAccent(){
+  const{color,rgb}=S;
+  document.documentElement.style.setProperty('--accent',color);
+  document.documentElement.style.setProperty('--ar',rgb);
+  const r=document.getElementById('lr');if(r){r.style.borderColor=color;r.style.boxShadow=`0 0 8px rgba(${rgb},.3)`;}
+  const ld=document.getElementById('ld');if(ld)ld.style.background=color;
+  const lem=document.getElementById('lem');if(lem)lem.style.color=color;
+  const tdot=document.getElementById('tdot');if(tdot)tdot.style.background=color;
+  const aidot=document.getElementById('aidot');if(aidot)aidot.style.background=color;
+  const sb=document.getElementById('sbtn');if(sb)sb.style.background=color;
+  const obd=document.querySelector('.obld');if(obd)obd.style.background=color;
+  const favs=LS.favs,fc=document.getElementById('fav-count');
+  if(fc){fc.textContent=favs.length;fc.style.display=favs.length?'flex':'none';fc.style.background=color;}
+  document.getElementById('fav-btn').classList.toggle('on',favs.length>0);
+}
+
+/* ══════ PRICE LEVEL ══════ */
+function priceLevel(price){
+  if(!price||price.startsWith('Gratuito'))return 0;
+  const nums=price.match(/\d+/g);if(!nums)return 1;
+  const avg=(parseInt(nums[0])+(parseInt(nums[1])||parseInt(nums[0])))/2;
+  return avg<=30?1:avg<=60?2:avg<=100?3:4;
+}
+
+/* ══════ CARD HTML ══════ */
+function cardHTML(p,i=0){
+  const m=CAT[p.cat],open=isOpenNow(p),isFav=LS.isFav(p.id),myR=LS.getMyRat(p.id);
+  const ob=open===true?'<span class="obadge">Aberto</span>':open===false?'<span class="cbadge">Fechado</span>':'';
+  const isGrat=p.free||p.price?.startsWith('Gratuito');
+  const pp=p.price?(isGrat?`<span class="pfree">🎁 Grátis</span>`:`<span class="ppaid">💰 ${p.price.split('/')[0].split('(')[0].trim()}</span>`):'';
+  const pips=Object.keys(ME).map(k=>`<div class="mpip${p.moods.includes(k)?' on':''}">${ME[k]}</div>`).join('');
+  return`<div class="card" data-id="${p.id}" style="--cc:${m.c};--cp:${m.c};--cp-rgb:${m.r};animation-delay:${i*.025}s">
+    ${isFav?'<div class="cfav">♥</div>':''}
+    ${myR?`<div class="cmyr">${'★'.repeat(myR)}</div>`:''}
+    <div class="cbadges"><div class="cpill"><span class="cpip"></span>${m.e} ${m.l}</div>${ob}<span class="crat">${p.rating.toFixed(1)}</span></div>
+    <div class="cname">${p.name}</div>
+    <div class="ctag">${p.tag}</div>
+    ${pp?`<div style="margin-bottom:6px">${pp}</div>`:''}
+    <div class="cmoods">${pips}</div>
+  </div>`;
+}
+
+/* ══════ RENDER GRIDS ══════ */
+function renderGrid(elId,rawList){
+  const el=document.getElementById(elId);if(!el)return;
+  const list=filterList(rawList);
+  const match=list.filter(p=>p.moods.includes(S.mood));
+  const nomatch=list.filter(p=>!p.moods.includes(S.mood));
+  let html='';
+  if(S.query){
+    if(!list.length)html=`<div class="empty"><span>🔍</span>Nenhum resultado para "<strong>${S.query}</strong>"</div>`;
+    else{html+=`<p class="sec">${list.length} resultado${list.length>1?'s':''}</p><div class="grid">`;list.forEach((p,i)=>html+=cardHTML(p,i));html+=`</div>`;}
+  }else{
+    if(match.length){html+=`<p class="sec">✦ Combinam com seu humor</p><div class="grid">`;match.forEach((p,i)=>html+=cardHTML(p,i));html+=`</div>`;}
+    if(nomatch.length){html+=`<p class="sec" style="margin-top:${match.length?'5px':'0'}">Outros</p><div class="grid">`;nomatch.forEach((p,i)=>html+=cardHTML(p,i));html+=`</div>`;}
+    if(!list.length)html=`<div class="empty"><span>🌊</span>Nenhum lugar encontrado.<br>Tente mudar o humor ou filtro.</div>`;
+  }
+  el.innerHTML=html;
+  el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+}
+
+function renderFavs(){
+  const el=document.getElementById('g-favoritos');if(!el)return;
+  const list=P.filter(p=>LS.isFav(p.id));
+  if(!list.length){el.innerHTML=`<div style="padding:50px 18px;text-align:center"><div style="font-size:38px;margin-bottom:10px">♡</div><p style="color:var(--tt);font-size:13px;line-height:1.7">Nenhum lugar salvo ainda.<br>Toque em ♡ dentro de qualquer lugar.</p></div>`;return;}
+  let html=`<p class="sec">${list.length} salvo${list.length>1?'s':''}</p><div class="grid">`;list.forEach((p,i)=>html+=cardHTML(p,i));html+=`</div>`;
+  el.innerHTML=html;
+  el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+}
+
+function renderEvents(){
+  const el=document.getElementById('g-eventos');if(!el)return;
+  const list=EVENTS.filter(e=>S.filter==='gratuito'?e.free:true);
+  let html=`<p class="sec">📅 Agenda março–abril 2026 · ${list.length} eventos</p>`;
+  list.forEach((e,i)=>{
+    const tags=e.tags.map(t=>`<span class="etag${t==='gratuito'?' free':''}">${t}</span>`).join('');
+    html+=`<div class="ev-card" style="--ec:${e.color};animation-delay:${i*.05}s">
+      <div class="ev-date">${e.date}</div>
+      <div class="ev-name">${e.name}</div>
+      <div class="ev-venue">📍 ${e.venue}</div>
+      <div class="ev-tags">${tags}<span class="etag ${e.free?'free':'price'}">${e.price}</span></div>
+      <p style="font-size:11px;color:var(--ts);margin-top:6px;line-height:1.5">${e.desc}</p>
+    </div>`;
+  });
+  el.innerHTML=html;
+}
+
+function renderRoutes(){
+  const ROUTES=[
+    {t:'Rota Calma',c:'#5B9BD5',r:'91,155,213',d:'Uma tarde desacelerada, do café tranquilo ao pôr do sol mais alto.',dur:'~3h',tp:'Tarde',en:'Baixa',stops:[{id:'visse',t:'14h00',n:'Café coado no pano'},{id:'estacao',t:'15h30',n:'Curvas de Niemeyer'},{id:'skybar',t:'17h30',n:'Pôr do sol a 44 andares'}]},
+    {t:'Rota Social',c:'#E8B84B',r:'232,184,75',d:'Do centro histórico à orla pelos melhores bares de JP.',dur:'~4h',tp:'Noite',en:'Alta',stops:[{id:'vporto',t:'18h00',n:'Caipirinha no Varadouro'},{id:'cuscuz',t:'19h30',n:'Petisco nordestino'},{id:'priscyllas',t:'22h00',n:'Pista do maior clube de JP'}]},
+    {t:'Rota Criativa',c:'#C96B6B',r:'201,107,107',d:'Arte, arquitetura e museus — percurso para quem vive de inspiração.',dur:'~5h',tp:'Manhã/Tarde',en:'Média',stops:[{id:'gamela',t:'09h00',n:'Arte paraibana'},{id:'celeiro',t:'10h30',n:'Arte naif e artesanato'},{id:'sta-roza',t:'12h00',n:'Arquitetura colonial'},{id:'espaco-jose',t:'14h30',n:'Complexo cultural'}]},
+    {t:'Rota Família',c:'#E88B4A',r:'232,139,74',d:'Manhã no parque, tarde no shopping e cinema para fechar.',dur:'~6h',tp:'Dia todo',en:'Média',stops:[{id:'linear1',t:'09h00',n:'Ciclismo e parquinho'},{id:'mangabeira',t:'12h00',n:'Almoço e Game Station'},{id:'trampolim',t:'14h00',n:'Camas elásticas'},{id:'cinepolis-g',t:'16h30',n:'Cinépolis'}]},
+    {t:'Rota Introspecção',c:'#9B6FC9',r:'155,111,201',d:'Silêncio, beleza e conexão — longe do ruído da cidade.',dur:'~4h',tp:'Manhã',en:'Baixa',stops:[{id:'seixas',t:'07h00',n:'Nascer do sol mais a leste'},{id:'dm',t:'09h00',n:'Flat white em silêncio'},{id:'bessa',t:'10h30',n:'Praia quase vazia'},{id:'mun',t:'14h00',n:'Tarde com um bom livro'}]},
+    {t:'Noite Cultural',c:'#7A9B5B',r:'122,155,91',d:'Teatro, música ao vivo e um drinque com vista.',dur:'~4h',tp:'Noite',en:'Média',stops:[{id:'paulo-pontes',t:'19h00',n:'Espetáculo no palco principal'},{id:'atol',t:'21h30',n:'Pop rock ao vivo'},{id:'orama',t:'23h00',n:'Drinque no rooftop'}]},
+    {t:'Praias & Gastronomia',c:'#4A9BC4',r:'74,155,196',d:'Do café da manhã à beira do oceano ao jantar nordestino.',dur:'~8h',tp:'Dia todo',en:'Média',stops:[{id:'bessa',t:'08h00',n:'Manhã tranquila'},{id:'mangai',t:'11h30',n:'Buffet nordestino'},{id:'cabobr',t:'14h00',n:'Tarde em Cabo Branco'},{id:'generoso',t:'19h00',n:'Jantar no Generoso Sertão'}]},
+    {t:'Rota Gratuita',c:'#5BA87A',r:'91,168,122',d:'Um dia completo em João Pessoa sem gastar nada.',dur:'~6h',tp:'Dia todo',en:'Variada',stops:[{id:'solon',t:'08h00',n:'Lagoa e ciclovia'},{id:'celeiro',t:'10h00',n:'Arte naif gratuita'},{id:'farol',t:'12h00',n:'Marco histórico'},{id:'tambau',t:'14h00',n:'Praia e calçadão'},{id:'linear1',t:'17h00',n:'Pôr do sol no parque'}]},
+  ];
+  const el=document.getElementById('g-rotas');if(!el)return;
+  el.innerHTML=ROUTES.map((r,ri)=>{
+    const stops=r.stops.map((s,j)=>{const p=P.find(x=>x.id===s.id);return`<div class="rstop"><div class="rsn" style="background:rgba(${r.r},.14);border-color:rgba(${r.r},.3)">${j+1}</div><div><div class="rsnm">${p?p.name:s.id}</div><div class="rstime">${s.t} · ${s.n}</div></div></div>`;}).join('');
+    return`<div class="route-card" style="--rc:${r.c};--rc-rgb:${r.r};animation-delay:${ri*.05}s">
+      <div class="rtitle">${r.t}</div><div class="rdesc">${r.d}</div>
+      <div class="rstops">${stops}</div>
+      <div class="rmeta"><span class="rchip">⏱ ${r.dur}</span><span class="rchip">${r.tp}</span><span class="rchip">⚡ ${r.en}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderHospedagem(){
+  const el=document.getElementById('g-hospedagem');if(!el)return;
+  const types=[{key:'luxo',label:'✨ Premium (R$350+/noite)'},{key:'medio',label:'🌟 Médio (R$200–450/noite)'},{key:'economico',label:'💚 Econômico (R$140–300/noite)'},{key:'hostel',label:'🎒 Hostel (R$79+/noite)'}];
+  let html=`<div style="background:linear-gradient(135deg,rgba(155,111,201,.1),rgba(91,155,213,.07));border:1px solid rgba(155,111,201,.2);border-radius:13px;padding:14px;margin-bottom:14px;">
+    <div style="font-size:15px;font-family:'Lora',serif;margin-bottom:5px">🏨 Onde Ficar em JP</div>
+    <p style="font-size:12px;color:var(--ts);line-height:1.6;margin-bottom:10px">A maioria fica na orla: Tambaú, Manaíra e Cabo Branco. Prédios na beira-mar são limitados a 4 andares — sol na praia o dia todo.</p>
+    <div class="ginfo-grid">
+      <div class="ginfo-card"><div class="gi-label">Hotel 3★</div><div class="gi-val">~R$280</div><div class="gi-sub">por noite</div></div>
+      <div class="ginfo-card"><div class="gi-label">Hotel 5★</div><div class="gi-val">~R$600</div><div class="gi-sub">por noite</div></div>
+      <div class="ginfo-card"><div class="gi-label">Pousada boa</div><div class="gi-val">R$150–300</div><div class="gi-sub">por noite</div></div>
+      <div class="ginfo-card"><div class="gi-label">Hostel</div><div class="gi-val">R$79–180</div><div class="gi-sub">por noite</div></div>
+    </div>
+  </div>`;
+  types.forEach(t=>{
+    const hs=HOTELS.filter(h=>h.type===t.key);
+    html+=`<p class="sec">${t.label}</p>`;
+    hs.forEach((h,i)=>{
+      const tags=h.tags.map(tg=>`<span class="htag">${tg}</span>`).join('');
+      html+=`<div class="hotel-card" style="--hc:${h.color};animation-delay:${i*.04}s">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px">
+          <div class="hname">${h.name}</div>
+          <span class="hrating">⭐ ${h.rating}</span>
+        </div>
+        <div class="hstars" style="color:${h.type==='hostel'?'#C4965A':'#E8B84B'}">${h.stars}</div>
+        <div class="hloc">📍 ${h.loc}</div>
+        <div class="hmeta"><div class="hprice">💰 ${h.price}</div>${tags}</div>
+        <div class="hdesc">${h.desc}</div>
+      </div>`;
+    });
+  });
+  html+=`<div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-top:4px">
+    <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tt);margin-bottom:8px">💡 Dicas de hospedagem</div>
+    <div style="font-size:11.5px;color:var(--ts);line-height:1.7">
+      <strong style="color:var(--tp)">Melhor bairro:</strong> Tambaú ou Cabo Branco — tudo a pé<br>
+      <strong style="color:var(--tp)">Alta temporada:</strong> Dez–Fev — reserve com antecedência<br>
+      <strong style="color:var(--tp)">Booking.com</strong> e <strong style="color:var(--tp)">Decolar</strong> têm melhores preços para JP<br>
+      <strong style="color:var(--tp)">Nômades digitais:</strong> JP é destaque — boa internet, praias incríveis, preços baixos
+    </div>
+  </div>`;
+  el.innerHTML=html;
+}
+
+function renderBairros(){
+  const el=document.getElementById('g-bairros');if(!el)return;
+  let html=`<div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:13px;font-size:12px;color:var(--ts);line-height:1.6"><strong style="color:var(--tp);display:block;margin-bottom:3px">🗺️ Bairros de João Pessoa</strong>Cada bairro tem personalidade diferente. Toque para ver os lugares de cada um no app.</div>`;
+  BAIRROS.forEach((b,i)=>{
+    const tags=b.tags.map(t=>`<span class="btag">${t}</span>`).join('');
+    const placeNames=b.ids.map(id=>P.find(p=>p.id===id)?.name).filter(Boolean).slice(0,3).join(', ');
+    html+=`<div class="bairro-card" style="--bc:${b.color};animation-delay:${i*.04}s" data-bairro="${b.name}">
+      <div class="bname">${b.emoji} ${b.name}</div>
+      <div class="bdesc">${b.desc}</div>
+      <div class="btags">${tags}</div>
+      <div style="font-size:11px;color:var(--tt);margin-bottom:4px">🏆 ${placeNames}${b.ids.length>3?` +${b.ids.length-3} mais`:''}</div>
+      <div class="bvibe">✨ ${b.vibe}</div>
+    </div>`;
+  });
+  el.innerHTML=html;
+  el.querySelectorAll('.bairro-card').forEach(c=>c.addEventListener('click',()=>{
+    const b=BAIRROS.find(x=>x.name===c.dataset.bairro);if(!b)return;
+    const places=b.ids.map(id=>P.find(p=>p.id===id)).filter(Boolean);
+    document.querySelector('[data-tab="explorar"]').click();
+    setTimeout(()=>{
+      const gEl=document.getElementById('g-explorar');
+      if(!gEl)return;
+      let html=`<p class="sec">${b.emoji} ${b.name} — ${places.length} lugares</p><div class="grid">`;
+      places.forEach((p,i)=>html+=cardHTML(p,i));
+      html+=`</div><button onclick="renderAll()" style="display:block;margin:8px auto 0;font-size:11px;color:var(--tt);text-decoration:underline;text-underline-offset:3px;background:none;border:none;cursor:pointer">← Ver todos os lugares</button>`;
+      gEl.innerHTML=html;
+      gEl.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+    },100);
+  }));
+}
+
+function renderMare(){
+  const el=document.getElementById('g-mare');if(!el)return;
+  const now=new Date(),h=now.getHours(),m=now.getMinutes();
+  // Simulated semi-diurnal tide schedule for Cabedelo
+  const schedule=[
+    {time:'04:30',level:0.3,type:'low'},{time:'10:45',level:2.1,type:'high'},
+    {time:'16:50',level:0.2,type:'low'},{time:'23:10',level:2.3,type:'high'},
+  ];
+  const cur=h*60+m;
+  // Estimate current level from schedule
+  let currentLevel=1.2;
+  for(let i=0;i<schedule.length;i++){
+    const [sh,sm]=schedule[i].time.split(':').map(Number);
+    const st=sh*60+sm;
+    const next=schedule[(i+1)%schedule.length];
+    const [nh,nm]=next.time.split(':').map(Number);
+    let nt=nh*60+nm;if(nt<st)nt+=1440;
+    if(cur>=st&&cur<nt){
+      const t=(cur-st)/(nt-st);
+      currentLevel=schedule[i].level+(next.level-schedule[i].level)*t;
+      break;
+    }
+  }
+  currentLevel=Math.max(0,Math.min(2.5,currentLevel));
+  const pct=(currentLevel/2.5)*100;
+  const isGood=currentLevel<=0.6;
+
+  function rowClass(t,l){if(t==='low'&&l<=0.4)return 'great';if(t==='low'&&l<=0.6)return 'good';return '';}
+  function rowBadge(t,l){
+    if(t==='low'&&l<=0.4)return`<span class="tide-status great">✦ Ideal para Areia Vermelha</span>`;
+    if(t==='low'&&l<=0.6)return`<span class="tide-status ok">✓ Bom para passeios</span>`;
+    return`<span class="tide-status no">✗ Maré alta</span>`;
+  }
+  const rows=schedule.map(s=>`<div class="tide-row ${rowClass(s.type,s.level)}">
+    <div class="tide-time">${s.time}</div>
+    <div class="tide-level ${s.type}">${s.level}m ${s.type==='low'?'↓ Baixa':'↑ Alta'}</div>
+    ${rowBadge(s.type,s.level)}
+  </div>`).join('');
+
+  el.innerHTML=`
+    <div class="tide-hero">
+      <div style="font-size:34px;margin-bottom:7px">🌊</div>
+      <h2>Tábua de Marés</h2>
+      <p>Cabedelo · ${now.toLocaleDateString('pt-BR',{weekday:'long',day:'numeric',month:'long'})}<br>Essencial para Ilha de Areia Vermelha e Picãozinho.</p>
+    </div>
+    <div class="tide-now">
+      <div class="tide-card">
+        <div class="tide-label">Nível atual (estimado)</div>
+        <div class="tide-val ${currentLevel<=0.6?'low':'high'}">${currentLevel.toFixed(1)}m</div>
+        <div class="tide-sub">${isGood?'✓ Bom para passeios':'✗ Aguarde baixar'}</div>
+      </div>
+      <div class="tide-card">
+        <div class="tide-label">Areia Vermelha</div>
+        <div class="tide-val ${isGood?'low':'high'}">${isGood?'✅':'❌'}</div>
+        <div class="tide-sub">${isGood?'Passeio possível agora':'Maré muito alta'}</div>
+      </div>
+    </div>
+    <div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:12px">
+      <div class="tide-label" style="margin-bottom:6px">Nível atual da maré</div>
+      <div class="gauge-track"><div class="gauge-fill" style="width:${pct}%"></div></div>
+      <div class="gauge-labels" style="margin-top:4px"><span style="color:var(--green)">0m — Ideal</span><span style="color:var(--gold)">0.6m — Limite</span><span style="color:var(--red)">2.5m — Alta</span></div>
+    </div>
+    <p class="sec">Previsão de hoje (Cabedelo)</p>
+    ${rows}
+    <div style="background:rgba(74,155,196,.1);border:1px solid rgba(74,155,196,.22);border-radius:11px;padding:12px;margin-top:11px">
+      <div style="font-size:11px;font-weight:700;color:#4A9BC4;margin-bottom:6px">📌 Como usar a tábua de marés</div>
+      <div style="font-size:11.5px;color:var(--ts);line-height:1.7">
+        <strong style="color:var(--tp)">Maré ≤ 0.4:</strong> Perfeita — ilha grande, corais visíveis<br>
+        <strong style="color:var(--tp)">Maré ≤ 0.6:</strong> Boa — banco de areia exposto<br>
+        <strong style="color:var(--tp)">Maré > 0.6:</strong> Não recomendado<br><br>
+        ⚠️ Esta é uma estimativa. Consulte <strong style="color:#4A9BC4">portalareiavermelha.online</strong> para horários precisos do dia.
+      </div>
+    </div>`;
+}
+
+function renderHistorico(){
+  const el=document.getElementById('g-historico');if(!el)return;
+  const list=LS.hist;
+  if(!list.length){
+    el.innerHTML=`<div style="padding:50px 18px;text-align:center"><div style="font-size:38px;margin-bottom:10px">🕐</div><p style="color:var(--tt);font-size:13px;line-height:1.7">Você ainda não visitou nenhum lugar.<br>Toque em qualquer card para começar.</p></div>`;
+    return;
+  }
+  const now=Date.now();
+  function ago(ts){const d=now-ts,m=Math.floor(d/60000),h=Math.floor(d/3600000);if(m<1)return'agora';if(m<60)return`${m}min`;if(h<24)return`${h}h`;return`${Math.floor(h/24)}d`;}
+  let html=`<p class="sec">${list.length} lugar${list.length>1?'es':''} visitados</p>`;
+  list.forEach((item,i)=>{
+    const m=CAT[item.cat];
+    html+=`<div class="hist-item" data-id="${item.id}" style="animation-delay:${i*.025}s">
+      <div class="hist-icon">${m?m.e:'📍'}</div>
+      <div class="hist-info"><div class="hist-name">${item.name}</div><div class="hist-meta">${m?m.l:item.cat}</div></div>
+      <div class="hist-time">${ago(item.ts)}</div>
+    </div>`;
+  });
+  html+=`<button class="hist-clear" id="hist-cl">🗑️ Limpar histórico</button>`;
+  el.innerHTML=html;
+  el.querySelectorAll('.hist-item').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+  document.getElementById('hist-cl')?.addEventListener('click',()=>{LS.clearHist();renderHistorico();});
+}
+
+function renderGuia(){
+  const el=document.getElementById('g-guia');if(!el)return;
+  el.innerHTML=`
+  <div class="tide-hero">
+    <div style="font-size:36px;margin-bottom:7px">🏝️</div>
+    <h2>Guia de João Pessoa</h2>
+    <p>Tudo que você precisa saber antes de ir. Preços, dicas e informações essenciais de 2026.</p>
+  </div>
+
+  <p class="sec">🌊 Ilha de Areia Vermelha</p>
+  <div class="ginfo-grid">
+    <div class="ginfo-card"><div class="gi-label">Preço 2026</div><div class="gi-val">R$50–70</div><div class="gi-sub">por pessoa · catamarã</div></div>
+    <div class="ginfo-card"><div class="gi-label">Duração</div><div class="gi-val">~3 horas</div><div class="gi-sub">na ilha</div></div>
+    <div class="ginfo-card"><div class="gi-label">Maré mínima</div><div class="gi-val">≤ 0.6</div><div class="gi-sub">quanto menor, melhor</div></div>
+    <div class="ginfo-card"><div class="gi-label">Distância</div><div class="gi-val">~15 km</div><div class="gi-sub">Uber ~R$25–35</div></div>
+  </div>
+  <div class="gtip"><span class="gtip-icon">📍</span><div><strong>Embarque:</strong> Ponta de Campina ou Praia do Poço, Cabedelo — não sai de JP.</div></div>
+  <div class="gtip"><span class="gtip-icon">🌊</span><div><strong>Tábua de marés:</strong> acesse <strong>portalareiavermelha.online</strong>. Passeio só com maré ≤ 0.6.</div></div>
+  <div class="gtip"><span class="gtip-icon">☀️</span><div><strong>Sem sombra natural.</strong> Leve protetor solar, chapéu e óculos. Água rasa e morna.</div></div>
+  <div class="gtip"><span class="gtip-icon">🍹</span><div>Bar no barco: abacaxi com leite condensado dentro da fruta é famoso. Bebidas cobradas à parte.</div></div>
+  <div class="gtip"><span class="gtip-icon">🤿</span><div><strong>Opcionais extras:</strong> jetski (~R$50), bananão, fotos subaquáticas — pagos na ilha.</div></div>
+
+  <p class="sec" style="margin-top:14px">💰 Guia de Preços em JP (2026)</p>
+  <div class="ginfo-grid">
+    <div class="ginfo-card"><div class="gi-label">Café / lanche</div><div class="gi-val">R$15–40</div><div class="gi-sub">por pessoa</div></div>
+    <div class="ginfo-card"><div class="gi-label">Almoço médio</div><div class="gi-val">R$25–60</div><div class="gi-sub">por pessoa</div></div>
+    <div class="ginfo-card"><div class="gi-label">Jantar médio</div><div class="gi-val">R$45–90</div><div class="gi-sub">por pessoa</div></div>
+    <div class="ginfo-card"><div class="gi-label">Bar / petisco</div><div class="gi-val">R$35–80</div><div class="gi-sub">por pessoa</div></div>
+    <div class="ginfo-card"><div class="gi-label">Cinema</div><div class="gi-val">R$15–55</div><div class="gi-sub">por ingresso</div></div>
+    <div class="ginfo-card"><div class="gi-label">Balada/show</div><div class="gi-val">R$20–100</div><div class="gi-sub">entrada + consumação</div></div>
+  </div>
+  <div class="gtip"><span class="gtip-icon">🍽️</span><div><strong>Mangai:</strong> buffet ~R$74/kg (conta ~R$50–80/pp). Cinépolis Manaíra: R$25 normal · R$45 3D · R$55 VIP.</div></div>
+  <div class="gtip"><span class="gtip-icon">🚗</span><div><strong>Uber em JP:</strong> corrida local ~R$10–20 · JP→Cabedelo ~R$25–35 · aeroporto ~R$50–70.</div></div>
+  <div class="gtip"><span class="gtip-icon">🎁</span><div><strong>Gratuito:</strong> praias, parques, Farol, Espaço Cultural, museus, Feirinha de Tambaú, Pôr do Sol no Jacaré.</div></div>
+
+  <p class="sec" style="margin-top:14px">📱 Redes sociais úteis de JP</p>
+  <div class="gtip"><span class="gtip-icon">📸</span><div><strong>@jpagenda</strong> — Melhor agenda cultural de JP (37k seguidores)</div></div>
+  <div class="gtip"><span class="gtip-icon">📸</span><div><strong>@jpagendacultural</strong> — Programação cultural da cidade</div></div>
+  <div class="gtip"><span class="gtip-icon">🌊</span><div><strong>@passeioemjoaopessoa</strong> — Passeios marítimos e dicas turísticas</div></div>`;
+}
+
+function renderDicas(){
+  const el=document.getElementById('g-dicas');if(!el)return;
+  el.innerHTML=`
+  <p class="sec">🌧️ O que fazer com chuva</p>
+  <div class="tip-card"><div class="tip-icon">🎬</div><div class="tip-title">Cinemas</div><div class="tip-text">Cinépolis Manaíra (VIP/IMAX), Cinépolis Mangabeira, Centerplex MAG e Cinesercla Tambiá. R$15–55.</div></div>
+  <div class="tip-card"><div class="tip-icon">☕</div><div class="tip-title">Cafeterias cobertas</div><div class="tip-text">Mun Café, Cafeína, DM Caffe, Visse, 283 Café, Cheirin Bão — todas cobertas e aconchegantes.</div></div>
+  <div class="tip-card"><div class="tip-icon">🎭</div><div class="tip-title">Espaço Cultural José Lins do Rego</div><div class="tip-text">Múltiplos teatros, galerias, cinema e escola de música. Aberto diariamente 6h–22h. Gratuito.</div></div>
+  <div class="tip-card"><div class="tip-icon">🛍️</div><div class="tip-title">Shoppings com muito para fazer</div><div class="tip-text">Manaíra (cinema + Game Station), Mangabeira (karting + trampolim + cinema) e Tambiá (centro).</div></div>
+  <div class="tip-card"><div class="tip-icon">🎮</div><div class="tip-title">Game Station</div><div class="tip-text">No Manaíra e no Mangabeira — fliperamas, sinuca, bowling e karting para todas as idades.</div></div>
+
+  <p class="sec" style="margin-top:14px">🎁 O que fazer de graça</p>
+  <div class="tip-card"><div class="tip-icon">🏖️</div><div class="tip-title">Praias</div><div class="tip-text">Tambaú, Bessa, Cabo Branco, Seixas e Intermares — todas gratuitas, cada uma com personalidade diferente.</div></div>
+  <div class="tip-card"><div class="tip-icon">📍</div><div class="tip-title">Farol + Estação Cabo Branco</div><div class="tip-text">O ponto mais a leste das Américas e as curvas de Niemeyer. Ambos gratuitos.</div></div>
+  <div class="tip-card"><div class="tip-icon">🎷</div><div class="tip-title">Pôr do Sol no Jacaré</div><div class="tip-text">Saxofonista ao vivo com Bolero de Ravel. Gratuito, diariamente em Cabedelo. Imperdível.</div></div>
+  <div class="tip-card"><div class="tip-icon">🌳</div><div class="tip-title">Parques</div><div class="tip-text">Parque Solon de Lucena (lagoa + ciclovia) e Parque Linear Parahyba — gratuitos e abertos 24h.</div></div>
+  <div class="tip-card"><div class="tip-icon">🎨</div><div class="tip-title">Museus e Galerias</div><div class="tip-text">Theatro Santa Roza (visitas), Celeiro Espaço Criativo, Museu Jurandir Maciel, Casa do Artista, Casarão 34, Galeria Gamela — todos gratuitos.</div></div>
+
+  <p class="sec" style="margin-top:14px">🌅 Melhores pôres do sol</p>
+  <div class="tip-card"><div class="tip-icon">🏙️</div><div class="tip-title">Skybar Tour Genève — 44º andar</div><div class="tip-text">Vista de 360° da cidade inteira. A partir das 15h30. Drinks elaborados, ambiente sofisticado.</div></div>
+  <div class="tip-card"><div class="tip-icon">🏺</div><div class="tip-title">Vila do Porto — Rio Sanhauá</div><div class="tip-text">Vista do Rio Sanhauá no centro histórico. Caipirinha na mão, ambiente muito fotogênico.</div></div>
+  <div class="tip-card"><div class="tip-icon">🎷</div><div class="tip-title">Pôr do Sol no Jacaré — gratuito</div><div class="tip-text">O mais famoso do Brasil — saxofonista ao vivo enquanto o sol se põe no Rio Paraíba.</div></div>
+  <div class="tip-card"><div class="tip-icon">📍</div><div class="tip-title">Praia do Seixas</div><div class="tip-text">A ponta mais oriental das Américas. Quase deserta — ideal para introspecção e fotografia.</div></div>
+
+  <p class="sec" style="margin-top:14px">🏄 Praias para cada perfil</p>
+  <div class="tip-card"><div class="tip-icon">🌊</div><div class="tip-title">Tambaú — para socializar</div><div class="tip-text">A mais movimentada, com bares, quiosques, calçadão e Feirinha de Tambaú às sextas.</div></div>
+  <div class="tip-card"><div class="tip-icon">🌿</div><div class="tip-title">Bessa — para relaxar</div><div class="tip-text">Piscinas naturais, areia fina, mais sossegada. Ideal para manhãs sem pressa.</div></div>
+  <div class="tip-card"><div class="tip-icon">🚴</div><div class="tip-title">Cabo Branco — para família</div><div class="tip-text">Ciclovia completa, hotéis, restaurantes, quiosques. A mais conveniente para turistas.</div></div>
+  <div class="tip-card"><div class="tip-icon">🌅</div><div class="tip-title">Seixas — para contemplar</div><div class="tip-text">Quase deserta, o ponto mais a leste das Américas. Pôr do sol e fotografia incomparáveis.</div></div>
+  <div class="tip-card"><div class="tip-icon">🤙</div><div class="tip-title">Intermares — para surf</div><div class="tip-text">Melhores ondas da Grande JP. ~30min de carro. Boa estrutura de apoio.</div></div>`;
+}
+
+function renderMapCards(){
+  const el=document.getElementById('map-cards');if(!el)return;
+  const list=filterList(P).filter(p=>p.moods.includes(S.mood)).slice(0,14);
+  el.innerHTML=list.map(p=>{const m=CAT[p.cat];return`<div class="mini" data-id="${p.id}" style="--mc:${m.c}"><div class="mini-name">${p.name}</div><div class="mini-sub">${p.tag}</div><div class="mini-ft"><span class="mini-cat" style="color:${m.c}">${m.e} ${m.l}</span><span class="mini-rat">${p.rating.toFixed(1)}</span></div></div>`;}).join('');
+  el.querySelectorAll('.mini').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+}
+
+function renderAll(){
+  applyAccent();
+  renderGrid('g-explorar',P);
+  renderGrid('g-restaurantes',P.filter(p=>p.cat==='restaurante'));
+  renderGrid('g-bares',P.filter(p=>p.cat==='bar'));
+  renderGrid('g-cafes',P.filter(p=>p.cat==='cafe'));
+  renderGrid('g-shows',P.filter(p=>p.cat==='show'));
+  renderGrid('g-cinemas',P.filter(p=>p.cat==='cinema'));
+  renderGrid('g-teatros',P.filter(p=>p.cat==='teatro'));
+  renderGrid('g-cultura',P.filter(p=>p.cat==='cultura'));
+  renderGrid('g-shoppings',P.filter(p=>p.cat==='shopping'));
+  renderGrid('g-praias',P.filter(p=>p.cat==='praia'));
+  renderGrid('g-parques',P.filter(p=>p.cat==='parque'));
+  renderGrid('g-jogos',P.filter(p=>p.cat==='jogo'));
+  renderFavs();renderEvents();renderRoutes();
+  renderHospedagem();renderBairros();renderMare();renderHistorico();
+  renderGuia();renderDicas();renderMapCards();
+  if(typeof updateMapMarkers==='function')updateMapMarkers();
+}
+
+/* ══════ DRAWER ══════ */
+let cmpQueue=[];
+
+function openDrawer(p){
+  LS.addHist(p);
+  const m=CAT[p.cat],dc=m.c,dr=m.r;
+  const isFav=LS.isFav(p.id),myR=LS.getMyRat(p.id),prevFb=LS.getFb(p.id);
+  const stars=Array.from({length:5},(_,i)=>`<span style="color:${i<Math.round(p.rating)?'#E8B84B':'var(--s3)'}">★</span>`).join('');
+  const myStars=Array.from({length:5},(_,i)=>`<button class="sbt${i<myR?' lit':''}" data-v="${i+1}">★</button>`).join('');
+  const barRows=[{k:'energia',l:'Energia'},{k:'social',l:'Social'},{k:'calma',l:'Tranquil.'},{k:'cria',l:'Criativ.'}].map(({k,l})=>`<div class="dbar-row"><span class="dbar-key">${l}</span><div class="dbar-track"><div class="dbar-fill" style="width:${p.bars[k]}%;background:${dc}"></div></div><span class="dbar-num">${p.bars[k]}%</span></div>`).join('');
+  const ALL_T=['manhã','almoço','tarde','fim de tarde','noite'];
+  const times=ALL_T.map(t=>`<div class="dtime${p.times.includes(t)?' hl':''}" ${p.times.includes(t)?`style="background:rgba(${dr},.12);border-color:${dc}"`:''}>${t}</div>`).join('');
+  const moodChips=Object.entries(ME).map(([k,e])=>{const on=p.moods.includes(k);return`<div class="dmood${on?' on':''}" ${on?`style="background:rgba(${dr},.12);border-color:${dc}"`:''}>${e} ${k}</div>`;}).join('');
+
+  // Price widget
+  const lvl=priceLevel(p.price);
+  const isGrat=p.free||p.price?.startsWith('Gratuito');
+  const coins=['💰','💰','💰','💰'].map((c,i)=>`<span class="pw-coin${i<lvl?' lit':''}">${c}</span>`).join('');
+  const priceW=p.price?`<div class="price-widget">
+    <div class="pw-header"><span class="pw-label">💰 Gasto médio por pessoa</span>${isGrat?'':'<div class="pw-coins">'+coins+'</div>'}</div>
+    <div class="pw-val" style="color:${isGrat?'var(--green)':dc}">${p.price}</div>
+    <div class="pw-sub">${isGrat?'Entrada gratuita — aproveite!':lvl===1?'Muito acessível':lvl===2?'Preço moderado':lvl===3?'Preço médio-alto':'Premium'}</div>
+    ${!isGrat?`<div class="pw-note">💡 Valores estimados para 2026. Podem variar com consumação ou ingressos extras.</div>`:''}
+  </div>`:'';
+
+  // Social links
+  const soc=p.social||{};
+  let socialHTML='';
+  if(soc.ig||soc.web){
+    socialHTML=`<p class="dsec">Redes sociais</p><div class="dsoc">`;
+    if(soc.ig)socialHTML+=`<a class="dsb ig" href="https://instagram.com/${soc.ig}" target="_blank">📷 @${soc.ig}</a>`;
+    if(soc.web)socialHTML+=`<a class="dsb web" href="${soc.web}" target="_blank">🌐 Site oficial</a>`;
+    socialHTML+=`<button class="dsb map" onclick="openMaps(${p.lat},${p.lng})">🗺️ Navegar</button></div>`;
+  }
+
+  const fb=prevFb
+    ?`<div class="dfb"><div class="dfbt">✓ Você foi aqui — obrigado!</div><div style="font-size:11px;color:var(--ts)">Energia: <strong>${prevFb.energia}</strong> · Social: <strong>${prevFb.social}</strong> · Clima: <strong>${prevFb.clima}</strong></div></div>`
+    :`<div class="dfb" id="fb-box">
+      <div class="dfbt">🙋 Você foi aqui? Como foi?</div>
+      <div class="dfbr"><span class="dfbl">Energia</span><div class="dfbo" data-k="energia"><button class="dfbop" data-v="drenou">Drenou</button><button class="dfbop" data-v="neutro">Neutro</button><button class="dfbop" data-v="energizou">Energizou</button></div></div>
+      <div class="dfbr"><span class="dfbl">Social</span><div class="dfbo" data-k="social"><button class="dfbop" data-v="sozinho">Sozinho</button><button class="dfbop" data-v="misto">Misto</button><button class="dfbop" data-v="coletivo">Coletivo</button></div></div>
+      <div class="dfbr"><span class="dfbl">Clima</span><div class="dfbo" data-k="clima"><button class="dfbop" data-v="caotico">Caótico</button><button class="dfbop" data-v="tranquilo">Tranquilo</button><button class="dfbop" data-v="animado">Animado</button></div></div>
+      <button class="dfbsub" id="fb-sub" style="background:${dc}">Enviar feedback</button>
+      <div class="dfbdone" id="fb-done">✓ Obrigado!</div>
+    </div>`;
+
+  const openBadge=isOpenNow(p)===true?`<span class="dbadge dbadge-open">✓ Aberto agora</span>`:isOpenNow(p)===false?`<span class="dbadge dbadge-closed">✗ Fechado</span>`:'';
+
+  document.getElementById('dbody').innerHTML=`
+    <div class="dacc" style="background:${dc}"></div>
+    <div class="dbadges"><div class="dbadge dbadge-cat" style="--dc:${dc};--dr:${dr}"><span class="dbpip"></span>${m.e} ${m.l}</div><div class="dbadge dbadge-tag">${p.tag}</div>${openBadge}</div>
+    <div class="dname">${p.name}</div>
+    <div class="drating"><div class="dstars">${stars}</div><span class="dscore">${p.rating.toFixed(1)}</span><span class="dvotes">${p.votes.toLocaleString('pt-BR')} avaliações</span><div class="dmy">${myStars}</div></div>
+    <div class="dhours"><div class="hpulse"></div>${isOpenNow(p)===false?'<span style="color:var(--red)">Fechado agora</span>':'Aberto'}<span class="htext">· ${p.hours}</span></div>
+    ${priceW}
+    ${socialHTML}
+    <p class="dsens" style="border-left-color:${dc}">${p.sensory}</p>
+    <p class="dsec">Como as pessoas se sentem aqui</p><div class="dbars">${barRows}</div>
+    <p class="dsec">Melhores horários</p><div class="dtimes">${times}</div>
+    <p class="dsec">Humores compatíveis</p><div class="dmoods">${moodChips}</div>
+    <p class="dsec">Seu feedback</p>${fb}
+    <div class="dcta">
+      <button class="dbtnn" id="fav-tgl" ${isFav?`style="background:rgba(${dr},.17);border-color:${dc};color:${dc}"`:''}>${isFav?'♥ Salvo':'♡ Salvar'}</button>
+      <button class="dbtnn" onclick="addToCompare(P.find(x=>x.id==='${p.id}'))">⚖️ Comparar</button>
+      <button class="dbtnn" onclick="openAIWith('${p.name.replace(/'/g,"\\'")}')">🤖 Perguntar</button>
+      <button class="dbtnn p" style="background:${dc}" onclick="sharePl('${p.id}')">↗ Partilhar</button>
+    </div>`;
+
+  document.querySelectorAll('.sbt').forEach(btn=>btn.addEventListener('click',()=>{
+    const v=parseInt(btn.dataset.v);LS.setMyRat(p.id,v);
+    document.querySelectorAll('.sbt').forEach((b,i)=>b.classList.toggle('lit',i<v));
+    showToastMsg(p.name,`Avaliado com ${v} ${'★'.repeat(v)}`);renderAll();
+  }));
+  document.getElementById('fav-tgl')?.addEventListener('click',()=>{
+    LS.toggleFav(p.id);const f=LS.isFav(p.id);
+    const ft=document.getElementById('fav-tgl');
+    ft.textContent=f?'♥ Salvo':'♡ Salvar';
+    if(f){ft.style.background=`rgba(${dr},.17)`;ft.style.borderColor=dc;ft.style.color=dc;}
+    else{ft.style.cssText='';}
+    showToastMsg(p.name,f?'Salvo ♥':'Removido');applyAccent();
+  });
+  const fbx=document.getElementById('fb-box');
+  if(fbx){
+    fbx.querySelectorAll('.dfbo').forEach(grp=>grp.querySelectorAll('.dfbop').forEach(btn=>btn.addEventListener('click',()=>{grp.querySelectorAll('.dfbop').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');})));
+    document.getElementById('fb-sub')?.addEventListener('click',()=>{
+      const data={};fbx.querySelectorAll('.dfbo').forEach(g=>{const s=g.querySelector('.sel');if(s)data[g.dataset.k]=s.dataset.v;});
+      if(Object.keys(data).length<3){alert('Responda todas as perguntas 😊');return;}
+      LS.setFb(p.id,data);document.getElementById('fb-sub').style.display='none';document.getElementById('fb-done').style.display='block';renderAll();
+    });
+  }
+
+  document.getElementById('ov').classList.add('open');
+  document.getElementById('dw').classList.add('open');
+}
+
+function closeDrawer(){document.getElementById('ov').classList.remove('open');document.getElementById('dw').classList.remove('open');}
+function openMaps(lat,lng){if(lat&&lng)window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,'_blank');}
+function openAIWith(name){closeDrawer();openAI();setTimeout(()=>sendAIMsg(`Me conta mais sobre ${name} — vale visitar hoje?`),200);}
+function sharePl(id){
+  const p=P.find(x=>x.id===id);if(!p)return;
+  const txt=`🗺️ ${p.name}\n${p.tag}\n\n${p.sensory.replace(/"/g,'')}\n\nDica do Go Out JP`;
+  if(navigator.share)navigator.share({title:p.name,text:txt}).catch(()=>{});
+  else navigator.clipboard.writeText(txt).then(()=>showToastMsg('Copiado!',`"${p.name}" copiado`));
+}
+
+document.getElementById('ov').addEventListener('click',e=>{if(e.target===document.getElementById('ov'))closeDrawer();});
+document.getElementById('dcl').addEventListener('click',closeDrawer);
+
+// Swipe down to close
+(()=>{let sy=0;const dw=document.getElementById('dw');dw.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});dw.addEventListener('touchend',e=>{const dy=e.changedTouches[0].clientY-sy;if(dy>80&&dw.scrollTop<10)closeDrawer();},{passive:true});})();
+
+/* ══════ COMPARE ══════ */
+function addToCompare(p){
+  if(!p)return;
+  if(cmpQueue.find(x=>x.id===p.id)){showToastMsg('Comparação','Já adicionado');return;}
+  if(cmpQueue.length>=2)cmpQueue.shift();
+  cmpQueue.push(p);
+  const bar=document.getElementById('cmp-bar');
+  bar.classList.toggle('show',cmpQueue.length>0);
+  const a=document.getElementById('ca-a');const b=document.getElementById('ca-b');
+  a.textContent=cmpQueue[0]?CAT[cmpQueue[0].cat].e:'?';
+  b.textContent=cmpQueue[1]?CAT[cmpQueue[1].cat].e:'?';
+  showToastMsg('⚖️ Comparação',cmpQueue.length===2?'Toque em "Comparar" para ver':'Adicione mais um lugar');
+}
+document.getElementById('cmp-clear').addEventListener('click',()=>{cmpQueue=[];document.getElementById('cmp-bar').classList.remove('show');});
+document.getElementById('cmp-go').addEventListener('click',()=>{
+  if(cmpQueue.length<2){showToastMsg('Comparação','Adicione 2 lugares para comparar');return;}
+  const[pa,pb]=cmpQueue;
+  function col(p,other){
+    const m=CAT[p.cat];
+    const bars=[{k:'energia',l:'Energia'},{k:'social',l:'Social'},{k:'calma',l:'Tranquil.'},{k:'cria',l:'Criativ.'}].map(({k,l})=>{
+      const isW=p.bars[k]>other.bars[k];
+      return`<div class="cmp-row"><div class="cmp-key">${l}</div><div class="cmp-val">${p.bars[k]}%${isW?'<span class="cmp-w">melhor</span>':''}</div><div class="cmp-bw"><div class="cmp-bf" style="width:${p.bars[k]}%;background:${m.c}"></div></div></div>`;
+    }).join('');
+    const open=isOpenNow(p);
+    const lvl=priceLevel(p.price);
+    return`<div class="cmp-col">
+      <div class="cmp-name">${p.name}</div>
+      <div class="cmp-cat" style="color:${m.c}">${m.e} ${m.l}</div>
+      <div class="cmp-row"><div class="cmp-key">Rating</div><div class="cmp-val">⭐ ${p.rating.toFixed(1)}${p.rating>other.rating?'<span class="cmp-w">melhor</span>':''}</div></div>
+      <div class="cmp-row"><div class="cmp-key">Preço</div><div class="cmp-val" style="font-size:11px">${p.price||'—'}</div></div>
+      <div class="cmp-row"><div class="cmp-key">Status</div><div class="cmp-val">${open===true?'<span style="color:var(--green)">Aberto</span>':open===false?'<span style="color:var(--red)">Fechado</span>':'—'}</div></div>
+      <div class="cmp-row"><div class="cmp-key">Coberto</div><div class="cmp-val">${p.indoor?'✅ Sim':'❌ Não'}</div></div>
+      ${bars}
+    </div>`;
+  }
+  document.getElementById('cmp-body').innerHTML=col(pa,pb)+col(pb,pa);
+  document.getElementById('cmp-panel').classList.add('open');
+});
+document.getElementById('cmp-cl').addEventListener('click',()=>document.getElementById('cmp-panel').classList.remove('open'));
+
+/* ══════ AI CHAT ══════ */
+let aiHistory=[],aiTyping=false;
+function openAI(){document.getElementById('aip').classList.add('open');if(!aiHistory.length)addMsg('ai','Olá! Sou o assistente do **Go Out JP** 🤖\n\nPosso responder qualquer pergunta sobre João Pessoa — o que fazer com chuva, guia completo da Ilha de Areia Vermelha com preços, bares com música ao vivo hoje, onde ficar, roteiros gratuitos, culinária regional e muito mais!\n\nUse as sugestões ou escreva sua pergunta.');}
+function closeAI(){document.getElementById('aip').classList.remove('open');}
+
+function addMsg(role,text){
+  const msgs=document.getElementById('ai-msgs');
+  const div=document.createElement('div');div.className=`msg ${role}`;
+  const av=document.createElement('div');av.className='mav';av.textContent=role==='ai'?'🤖':'👤';
+  const bub=document.createElement('div');bub.className='mbub';
+  bub.innerHTML=text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>').replace(/@([\w.]+)/g,'<a class="aplnk" href="https://instagram.com/$1" target="_blank">📷 @$1</a>');
+  div.appendChild(av);div.appendChild(bub);msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
+}
+function showTyping(){const m=document.getElementById('ai-msgs');const d=document.createElement('div');d.className='msg ai';d.id='ty';d.innerHTML='<div class="mav">🤖</div><div class="mbub"><div class="typing-ind"><span></span><span></span><span></span></div></div>';m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function hideTyping(){document.getElementById('ty')?.remove();}
+
+async function sendAIMsg(text){
+  if(aiTyping||!text.trim())return;
+  aiTyping=true;addMsg('user',text);aiHistory.push({role:'user',content:text});showTyping();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:aiHistory})});
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'Não consegui responder. Tente novamente!';
+    hideTyping();addMsg('ai',reply);aiHistory.push({role:'assistant',content:reply});
+    if(aiHistory.length>20)aiHistory=aiHistory.slice(-16);
+  }catch{hideTyping();addMsg('ai','Ops! Verifique a conexão e tente novamente.');}
+  aiTyping=false;
+}
+
+document.getElementById('ai-btn').addEventListener('click',openAI);
+document.getElementById('ai-cl').addEventListener('click',closeAI);
+document.getElementById('ai-snd').addEventListener('click',()=>{const i=document.getElementById('ai-inp');sendAIMsg(i.value);i.value='';i.style.height='40px';});
+document.getElementById('ai-inp').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();document.getElementById('ai-snd').click();}});
+document.getElementById('ai-inp').addEventListener('input',function(){this.style.height='40px';this.style.height=Math.min(this.scrollHeight,110)+'px';});
+document.getElementById('ai-sugs').addEventListener('click',e=>{const b=e.target.closest('.asug');if(b)sendAIMsg(b.textContent.trim());});
+
+/* ══════ MOOD + SLIDER ══════ */
+function selectMood(btn){
+  S.mood=btn.dataset.mood;S.color=btn.dataset.c;S.rgb=btn.dataset.r;
+  document.querySelectorAll('.mc').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');animateSlider(parseInt(btn.dataset.e,10));
+  LS.saveLM(S.mood,S.color,S.rgb);renderAll();
+}
+function animateSlider(target){
+  const sl=document.getElementById('sl'),from=parseInt(sl.value,10);
+  if(from===target)return;
+  const dur=360,t0=performance.now();
+  (function step(now){const t=Math.min((now-t0)/dur,1),e=t<.5?2*t*t:-1+(4-2*t)*t;sl.value=Math.round(from+(target-from)*e);if(t<1)requestAnimationFrame(step);else{sl.value=target;S.energy=target;}})(t0);
+}
+document.getElementById('mrow').addEventListener('click',e=>{const b=e.target.closest('.mc');if(b)selectMood(b);});
+document.getElementById('sl').addEventListener('input',function(){
+  const v=parseInt(this.value,10);S.energy=v;let closest=null,minD=Infinity;
+  document.querySelectorAll('.mc').forEach(b=>{const d=Math.abs(parseInt(b.dataset.e,10)-v);if(d<minD){minD=d;closest=b;}});
+  if(closest&&closest.dataset.mood!==S.mood){S.mood=closest.dataset.mood;S.color=closest.dataset.c;S.rgb=closest.dataset.r;document.querySelectorAll('.mc').forEach(b=>b.classList.remove('active'));closest.classList.add('active');renderAll();}
+});
+
+/* ══════ SEARCH ══════ */
+document.getElementById('srch').addEventListener('input',function(){
+  S.query=this.value.trim();
+  document.getElementById('scl').classList.toggle('on',S.query.length>0);
+  renderAll();
+  // Auto-open AI for natural language questions
+  const q=S.query;
+  if(q.length>12&&(q.includes('?')||/^(o que|como|onde|qual|quais|tem |existe|quando|por que)/i.test(q))){
+    openAI();setTimeout(()=>{sendAIMsg(q);document.getElementById('srch').value='';S.query='';document.getElementById('scl').classList.remove('on');renderAll();},200);
+  }
+});
+document.getElementById('scl').addEventListener('click',()=>{document.getElementById('srch').value='';S.query='';document.getElementById('scl').classList.remove('on');renderAll();});
+
+/* ══════ FILTERS ══════ */
+document.getElementById('fbar').addEventListener('click',e=>{const b=e.target.closest('.fc');if(!b)return;document.querySelectorAll('.fc').forEach(c=>c.classList.remove('active'));b.classList.add('active');S.filter=b.dataset.f;renderAll();});
+
+/* ══════ TABS ══════ */
+document.getElementById('tabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab');if(!b)return;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));b.classList.add('active');S.tab=b.dataset.tab;
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+S.tab)?.classList.add('active');
+  // Refresh dynamic panels on switch
+  if(S.tab==='mare')renderMare();
+  if(S.tab==='historico')renderHistorico();
+});
+document.getElementById('fav-btn').addEventListener('click',()=>document.querySelector('[data-tab="favoritos"]').click());
+
+/* ══════ SURPRISE ══════ */
+function doSurprise(){
+  const c=P.filter(p=>p.moods.includes(S.mood)&&(S.filter==='todos'||period(p,S.filter)));
+  if(!c.length){showToastMsg('Sem sorteio','Tente mudar o filtro');return;}
+  openDrawer(c[Math.floor(Math.random()*c.length)]);
+}
+document.getElementById('sbtn').addEventListener('click',doSurprise);
+document.getElementById('sur-hd').addEventListener('click',doSurprise);
+
+/* ══════ ONBOARDING ══════ */
+document.getElementById('ob-grid').addEventListener('click',e=>{
+  const b=e.target.closest('.obb');if(!b)return;
+  document.querySelectorAll('.obb').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  S.mood=b.dataset.mood;S.color=b.dataset.c;S.rgb=b.dataset.r;
+  document.getElementById('ob-cta').classList.add('rdy');
+});
+function launchApp(){
+  document.getElementById('ob').classList.add('out');
+  setTimeout(()=>{
+    document.getElementById('ob').style.display='none';
+    document.getElementById('app').style.display='flex';
+    document.querySelectorAll('.mc').forEach(b=>b.classList.toggle('active',b.dataset.mood===S.mood));
+    const mb=document.querySelector(`.mc[data-mood="${S.mood}"]`);if(mb)document.getElementById('sl').value=mb.dataset.e||15;
+    renderAll();fetchWeather();startClock();
+    setTimeout(showToast,2200);setInterval(showToast,16000);
+    // PWA banner after 10s
+    setTimeout(()=>{if(!localStorage.getItem('gojp_pwa_ok'))document.getElementById('pwa-banner').classList.add('show');},10000);
+  },400);
+}
+document.getElementById('ob-cta').addEventListener('click',launchApp);
+document.getElementById('ob-skip').addEventListener('click',launchApp);
+const lm=LS.getLM();
+if(lm){S.mood=lm.m;S.color=lm.c;S.rgb=lm.r;const ob=document.querySelector(`.obb[data-mood="${lm.m}"]`);if(ob){ob.classList.add('sel');document.getElementById('ob-cta').classList.add('rdy');}}
+
+/* ══════ WEATHER ══════ */
+async function fetchWeather(){
+  try{
+    const r=await fetch('https://api.openweathermap.org/data/2.5/weather?q=Joao+Pessoa,BR&units=metric&lang=pt&appid=INSIRA_SUA_CHAVE_OPENWEATHER');
+    if(!r.ok)throw new Error();
+    const d=await r.json();
+    const icons={'01d':'☀️','01n':'🌙','02d':'⛅','02n':'🌙','03d':'☁️','04d':'☁️','09d':'🌧️','10d':'🌦️','11d':'⛈️','50d':'🌫️'};
+    document.getElementById('wi').textContent=icons[d.weather[0].icon]||'🌡️';
+    document.getElementById('wt').textContent=` ${Math.round(d.main.temp)}°C`;
+    if(['09d','10d','11d'].includes(d.weather[0].icon))setTimeout(()=>showToastMsg('🌧️ Chuva em JP','Ative "Com chuva" para ver opções cobertas'),3000);
+  }catch{
+    const h=new Date().getHours();
+    document.getElementById('wi').textContent=h>=6&&h<18?'☀️':'🌙';
+    document.getElementById('wt').textContent=' ~30°C';
+  }
+}
+
+/* ══════ CLOCK ══════ */
+function startClock(){
+  function tick(){const n=new Date();document.getElementById('clock').textContent=`${n.getHours().toString().padStart(2,'0')}:${n.getMinutes().toString().padStart(2,'0')}`;}
+  tick();setInterval(tick,30000);
+}
+
+/* ══════ TOASTS ══════ */
+const TOASTS=[
+  {p:'Vila do Porto',m:'Pôr do sol em 30 min 🌅'},{p:'Skybar Tour Genève',m:'Melhor horário para a vista 🌇'},
+  {p:'Praia de Tambaú',m:'Mais movimentado agora 🌊'},{p:'Parque Solon',m:'Vento fresco, ótimo pra caminhar 🌿'},
+  {p:'Priscyllas Hall',m:'Pista principal cheia ⚡'},{p:'Visse Café',m:'Cartola quentinha agora ☕'},
+  {p:'Bar do Cuscuz',m:'Fila de ~10 min — mas vale 🍺'},{p:'Atol Music Bar',m:'Banda começando agora 🎸'},
+  {p:'Teatro Paulo Pontes',m:'"Três Mulheres Altas" — abril 2026 🎭'},{p:'Vila Trampolim',m:'Sem fila agora 🤸'},
+  {p:'Mangai JP',m:'Buffet com 100+ pratos aberto 🍽️'},{p:'Cinépolis Manaíra',m:'Sessão VIP disponível 🎬'},
+  {p:'Feirinha de Tambaú',m:'Toda sexta à noite — gratuita 🛒'},{p:'Pôr do Sol no Jacaré',m:'Bolero de Ravel ao vivo 🎷'},
+  {p:'Casa de Nara',m:'Pizza vegana disponível agora 🌱'},{p:'Praia do Seixas',m:'Maré ideal para fotos 📸'},
+  {p:'Generoso Sertão',m:'Escondidinho imperdível hoje 🌵'},{p:'Ilha de Areia Vermelha',m:'Verifique a maré antes! 🏝️'},
+];
+let ti=0;
+function showToastMsg(p,m){document.getElementById('tplace').textContent=p;document.getElementById('tmsg').textContent=m;const el=document.getElementById('toast');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),4500);}
+function showToast(){const t=TOASTS[ti++%TOASTS.length];showToastMsg(t.p,t.m);}
+
+/* ══════ PWA ══════ */
+let dip=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dip=e;});
+document.getElementById('pwa-install').addEventListener('click',()=>{if(dip){dip.prompt();dip.userChoice.then(()=>{dip=null;document.getElementById('pwa-banner').classList.remove('show');localStorage.setItem('gojp_pwa_ok','1');});}});
+document.getElementById('pwa-dismiss').addEventListener('click',()=>{document.getElementById('pwa-banner').classList.remove('show');localStorage.setItem('gojp_pwa_ok','1');});
+
+/* ══════ KEYBOARD ══════ */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeDrawer();closeAI();document.getElementById('cmp-panel').classList.remove('open');}
+  if(e.key==='/'&&document.activeElement!==document.getElementById('srch')&&document.activeElement!==document.getElementById('ai-inp')){e.preventDefault();document.getElementById('srch').focus();}
+});
+
+/* ══════════════════════════════════════════
+   EXTRA FEATURES — PATCH
+══════════════════════════════════════════ */
+
+/* 1. DARK/LIGHT THEME */
+(function(){
+  const btn=document.getElementById('theme-btn');
+  let isLight=localStorage.getItem('gojp_theme')==='light';
+  function applyTheme(){document.body.classList.toggle('light',isLight);btn.textContent=isLight?'🌑':'🌙';}
+  applyTheme();
+  btn.addEventListener('click',()=>{isLight=!isLight;localStorage.setItem('gojp_theme',isLight?'light':'dark');applyTheme();});
+})();
+
+/* 2. OFFLINE DETECTOR */
+function updateOnlineStatus(){document.getElementById('offline-bar').classList.toggle('show',!navigator.onLine);}
+window.addEventListener('online',updateOnlineStatus);window.addEventListener('offline',updateOnlineStatus);
+updateOnlineStatus();
+
+/* 3. RECENT BAR — last 5 visited shown as quick chips */
+function renderRecentBar(){
+  const bar=document.getElementById('recent-bar');if(!bar)return;
+  const list=LS.hist.slice(0,5);
+  if(!list.length){bar.classList.remove('has-items');return;}
+  bar.classList.add('has-items');
+  bar.innerHTML=`<span class="recent-label">Recentes</span>`+list.map(item=>{
+    const p=P.find(x=>x.id===item.id);if(!p)return'';
+    const m=CAT[p.cat];
+    return`<button class="recent-chip" data-id="${p.id}"><span class="recent-chip-ico">${m.e}</span><span class="recent-chip-name">${p.name}</span></button>`;
+  }).join('');
+  bar.querySelectorAll('.recent-chip').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+}
+
+/* Patch openDrawer to also update recent bar */
+const _origOpenDrawer=openDrawer;
+function openDrawer(p){_origOpenDrawer(p);setTimeout(renderRecentBar,100);}
+
+/* 4. TIDE ALERT — show banner when tide is good for Areia Vermelha */
+function checkTideAlert(){
+  const h=new Date().getHours(),m=new Date().getMinutes(),cur=h*60+m;
+  // Good tide windows (approximate low tides)
+  const goodWindows=[[3*60+30,5*60+30],[15*60+50,17*60+50]];
+  const isGood=goodWindows.some(([s,e])=>cur>=s&&cur<=e);
+  const alert=document.getElementById('tide-alert');
+  if(isGood&&!localStorage.getItem('gojp_tide_dismissed_'+new Date().toDateString())){
+    alert.classList.add('show');
+    alert.addEventListener('click',()=>{alert.classList.remove('show');localStorage.setItem('gojp_tide_dismissed_'+new Date().toDateString(),'1');document.querySelector('[data-tab="mare"]').click();},{once:true});
+    setTimeout(()=>alert.classList.remove('show'),12000);
+  }
+}
+setTimeout(checkTideAlert,3000);
+
+/* 5. NEW BADGE — inject into cards for places with isNew:true */
+const _origCardHTML=cardHTML;
+function cardHTML(p,i=0){
+  let html=_origCardHTML(p,i);
+  if(p.isNew)html=html.replace('<div class="card"','<div class="card" style="position:relative"').replace('<div class="cbadges">','<div class="badge-new">NOVO</div><div class="cbadges">');
+  return html;
+}
+
+/* 6. MAP FILTER BAR */
+document.getElementById('map-fbar')?.addEventListener('click',e=>{
+  const b=e.target.closest('.mfb');if(!b)return;
+  document.querySelectorAll('.mfb').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  const cat=b.dataset.cat;
+  if(window.updateMapMarkers)window.updateMapMarkers(cat);
+  renderMapCards(cat);
+});
+
+/* Patch renderMapCards to support category filter */
+const _origRenderMapCards=renderMapCards;
+function renderMapCards(catFilter){
+  const el=document.getElementById('map-cards');if(!el)return;
+  let list=filterList(P).filter(p=>p.moods.includes(S.mood));
+  if(catFilter&&catFilter!=='todos')list=list.filter(p=>p.cat===catFilter);
+  list=list.slice(0,14);
+  el.innerHTML=list.map(p=>{const m=CAT[p.cat];return`<div class="mini" data-id="${p.id}" style="--mc:${m.c}"><div class="mini-name">${p.name}</div><div class="mini-sub">${p.tag}</div><div class="mini-ft"><span class="mini-cat" style="color:${m.c}">${m.e} ${m.l}</span><span class="mini-rat">${p.rating.toFixed(1)}</span></div></div>`;}).join('');
+  el.querySelectorAll('.mini').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+}
+
+/* 7. NEIGHBORHOOD FILTER in explorar tab */
+const _origRenderAll=renderAll;
+function renderAll(){
+  _origRenderAll();
+  renderRecentBar();
+  // Add neighborhood pills to explorar
+  const gEl=document.getElementById('g-explorar');
+  if(gEl&&S.tab==='explorar'&&!S.query){
+    const pillsHTML=`<div class="nbhood-bar" id="nb-bar">
+      <span style="font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tt);white-space:nowrap;align-self:center">Bairro</span>
+      <button class="nbpill active" data-nb="">Todos</button>
+      ${BAIRROS.map(b=>`<button class="nbpill" data-nb="${b.name}">${b.emoji} ${b.name}</button>`).join('')}
+    </div>`;
+    gEl.insertAdjacentHTML('afterbegin',pillsHTML);
+    document.querySelectorAll('.nbpill').forEach(pill=>pill.addEventListener('click',()=>{
+      document.querySelectorAll('.nbpill').forEach(x=>x.classList.remove('active'));pill.classList.add('active');
+      const nb=pill.dataset.nb;
+      if(!nb){renderAll();return;}
+      const b=BAIRROS.find(x=>x.name===nb);if(!b)return;
+      const ids=new Set(b.ids);
+      const filtered=filterList(P).filter(p=>ids.has(p.id));
+      const grid=gEl.querySelector('.grid');if(!grid)return;
+      grid.innerHTML=filtered.map((p,i)=>_origCardHTML(p,i)).join('');
+      grid.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{const p=P.find(x=>x.id===c.dataset.id);if(p)openDrawer(p);}));
+    }));
+  }
+}
+
+/* 8. ACCESSIBILITY INFO in drawer */
+function accessibilityFor(p){
+  const chips=[];
+  if(p.indoor)chips.push({i:'♿',t:'Coberto / AC'});
+  if(p.free||p.price?.startsWith('Gratuito'))chips.push({i:'🎁',t:'Gratuito'});
+  if(['solon','linear1','cabobr','tambau','bessa'].includes(p.id))chips.push({i:'🐕',t:'Pets ok'});
+  if(['manaira','mangabeira','tambia','mag','espaco-jose'].includes(p.id))chips.push({i:'♿',t:'Acessível'});
+  if(p.free&&p.indoor)chips.push({i:'🌧️',t:'Com chuva'});
+  if(['mangai','danadodbom','generoso','casanara','fabiobar','namorado','taboa'].includes(p.id))chips.push({i:'📸',t:'Instagramável'});
+  if(p.moods.includes('familia'))chips.push({i:'👶',t:'Crianças ok'});
+  if(!chips.length)return'';
+  return`<div class="access-info" style="margin-bottom:12px">${chips.map(c=>`<span class="access-chip">${c.i} ${c.t}</span>`).join('')}</div>`;
+}
+
+/* Patch openDrawer to inject accessibility */
+const _openDrawerWithAccess=openDrawer;
+// We handle this by modifying the HTML render inside dbody
+// Since openDrawer is already patched, we inject into the existing flow
+const _openDrawerOrig2=_origOpenDrawer;
+
+/* 9. SHARE FAB — share current page */
+document.getElementById('share-fab')?.addEventListener('click',()=>{
+  const text=`🗺️ Go Out JP — O guia emocional de João Pessoa!\nDescubra lugares pelo que você quer sentir.\n\n${window.location.href}`;
+  if(navigator.share)navigator.share({title:'Go Out JP',text:'O guia emocional de João Pessoa',url:window.location.href}).catch(()=>{});
+  else{navigator.clipboard.writeText(text).then(()=>showToastMsg('Go Out JP','Link copiado! 📋'));}
+});
+
+/* 10. MORE AI SUGGESTIONS — inject extra ones */
+document.addEventListener('DOMContentLoaded',()=>{
+  const sugs=document.getElementById('ai-sugs');
+  if(sugs&&sugs.children.length<20){
+    const extras=['🎭 Eventos esta semana','🍹 Melhor happy hour','📸 Lugares fotogênicos','🌿 Parques para relaxar','🦐 Onde comer camarão?','♿ Lugares acessíveis','🐕 Atrações pet-friendly','🎻 Música ao vivo hoje','🚶 O que fazer a pé?','🕐 Aberto agora neste momento'];
+    extras.forEach(t=>{const b=document.createElement('button');b.className='asug';b.textContent=t;sugs.appendChild(b);});
+  }
+});
+
+/* 11. PRICE COMPARISON in Dicas tab — replace simple section */
+function injectPriceTable(){
+  const el=document.getElementById('g-dicas');if(!el||el.dataset.enhanced)return;
+  el.dataset.enhanced='1';
+  const priceSection=`
+  <div class="tip-sect">💰 Comparativo de preços</div>
+  <div style="background:var(--s1);border:1px solid var(--bd);border-radius:12px;overflow:hidden;margin-bottom:14px">
+    <table class="price-tbl">
+      <thead><tr><th>Tipo</th><th>Econômico</th><th>Médio</th><th>Premium</th></tr></thead>
+      <tbody>
+        <tr><td>☕ Café</td><td>R$6–10</td><td>R$15–22</td><td>R$25–35</td></tr>
+        <tr><td>🥧 Lanche</td><td>R$12–18</td><td>R$20–30</td><td>R$35–50</td></tr>
+        <tr><td>🍽️ Almoço</td><td>R$18–30</td><td>R$35–60</td><td>R$70–120</td></tr>
+        <tr><td>🌙 Jantar</td><td>R$25–45</td><td>R$50–80</td><td>R$90–150</td></tr>
+        <tr><td>🍺 Bar / drinks</td><td>R$15–30</td><td>R$35–60</td><td>R$65–130</td></tr>
+        <tr><td>🎬 Cinema</td><td>R$15–20</td><td>R$25–40</td><td>R$45–55</td></tr>
+        <tr><td>🎵 Show/balada</td><td>R$10–20</td><td>R$30–50</td><td>R$60–100</td></tr>
+        <tr><td>🏝️ Passeio</td><td>R$30 (jangada)</td><td>R$50–70</td><td>R$80–150</td></tr>
+        <tr><td>🚗 Uber local</td><td>R$8–12</td><td>R$13–20</td><td>R$25–40</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+  el.insertAdjacentHTML('afterbegin',priceSection);
+}
+
+/* 12. ACCESSIBILITY in drawer — inject before social links */
+// Monkey-patch: add access chips inside dbody right after price widget
+const _openDrawerForAccess=window.openDrawer||openDrawer;
+const origOpenDrawerFinal=openDrawer;
+function openDrawer(p){
+  origOpenDrawerFinal(p);
+  // Inject accessibility after render
+  setTimeout(()=>{
+    const dbody=document.getElementById('dbody');
+    if(dbody&&!dbody.querySelector('.access-info')){
+      const pw=dbody.querySelector('.price-widget');
+      const accHTML=accessibilityFor(p);
+      if(accHTML&&pw)pw.insertAdjacentHTML('beforebegin',accHTML);
+    }
+  },10);
+}
+
+/* 13. RENDER ENHANCEMENTS — call new functions on launchApp */
+const origLaunchApp=launchApp;
+function launchApp(){
+  origLaunchApp();
+  setTimeout(()=>{
+    renderRecentBar();
+    checkTideAlert();
+    // Enhance dicas with price table
+    setTimeout(injectPriceTable,500);
+  },600);
+}
+
+/* 14. KEYBOARD SHORTCUT H for history */
+document.addEventListener('keydown',e=>{
+  if(e.key==='h'&&document.activeElement!==document.getElementById('srch')&&document.activeElement!==document.getElementById('ai-inp')){
+    document.querySelector('[data-tab="historico"]')?.click();
+  }
+});
+
+/* 15. AUTO-REFRESH tide every 10 min */
+setInterval(()=>{if(S.tab==='mare')renderMare();},10*60*1000);
+
+/* 16. ENHANCE renderDicas with Picãozinho + new places tip */
+const origRenderDicas=renderDicas;
+function renderDicas(){
+  origRenderDicas();
+  const el=document.getElementById('g-dicas');if(!el)return;
+  el.insertAdjacentHTML('beforeend',`
+    <div class="tip-sect">🏊 Passeios aquáticos</div>
+    <div class="tip-card"><div class="tip-icon">🐠</div><div class="tip-title">Picãozinho — piscinas naturais</div><div class="tip-text">A 800m da Praia de Tambaú, piscinas naturais com peixes coloridos e estrelas do mar. Jangada ~R$30 ou tour guiado ~R$60. Depende da maré.</div></div>
+    <div class="tip-card"><div class="tip-icon">🏝️</div><div class="tip-title">Ilha de Areia Vermelha</div><div class="tip-text">Banco de areia em Cabedelo visível só com maré ≤0.6m. R$50–70/pp (2026). Embarque: Ponta de Campina ou Praia do Poço (~15km da orla). Leve protetor solar — sem sombra.</div></div>
+    <div class="tip-card"><div class="tip-icon">🎷</div><div class="tip-title">Pôr do Sol no Jacaré (gratuito)</div><div class="tip-text">Saxofonista ao vivo com Bolero de Ravel no Rio Paraíba, Cabedelo. Gratuito, ~30min de JP. Um dos espetáculos mais famosos do Brasil.</div></div>
+    <div class="tip-sect">🆕 Novos lugares adicionados</div>
+    <div class="tip-card"><div class="tip-icon">🏛️</div><div class="tip-title">Centro Cultural São Francisco</div><div class="tip-text">A Capela Dourada — patrimônio barroco do Brasil. R$20 ingresso. Ter–Dom 8h–17h30.</div></div>
+    <div class="tip-card"><div class="tip-icon">🛍️</div><div class="tip-title">Mercado de Artesanato Paraibano</div><div class="tip-text">Rendas de bilro, cerâmica, bordados e souvenirs paraibanos. Entrada gratuita, perto da Feirinha de Tambaú.</div></div>
+    <div class="tip-card"><div class="tip-icon">☕</div><div class="tip-title">Laranja Mecânica Café</div><div class="tip-text">Café literário em Cabo Branco — prateleiras de livros, jazz, café de filtro especial. O mais aconchegante para introspecção.</div></div>
+  `);
+  injectPriceTable();
+}
+
+/* 17. RENDER NEW PLACES in existing tabs */
+const origRenderAll2=renderAll;
+function renderAll(){
+  origRenderAll2();
+  // Re-render tabs that include new categories
+  renderGrid('g-praias',P.filter(p=>p.cat==='praia'));
+  renderGrid('g-cultura',P.filter(p=>p.cat==='cultura'));
+  renderGrid('g-restaurantes',P.filter(p=>p.cat==='restaurante'));
+  renderGrid('g-bares',P.filter(p=>p.cat==='bar'));
+  renderGrid('g-cafes',P.filter(p=>p.cat==='cafe'));
+}
+
+function initMap(){
+  document.getElementById('map-ph').style.display='none';
+  const map=new google.maps.Map(document.getElementById('map'),{center:{lat:-7.115,lng:-34.845},zoom:13,disableDefaultUI:true,gestureHandling:'greedy',clickableIcons:false,styles:[{elementType:'geometry',stylers:[{color:'#14171D'}]},{elementType:'labels.text.stroke',stylers:[{color:'#14171D'}]},{elementType:'labels.text.fill',stylers:[{color:'#6B7280'}]},{featureType:'road',elementType:'geometry',stylers:[{color:'#1E2230'}]},{featureType:'road.arterial',elementType:'geometry',stylers:[{color:'#252A38'}]},{featureType:'road.highway',elementType:'geometry',stylers:[{color:'#2E3445'}]},{featureType:'poi',elementType:'geometry',stylers:[{color:'#1A2030'}]},{featureType:'poi.park',elementType:'geometry',stylers:[{color:'#141E1A'}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#0A1320'}]}]});
+  P.forEach(p=>{
+    if(!p.lat)return;const mc=CAT[p.cat];
+    p._circle=new google.maps.Circle({map,center:{lat:p.lat,lng:p.lng},radius:200,fillColor:mc.c,fillOpacity:.12,strokeColor:mc.c,strokeOpacity:.28,strokeWeight:1});
+    const wrap=document.createElement('div');wrap.style.cssText='position:absolute;cursor:pointer;transform:translate(-50%,-50%)';
+    const dot=document.createElement('div');dot.style.cssText=`width:10px;height:10px;border-radius:50%;background:${mc.c};box-shadow:0 0 0 3px rgba(${mc.r},.2);transition:all .25s;`;
+    wrap.appendChild(dot);p._dot=dot;
+    const ov=new google.maps.OverlayView();
+    ov.onAdd=function(){this.getPanes().overlayMouseTarget.appendChild(wrap);};
+    ov.draw=function(){const pt=this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(p.lat,p.lng));wrap.style.left=pt.x+'px';wrap.style.top=pt.y+'px';};
+    ov.onRemove=function(){};ov.setMap(map);wrap.addEventListener('click',()=>openDrawer(p));
+  });
+  window.updateMapMarkers=function(){P.forEach(p=>{if(!p._dot)return;const ok=p.moods.includes(S.mood);p._dot.style.background=ok?S.color:'rgba(100,110,120,.3)';p._dot.style.boxShadow=ok?`0 0 0 4px rgba(${S.rgb},.22)`:'0 0 0 2px rgba(100,110,120,.1)';p._dot.style.transform=ok?'scale(1.3)':'scale(0.7)';p._circle?.setOptions({fillColor:ok?S.color:'rgba(100,110,120,.2)',strokeColor:ok?S.color:'rgba(100,110,120,.2)',fillOpacity:ok?.12:.02,strokeOpacity:ok?.28:.04});});};
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8YnG5VuHUQxaEHUunCg6wKjO5m_fJPa0&callback=initMap"></script>
+</body>
+</html>
