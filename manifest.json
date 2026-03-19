@@ -1,0 +1,38 @@
+{
+  "name": "Go Out JP",
+  "short_name": "Go Out JP",
+  "description": "O guia emocional de João Pessoa — explore pelo que você quer sentir.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080A0E",
+  "theme_color": "#080A0E",
+  "orientation": "portrait-primary",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["travel", "lifestyle", "navigation"],
+  "screenshots": [
+    {
+      "label": "Tela inicial — escolha de humor"
+    }
+  ]
+}
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#080A0E"/>
+  <circle cx="16" cy="16" r="10" fill="none" stroke="#5B9BD5" stroke-width="1.5" opacity="0.3"/>
+  <circle cx="16" cy="16" r="6" fill="none" stroke="#5B9BD5" stroke-width="1.5" opacity="0.6"/>
+  <circle cx="16" cy="16" r="3" fill="#5B9BD5"/>
+  <circle cx="16" cy="16" r="1.5" fill="#080A0E"/>
+  <!-- compass needle -->
+  <line x1="16" y1="8" x2="16" y2="13" stroke="#5B9BD5" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="16" y1="19" x2="16" y2="24" stroke="#5B9BD5" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="8" y1="16" x2="13" y2="16" stroke="#5B9BD5" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+  <line x1="19" y1="16" x2="24" y2="16" stroke="#5B9BD5" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+</svg>
